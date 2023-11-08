@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "settings": {
+  "restoreTerminals.terminals": [
+    {
+      "profile": "Git Bash",
+      "splitTerminals": [
+            {
+              "name": " Git Bash",
+              "commands": []
+            },
+            {
+              "name": "server",
+              "commands": [
+                "yarn dev"
+              ],
+ 		         "shouldRunCommands": false
+            },
+            {
+              "name": "typescript",
+              "commands": [
+                "yarn watch"
+              ],
+ 		         "shouldRunCommands": true 
+            },
+            {
+              "name": "typescript",
+              "commands": [
+              "yarn storybook"
+              ],
+ 		          "shouldRunCommands": false 
+            }
+          ]
+    }
+  ],
+  "cSpell.words": [
+    ""
+  ]
+  }
+}
