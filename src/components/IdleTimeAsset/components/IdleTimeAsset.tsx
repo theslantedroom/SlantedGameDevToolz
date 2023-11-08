@@ -2,15 +2,7 @@ import React, { CSSProperties } from "react";
 import { IdleGameTimeOptions, useIdleGameTime } from "../hooks/useIdleGameTime";
 
 export const IdleTimeAsset: React.FC<IdleGameTimeOptions> = (options) => {
-  const {
-    counterName,
-    timeData,
-    startCalcOnMount,
-    setRate,
-    rate,
-    maxTimeRate,
-    minTimeRate,
-  } = useIdleGameTime(options);
+  const { counterName, timeData, setRate, rate } = useIdleGameTime(options);
 
   const centerFlexbox = {
     display: "flex",
@@ -34,9 +26,6 @@ export const IdleTimeAsset: React.FC<IdleGameTimeOptions> = (options) => {
         } as CSSProperties
       }
     >
-      {startCalcOnMount.current ? (
-        <p style={pStyle}>{`started Calc On Mount Date`}</p>
-      ) : null}
       <p style={pStyle}>
         {counterName} {timeData.dateCreated}
       </p>
@@ -56,8 +45,8 @@ export const IdleTimeAsset: React.FC<IdleGameTimeOptions> = (options) => {
         <input
           style={{ width: "300px" } as CSSProperties}
           type="range"
-          max={maxTimeRate}
-          min={minTimeRate}
+          max={options.maxTimeRate}
+          min={options.minTimeRate}
           value={rate}
           id="myRange"
           step={1}

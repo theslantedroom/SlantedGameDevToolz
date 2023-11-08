@@ -4,23 +4,17 @@ export interface IdleGameTimeOptions {
   counterName?: string;
   dateCreated?: Date;
   timeRate?: number;
-  creates?: string;
   counterSpeedMs?: number;
   minTimeRate?: number;
   maxTimeRate?: number;
-  rateSliderStep?: number;
-  rateReturn?: number;
 }
 export const useIdleGameTime = ({
   counterName = undefined,
   dateCreated = undefined,
   timeRate = 1,
   counterSpeedMs = 100,
-  minTimeRate = -10,
-  maxTimeRate = 10,
 }: IdleGameTimeOptions) => {
   const realTimeOnRender = useRef(new Date());
-  const startCalcOnMount = useRef(!dateCreated);
   const [nowDate, setNowDate] = useState(new Date());
 
   const [rate, setRate] = useState(timeRate);
@@ -64,13 +58,10 @@ export const useIdleGameTime = ({
   }, [nowDate]);
 
   return {
-    startCalcOnMount,
     timeData,
     setRate,
     rate,
     counterName,
-    maxTimeRate,
-    minTimeRate,
   };
 };
 
