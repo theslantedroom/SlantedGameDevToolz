@@ -20,7 +20,7 @@ A fair dice roll.
 
 #### Usage
 
-```
+```bash
 import { rollDice } from "slanted-gamedev-toolz";
 
 const diceSides = 6
@@ -48,7 +48,7 @@ An unfair fair dice roll that is more likely to roll low.
 
 #### Usage
 
-```
+```bash
 import { rollLowWeightedDice } from "slanted-gamedev-toolz";
 
 const diceSides = 6
@@ -76,7 +76,7 @@ An unfair fair dice roll that is more likely to roll high.
 
 #### Usage
 
-```
+```bash
 import { rollHighWeightedDice } from "slanted-gamedev-toolz";
 
 const diceSides = 6
