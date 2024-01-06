@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { IdleTimeAsset } from "./IdleTimeAsset";
