@@ -8960,6 +8960,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-gamepads@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "react-gamepads@npm:1.0.0"
+  peerDependencies:
+    react: ">=16"
+  checksum: e031ac35863d87580a1dee2a711998a072567ac24f08f71350f888e236a75a52106a9b142524c9af14263d2f3ac781f23af37f3bcba68a237b693ba8cd889933
+  languageName: node
+  linkType: hard
+
 "react-is@npm:18.1.0":
   version: 18.1.0
   resolution: "react-is@npm:18.1.0"
@@ -9605,10 +9614,12 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.6.15"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-gamepads: "npm:^1.0.0"
     slanted-gamedev-toolz: "npm:^1.0.23"
     storybook: "npm:7.6.7"
     typescript: "npm:^5.3.3"
     vite: "npm:^5.0.11"
+    yarn: "npm:^1.22.21"
   languageName: unknown
   linkType: soft
 
@@ -10689,6 +10700,16 @@ __metadata:
   version: 4.0.0
   resolution: "yallist@npm:4.0.0"
   checksum: 2286b5e8dbfe22204ab66e2ef5cc9bbb1e55dfc873bbe0d568aa943eb255d131890dfd5bf243637273d31119b870f49c18fcde2c6ffbb7a7a092b870dc90625a
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.21":
+  version: 1.22.21
+  resolution: "yarn@npm:1.22.21"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: 0fcb99d0db16c3e7962b2dab81d9e3d997a8d99f9d841360cd68bfc15b61f4a58ae3d5aec043b92c5598af721e7a1b33c0c57317c6c92a137e76664d21908e2e
   languageName: node
   linkType: hard
 
