@@ -1,18 +1,14 @@
-import React, { CSSProperties, useState } from "react";
-// import { useGamepads } from "react-gamepads";
-export type TestProps = { children?: React.ReactNode; count: number };
+import React, { CSSProperties } from "react";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { GamepadController } from "../GamePad/components/GamepadController";
 
-export const GamepadOverlay: React.FC<TestProps> = ({
-  children,
-  count = 4,
-}) => {
+export const GamepadOverlay: React.FC = () => {
   const style = {} as CSSProperties;
-  // const [gamepads, setGamepads] = useState({});
-  // useGamepads((gamepads) => setGamepads(gamepads));
+
   return (
     <div style={style}>
-      {children} GamepadOverlay count: {count}
-      {/* <div>{gamepads[0].buttons[4].pressed}</div> */}
+      <GamepadController />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 export function useGamepads(callback) {
   const gamepads = useRef({});

@@ -8960,15 +8960,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-gamepads@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "react-gamepads@npm:1.0.0"
-  peerDependencies:
-    react: ">=16"
-  checksum: e031ac35863d87580a1dee2a711998a072567ac24f08f71350f888e236a75a52106a9b142524c9af14263d2f3ac781f23af37f3bcba68a237b693ba8cd889933
-  languageName: node
-  linkType: hard
-
 "react-is@npm:18.1.0":
   version: 18.1.0
   resolution: "react-is@npm:18.1.0"
@@ -9614,7 +9605,6 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.6.15"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-gamepads: "npm:^1.0.0"
     slanted-gamedev-toolz: "npm:^1.0.23"
     storybook: "npm:7.6.7"
     typescript: "npm:^5.3.3"

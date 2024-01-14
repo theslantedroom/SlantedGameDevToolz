@@ -1,33 +1,13 @@
 import React, { useState } from "react";
 import { useGamepads } from "../hooks/useGamepads";
 import GamepadSvg from "./GamepadSvg";
-// import { isEqual } from "lodash";
-// import fastDeepEqual from "fast-deep-equal";
+
 
 export function GamepadController() {
   const [gamepads, setGamepads] = useState({});
-  // const gamepads = useRef({});
   useGamepads((newGamepads) => {
-    // Detect changes, if so, re-render component
-    // Go through buttons, find any pressed
-    // Not good because it leaves buttons pressed, and doesn't
-    // handle when button is "unpressed"
-    // const buttonPressed =
-    //   gamepads[0].buttons.filter((button) => button.pressed).length > 0;
 
-    // Doesn't work, returns false positives, even for less-nested properties
-    // const buttonPressed = isEqual(gamepads[0].buttons, newGamepads[0].buttons);
-
-    // Doesn't work, will never equal true
-    // const buttonPressed = gamepads === newGamepads
-
-    // Doesn't work, returns false positives, even for less-nested properties
-    // const buttonPressed = fastDeepEqual(gamepads[0], newGamepads[0]);
-    // const buttonPressed = fastDeepEqual(gamepads[0].buttons, newGamepads[0].buttons);
-
-    // if (buttonPressed) {
     setGamepads(newGamepads);
-    // }
   });
   const calcDirectionVertical = (axe) => {
     // Up
@@ -50,13 +30,9 @@ export function GamepadController() {
       return "right";
     }
   };
-  // console.log([
-  //   calcDirectionHorizontal(gamepads[0].axes[0]),
-  //   calcDirectionVertical(gamepads[0].axes[1])
-  // ]);
+
   return (
     <div
-      className="Gamepads"
       style={{ position: "fixed", bottom: 0, right: 0 }}
     >
       <small>Gamepads</small>
