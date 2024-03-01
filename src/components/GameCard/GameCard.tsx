@@ -1,20 +1,19 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { InfoPanel } from "./InfoPanel";
+import { cardPaper, sxInfo, textOutline } from "./GameCardSx";
+import { ImgEmoji } from "./ImgEmoji";
+import { CardTarget, MassAppealCard } from "../../cardDecks/massAppealDeck";
 
 export type TestProps = {
-  children?: React.ReactNode;
-  infoSection: string;
-  head: string;
+  card: MassAppealCard;
   rotate?: number;
   overlap?: number;
 };
 
 export const GameCard: React.FC<TestProps> = ({
-  children,
-  infoSection = "",
-  head = "",
   rotate = 0,
   overlap = 0,
+  card,
 }) => {
   const headColor = "#FFEFCA";
   const cardColor = "#8D987E";
@@ -34,10 +33,14 @@ export const GameCard: React.FC<TestProps> = ({
           ...sxInfo,
           backgroundColor: "#FFEFCA",
           borderRadius: "9px 9px 2px 2px",
+          fontWeight: "bold",
+          ...textOutline.whiteHalf,
         }}
       >
-        {head}
+        {card.headName}
       </InfoPanel>
+      <ImgEmoji emoji={card.emoji} infoLength={card.infoSection.length} />
+      <TypeRow target={card.target}>{card.type}</TypeRow>
       <InfoPanel
         sx={{
           ...sxInfo,
@@ -46,30 +49,29 @@ export const GameCard: React.FC<TestProps> = ({
           minHeight: 80,
         }}
       >
-        {infoSection}
+        {card.infoSection}
       </InfoPanel>
-      {children}
     </div>
   );
 };
 
-const cardPaper = {
-  border: "1px solid rgba(0,0,0,0.2)",
-  borderRadius: "9px",
-  padding: 9,
-  minHeight: 300,
-  minWidth: 200,
-  backgroundColor: "#D5CABD",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  color: "#4B4453",
-  fontSize: 18,
-} as CSSProperties;
-
-const sxInfo = {
-  border: "1px solid rgba(0,0,0,0.4)",
-  padding: 9,
-  minWidth: 200,
-  backgroundColor: "#FEFEDF",
-} as CSSProperties;
+type TypeProps = { children: React.ReactNode; target?: CardTarget };
+export const TypeRow: React.FC<TypeProps> = ({ children, target }) => {
+  return (
+    <div
+      style={{
+        fontSize: ".8em",
+        fontWeight: "bold",
+        color: "white",
+        display: "flex",
+        gap: 10,
+        ...textOutline.blackHalf,
+      }}
+    >
+      <span>{children}</span>
+      {target ? (
+        <span style={{ color: "#7B1D1D", ...textOutline.white }}>{target}</span>
+      ) : null}
+    </div>
+  );
+};

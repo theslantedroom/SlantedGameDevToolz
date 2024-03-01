@@ -4,15 +4,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { CardHand } from "./CardHand";
-
-const sampleCard = {
-  headName: "base",
-  shortname: "base",
-  code: "base",
-  a: "base",
-  b: "base",
-  c: "base",
-};
+import {
+  boxingPunchCards,
+  startingCards,
+} from "../../cardDecks/massAppealDeck";
 
 const meta = {
   title: "CardHand/CardHand",
@@ -27,17 +22,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    cards: [
-      {
-        headName: "base",
-        shortname: "base",
-        code: "base",
-        a: "base",
-        b: "base",
-        c: "base",
-      },
-      sampleCard,
-      sampleCard,
-    ],
+    cards: boxingPunchCards,
+  },
+};
+export const StarterDeck: Story = {
+  args: {
+    cards: startingCards,
   },
 };

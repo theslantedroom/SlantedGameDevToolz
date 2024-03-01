@@ -1,14 +1,8 @@
 import React from "react";
 import { GameCard } from "../GameCard/GameCard";
-export type GameCard = {
-  headName: string;
-  shortname: string;
-  code: string;
-  a: string;
-  b: string;
-  c: string;
-};
-export type TestProps = { cards: GameCard[] };
+import { MassAppealCard } from "../../cardDecks/massAppealDeck";
+
+export type TestProps = { cards: MassAppealCard[] };
 
 export const CardHand: React.FC<TestProps> = ({ cards = [] }) => {
   return (
@@ -27,14 +21,7 @@ export const CardHand: React.FC<TestProps> = ({ cards = [] }) => {
       }}
     >
       {cards.map((card) => {
-        return (
-          <GameCard
-            infoSection={card.shortname}
-            head={card.headName}
-            overlap={60}
-            rotate={0}
-          />
-        );
+        return <GameCard card={card} overlap={60} rotate={0} />;
       })}
     </div>
   );

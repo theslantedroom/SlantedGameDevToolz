@@ -5,6 +5,8 @@
 		}
   ],
   "settings": {
+  "restoreTerminals.runOnStartup": true,
+  "restoreTerminals.artificialDelayMilliseconds": 1000,
   "restoreTerminals.terminals": [
     {
       "profile": "Git Bash",
@@ -40,6 +42,8 @@
   "cSpell.words": [
     "",
     "Dpad"
-  ]
+  ],
+  "npm.enableRunFromFolder": true,  
+  "typescript.check.npmIsInstalled": false
   }
 }
