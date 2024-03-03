@@ -4,48 +4,64 @@ import { catDeckOutcomes } from "../catsDeck";
 
 export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
   const [outcomes, setOutcomes] = useState<MassAppealCard[]>([]);
-  // const [multiplier, setMultiplier] = useState(0);
-  // const [baseScore, setBaseScore] = useState(0);
-  const addOutcome = useCallback((headName: string) => {
-    setOutcomes((p) => {
-      const outcome = catDeckOutcomes.find((c) => c.headName === headName);
-
-      if (outcome !== undefined) {
-        return [...p, outcome];
-      } else {
-        return p;
+  const addOutcome = useCallback(
+    (headName: string) => {
+      if (hand.length !== 3) {
+        return;
       }
-    });
-  }, []);
+      setOutcomes((p) => {
+        const outcome = catDeckOutcomes.find((c) => c.headName === headName);
+
+        if (outcome !== undefined) {
+          return [...p, outcome];
+        } else {
+          return p;
+        }
+      });
+    },
+    [hand.length]
+  );
 
   const baseScore = useMemo(() => {
     const catCardsWithValue = hand.filter(
       (card) => card.value !== undefined && card.type.includes("Cat")
     );
-    let score = 0;
+    let handScore = 0;
     catCardsWithValue.forEach((card) => {
-      score += card.value || 0;
+      handScore += card.value || 0;
     });
-    return score;
+    return handScore;
   }, [hand]);
 
   const multiplier = useMemo(() => {
-    let score = 0;
+    let handScore = 0;
     outcomes.forEach((card) => {
-      score += card.multiplier || 0;
+      handScore += card.multiplier || 0;
     });
-    return score;
+    return handScore;
   }, [outcomes]);
 
   const clearOutcomes = useCallback(() => {
     setOutcomes([]);
   }, [setOutcomes]);
+
   useEffect(() => {
-    const hasTwoCatCards =
-      hand.filter((card) => card.type.includes("Cat")).length >= 2;
+    clearOutcomes();
+
+    const catCards = hand.filter((card) => {
+      return card.type.includes("Cat");
+    });
+    const isAllCatsSameType = catCards.every((card) => {
+      return card.type === catCards[0].type;
+    });
+    const hasTwoCatCards = catCards.length >= 2;
 
     const hasThreeMultiplierCatCards =
-      hand.filter((card) => card.type.includes("Multiplier")).length >= 3;
+      hand.filter((card) => card.type.includes("Multiplier")).length === 3;
+    const hasTwoMultiplierCatCards =
+      hand.filter((card) => card.type.includes("Multiplier")).length === 2;
+    const hasOneMultiplierCatCards =
+      hand.filter((card) => card.type.includes("Multiplier")).length === 1;
 
     const isAllCardsSameType = hand.every((card) => {
       return card.type === hand[0].type;
@@ -60,10 +76,16 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
       return card.type === "Multiplier";
     });
 
+    const isAllCardsSameValue = hand.every((card) => {
+      return card.value === hand[0].value;
+    });
+
+    const isPureBredMating = hasOneMultiplierCatCards && isAllCatsSameType;
+    const isCuddlePuddle = hasTwoMultiplierCatCards;
     if (hasMultiplierCard && hasTwoCatCards) {
       addOutcome("Mating");
     }
-    // Return a score based on the conditions
+    // Return a handScore based on the conditions
     if (isAllCardsSameType && isAllCardsCatCards) {
       addOutcome("Matching Colors");
     }
@@ -76,6 +98,16 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
     if (!isAllUniqueType && !hasMultiplierCard) {
       addOutcome("Cat Pack");
     }
+
+    if (isAllCardsSameValue) {
+      addOutcome("Equal Teams");
+    }
+    if (isPureBredMating) {
+      addOutcome("Pure Bred");
+    }
+    if (isCuddlePuddle) {
+      addOutcome("Cuddle Puddle");
+    }
     if (hand.length === 0) {
       clearOutcomes();
     }
@@ -84,7 +116,7 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
   return {
     multiplier,
     baseScore,
-    score: baseScore * multiplier,
+    handScore: baseScore * multiplier,
     outcomes,
     clearOutcomes,
   };

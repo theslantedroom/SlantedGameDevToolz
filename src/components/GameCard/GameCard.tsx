@@ -92,7 +92,9 @@ export const GameCard: React.FC<TestProps> = ({
         }}
       >
         {card.multiplier ? (
-          <div style={{ fontSize: "2em" }}>{`${card.multiplier}x`}</div>
+          <div
+            style={{ fontSize: "2em", color: "pink", ...textOutline.black }}
+          >{`${card.multiplier}x`}</div>
         ) : undefined}
         {card.infoSection}
         {card.slider ? <Slider slider={card.slider} /> : null}

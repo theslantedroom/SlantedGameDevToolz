@@ -1,13 +1,15 @@
-import React, { useCallback } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { GameCard } from "../GameCard/GameCard";
 import { MassAppealCard } from "../../cardDecks/massAppealDeck";
 import { rollDice } from "../../lib";
 
 export type CardHandProps = {
+  children?: ReactNode;
   cards: MassAppealCard[];
   overlap?: number;
   chaos?: number;
   selectedHandIndexes?: number[];
+  isUnSelectable?: boolean;
   setSelectedHandIndexes?: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
@@ -16,12 +18,15 @@ export const CardHand: React.FC<CardHandProps> = ({
   overlap = 60,
   chaos = 0,
   selectedHandIndexes,
+  isUnSelectable = false,
   setSelectedHandIndexes = () => null,
+  children,
 }) => {
   const xPaddingSpace = window.innerWidth > 800 ? 100 : 40;
 
   const selectCard = useCallback(
     (index: number) => {
+      if (isUnSelectable) return;
       setSelectedHandIndexes((prevIndexes) => {
         if (prevIndexes.includes(index)) {
           return prevIndexes.filter((i) => i !== index);
@@ -30,7 +35,7 @@ export const CardHand: React.FC<CardHandProps> = ({
         }
       });
     },
-    [setSelectedHandIndexes]
+    [isUnSelectable, setSelectedHandIndexes]
   );
 
   return (
@@ -64,6 +69,7 @@ export const CardHand: React.FC<CardHandProps> = ({
             />
           );
         })}
+        {children}
       </div>
     </div>
   );

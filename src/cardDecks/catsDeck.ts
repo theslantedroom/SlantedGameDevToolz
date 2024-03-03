@@ -16,7 +16,7 @@ const catTypes = {
   white: "White Cat",
 };
 
-export const catDeck: MassAppealCard[] = [
+const _catDeck: MassAppealCard[] = [
   {
     headName: catHeadnames.cat1,
     value: 1,
@@ -237,11 +237,41 @@ export const catDeck: MassAppealCard[] = [
   },
 ];
 
+// const force = [
+//   {
+//     headName: catHeadnames.cat2,
+//     value: 2,
+//     infoSection: randomArrayItem(cardCardTexts),
+//     type: catTypes.orange,
+//     emoji: "🐈",
+//     color: "orange",
+//   },
+//   {
+//     headName: catHeadnames.cat2,
+//     value: 2,
+//     infoSection: randomArrayItem(cardCardTexts),
+//     type: catTypes.orange,
+//     emoji: "🐈",
+//     color: "orange",
+//   },
+//   {
+//     headName: "Frisky",
+//     infoSection: "Meow",
+//     type: "Multiplier",
+//     emoji: "💗",
+//     color: "gold",
+//   },
+// ];
+
+export const catDeck = [..._catDeck].map((card, i) => {
+  return { ...card, code: `${i + 1}${card.headName}` };
+});
+
 export const catDeckOutcomes: MassAppealCard[] = [
   // outcomes
   {
     headName: "Mixed Colors",
-    multiplier: 8,
+    multiplier: 4,
     type: "Outcome",
     emoji: "🎨",
     color: "bisque",
@@ -255,7 +285,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
   },
   {
     headName: "Mating",
-    multiplier: 4,
+    multiplier: 8,
     type: "Outcome",
     emoji: "😻",
     color: "bisque",
@@ -272,6 +302,27 @@ export const catDeckOutcomes: MassAppealCard[] = [
     multiplier: 0,
     type: "Outcome",
     emoji: "🏞️",
+    color: "bisque",
+  },
+  {
+    headName: "Equal Teams",
+    multiplier: 12,
+    type: "Outcome",
+    emoji: "⚖️",
+    color: "bisque",
+  },
+  {
+    headName: "Pure Bred",
+    multiplier: 15,
+    type: "Outcome",
+    emoji: "🐾",
+    color: "bisque",
+  },
+  {
+    headName: "Cuddle Puddle",
+    multiplier: 20,
+    type: "Outcome",
+    emoji: "😽",
     color: "bisque",
   },
 ];

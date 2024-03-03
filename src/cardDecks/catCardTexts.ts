@@ -10,7 +10,7 @@ export const cardCardTexts = [
   "The cat has excellent night vision",
   "The cat communicates through meowing",
   "The cat has a strong sense of smell",
-  "The cat is a crepuscular animal",
+  "The cat is a furry animal",
   "The cat marks its territory with scent glands",
   "The cat has five toes on its front paws and four on its back paws",
   "The cat's whiskers are highly sensitive",
