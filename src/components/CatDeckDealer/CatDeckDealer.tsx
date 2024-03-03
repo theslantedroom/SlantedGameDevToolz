@@ -141,6 +141,10 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runLevel]);
   useEffect(() => {
+    if (levelTarget) speak(`Target: ${levelTarget} cats`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [levelTarget]);
+  useEffect(() => {
     if (handResults) speak(`${handResults} cats join`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handResults]);
@@ -149,7 +153,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLevelBeaten]);
   useEffect(() => {
-    if (isGameOver) speak("Game Meow-ver");
+    if (isGameOver) speak("Game Over");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver]);
   return (

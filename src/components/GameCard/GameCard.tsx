@@ -44,12 +44,21 @@ export const GameCard: React.FC<TestProps> = ({
 
   const handleClickCard = useCallback(() => {
     onClick();
+
+    if (isSelected) return;
     cancelSpeaking();
     speak(card.headName);
     if (card.infoSection) {
       speak(card.infoSection);
     }
-  }, [cancelSpeaking, onClick, speak, card]);
+  }, [
+    onClick,
+    isSelected,
+    cancelSpeaking,
+    speak,
+    card.headName,
+    card.infoSection,
+  ]);
   const hoveredScale = isSelected ? `90%` : `110%`;
   return (
     <div
