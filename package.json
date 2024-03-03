@@ -46,6 +46,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-speech-kit": "^3.0.1",
     "slanted-gamedev-toolz": "^1.0.23",
     "yarn": "^1.22.21"
   },

@@ -1,0 +1,22 @@
+.balanceSlider {
+  background-color: #ccc;
+}
+
+.balanceSlider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+.balanceSlider::-moz-range-thumb {
+  background-color: #040e19; /* blue */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #770606; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}

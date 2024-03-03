@@ -9,6 +9,7 @@ export const ImgEmoji: React.FC<Props> = ({ emoji, infoLength }) => {
     if (infoLength < 200) return "5em";
     return "3em";
   }, [infoLength]);
+
   return (
     <>
       <div

@@ -9237,6 +9237,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-speech-kit@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "react-speech-kit@npm:3.0.1"
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: ^16.8.0
+  checksum: d020a10cf4a0383833d6502c4cf0bc74a261a07e749b3b0158ccc3bc9497bc174396837392c042307e80f5b41061a83c06d7fdfe140edbba14b5e1ffbdc3deee
+  languageName: node
+  linkType: hard
+
 "react-style-singleton@npm:^2.2.1":
   version: 2.2.1
   resolution: "react-style-singleton@npm:2.2.1"
@@ -9810,6 +9820,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.6.15"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-speech-kit: "npm:^3.0.1"
     slanted-gamedev-toolz: "npm:^1.0.23"
     storybook: "npm:^7.6.17"
     typescript: "npm:^5.3.3"

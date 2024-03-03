@@ -15,6 +15,10 @@ export const textOutline = {
     textShadow:
       "-1px -1px 0 #000,\n    1px -1px 0 #000,\n    -1px 1px 0 #000,\n    1px 1px 0 #000",
   },
+  blackThick: {
+    textShadow:
+      "-1.5px -1.5px 0 #000,\n    1.5px -1.5px 0 #000,\n    -1.5px 1.5px 0 #000,\n    1.5px 1.5px 0 #000",
+  },
   blackHalf: {
     textShadow:
       "-0.5px -0.5px 0 #000,\n    0.5px -0.5px 0 #000,\n    -0.5px 0.5px 0 #000,\n    0.5px 0.5px 0 #000",
@@ -33,12 +37,12 @@ export const textOutline = {
   },
 };
 export const cardPaper = {
-  border: "1px solid rgba(0,0,0,0.2)",
+  border: "1px solid rgba(255,255,255,255.2)",
   borderRadius: "9px",
   padding: 9,
   minHeight: 300,
-  minWidth: 200,
-  maxWidth: 250,
+  minWidth: 220,
+  maxWidth: 220,
   backgroundColor: "#D5CABD",
   display: "flex",
   flexDirection: "column",

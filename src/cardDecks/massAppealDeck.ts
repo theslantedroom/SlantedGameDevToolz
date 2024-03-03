@@ -1,18 +1,35 @@
-type CardTypes = "Profit Potential" | "Punch";
+type CardTypes = string;
 export type CardTarget = "Body" | "Head";
+
+export type BalanceSlider = {
+  leftStat: string;
+  rightStat: string;
+  value: number;
+};
 
 export type MassAppealCard = {
   headName: string;
-  infoSection: string;
-  code: string;
+  value?: number;
+  multiplier?: number;
+  infoSection?: string;
+  code?: string;
+  color?: string;
   emoji: string;
   type: CardTypes;
   target?: CardTarget;
   tier?: "s" | "a" | "b" | "c" | "d" | "f";
-  c?: string;
+  slider?: BalanceSlider;
 };
 
 export const startingCards: MassAppealCard[] = [
+  {
+    headName: "Cat",
+    infoSection: "The cat is cuddly",
+    code: "cat",
+    type: "Animal",
+    emoji: "🐈",
+    slider: { leftStat: "Cute", rightStat: "Manly", value: 39 },
+  },
   {
     headName: "Mass Appeal",
     infoSection: "Marketable to a broad audience.",

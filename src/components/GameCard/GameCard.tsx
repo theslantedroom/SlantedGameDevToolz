@@ -2,7 +2,13 @@ import React from "react";
 import { InfoPanel } from "./InfoPanel";
 import { cardPaper, sxInfo, textOutline } from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
-import { CardTarget, MassAppealCard } from "../../cardDecks/massAppealDeck";
+import {
+  BalanceSlider,
+  CardTarget,
+  MassAppealCard,
+} from "../../cardDecks/massAppealDeck";
+import { useSpeech } from "../../cardDecks/hooks/useSpeech";
+import "./gameCard.css";
 
 export type TestProps = {
   card: MassAppealCard;
@@ -17,13 +23,21 @@ export const GameCard: React.FC<TestProps> = ({
 }) => {
   const headColor = "#FFEFCA";
   const cardColor = "#8D987E";
+  const { speak } = useSpeech();
 
   return (
     <div
       id="card"
+      onClick={() => {
+        speak(card.headName);
+
+        if (card.infoSection) {
+          speak(card.infoSection);
+        }
+      }}
       style={{
         ...cardPaper,
-        backgroundColor: cardColor,
+        backgroundColor: card.color ? card.color : cardColor,
         marginLeft: overlap * -1,
         transform: `rotate(${rotate}deg)`,
       }}
@@ -39,7 +53,7 @@ export const GameCard: React.FC<TestProps> = ({
       >
         {card.headName}
       </InfoPanel>
-      <ImgEmoji emoji={card.emoji} infoLength={card.infoSection.length} />
+      <ImgEmoji emoji={card.emoji} infoLength={card.infoSection?.length || 0} />
       <TypeRow target={card.target}>{card.type}</TypeRow>
       <InfoPanel
         sx={{
@@ -49,7 +63,11 @@ export const GameCard: React.FC<TestProps> = ({
           minHeight: 80,
         }}
       >
+        {card.multiplier ? (
+          <div style={{ fontSize: "2em" }}>{`${card.multiplier}x`}</div>
+        ) : undefined}
         {card.infoSection}
+        {card.slider ? <Slider slider={card.slider} /> : null}
       </InfoPanel>
     </div>
   );
@@ -65,13 +83,40 @@ export const TypeRow: React.FC<TypeProps> = ({ children, target }) => {
         color: "white",
         display: "flex",
         gap: 10,
-        ...textOutline.blackHalf,
+        ...textOutline.black,
       }}
     >
       <span>{children}</span>
       {target ? (
         <span style={{ color: "#7B1D1D", ...textOutline.white }}>{target}</span>
       ) : null}
+    </div>
+  );
+};
+
+type SliderProps = { slider: BalanceSlider };
+export const Slider: React.FC<SliderProps> = ({ slider }) => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "2px",
+        ...textOutline.blackHalf,
+      }}
+    >
+      <span> {slider.leftStat}</span>
+      <input
+        type="range"
+        className="balanceSlider"
+        min="1"
+        max="100"
+        value={slider.value}
+      />
+      <span> {slider.rightStat}</span>
     </div>
   );
 };

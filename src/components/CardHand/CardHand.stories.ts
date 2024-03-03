@@ -8,6 +8,7 @@ import {
   boxingPunchCards,
   startingCards,
 } from "../../cardDecks/massAppealDeck";
+import { catDeck } from "../../cardDecks/catsDeck";
 
 const meta = {
   title: "CardHand/CardHand",
@@ -28,5 +29,10 @@ export const Primary: Story = {
 export const StarterDeck: Story = {
   args: {
     cards: startingCards,
+  },
+};
+export const CatDeck: Story = {
+  args: {
+    cards: catDeck,
   },
 };
