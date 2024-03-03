@@ -1,5 +1,6 @@
 .balanceSlider {
   background-color: #ccc;
+  width: 20;
 }
 
 .balanceSlider::-webkit-slider-thumb {

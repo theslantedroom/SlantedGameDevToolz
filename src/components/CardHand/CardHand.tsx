@@ -1,13 +1,22 @@
 import React from "react";
 import { GameCard } from "../GameCard/GameCard";
 import { MassAppealCard } from "../../cardDecks/massAppealDeck";
+import { rollDice } from "../../lib";
 
-export type CardHandProps = { cards: MassAppealCard[]; overlap: number };
+export type CardHandProps = {
+  cards: MassAppealCard[];
+  overlap?: number;
+  chaos?: number;
+  xPaddingSpace?: number;
+};
 
 export const CardHand: React.FC<CardHandProps> = ({
   cards = [],
   overlap = 60,
+  chaos = 0,
 }) => {
+  const xPaddingSpace = window.innerWidth > 800 ? 100 : 40;
+
   return (
     <div>
       <div
@@ -17,12 +26,12 @@ export const CardHand: React.FC<CardHandProps> = ({
           flexWrap: "wrap",
           flexDirection: "row",
           justifyContent: "center",
-          alignItems: "stretch",
-          alignContent: "stretch",
-          border: "2px solid yellow",
-          padding: 10,
+          padding: `10px ${xPaddingSpace}px`,
           minHeight: "300px",
           backgroundColor: "rgb(0,0,0,0.2)",
+          border: "1px solid rgb(0,0,0,0.2)",
+          borderRadius: "2px",
+          gap: 2,
         }}
       >
         {cards.map((card, i) => {
@@ -31,7 +40,7 @@ export const CardHand: React.FC<CardHandProps> = ({
               key={(card?.code ? card.code : card.headName) + i}
               card={card}
               overlap={overlap}
-              rotate={0}
+              rotate={chaos ? rollDice(chaos) - chaos / 2 : 0}
             />
           );
         })}

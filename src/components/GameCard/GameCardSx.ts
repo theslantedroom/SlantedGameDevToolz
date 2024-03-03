@@ -40,9 +40,6 @@ export const cardPaper = {
   border: "1px solid rgba(255,255,255,255.2)",
   borderRadius: "9px",
   padding: 9,
-  minHeight: 300,
-  minWidth: 220,
-  maxWidth: 220,
   backgroundColor: "#D5CABD",
   display: "flex",
   flexDirection: "column",
@@ -54,7 +51,6 @@ export const cardPaper = {
 
 export const sxInfo = {
   border: "1px solid rgba(0,0,0,0.4)",
-  padding: 9,
-  minWidth: 200,
+  padding: 8,
   backgroundColor: "#FEFEDF",
 } as CSSProperties;

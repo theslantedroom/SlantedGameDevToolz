@@ -3,6 +3,7 @@ import { MassAppealCard } from "../massAppealDeck";
 import { catDeckOutcomes } from "../catsDeck";
 
 export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
+  console.log("***** useCatDeckHandScore");
   const [outcomes, setOutcomes] = useState<MassAppealCard[]>([]);
   // const [multiplier, setMultiplier] = useState(0);
   // const [baseScore, setBaseScore] = useState(0);
@@ -40,7 +41,6 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
   const clearOutcomes = useCallback(() => {
     setOutcomes([]);
   }, [setOutcomes]);
-
   useEffect(() => {
     const hasTwoCatCards =
       hand.filter((card) => card.type.includes("Cat")).length >= 2;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { InfoPanel } from "./InfoPanel";
 import { cardPaper, sxInfo, textOutline } from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
@@ -14,16 +14,24 @@ export type TestProps = {
   card: MassAppealCard;
   rotate?: number;
   overlap?: number;
+  scale?: number;
 };
 
 export const GameCard: React.FC<TestProps> = ({
   rotate = 0,
   overlap = 0,
+  scale = 1,
   card,
 }) => {
   const headColor = "#FFEFCA";
   const cardColor = "#8D987E";
   const { speak } = useSpeech();
+  const marginLeft = useMemo(() => {
+    return overlap * -1;
+  }, [overlap]);
+  const transform = useMemo(() => {
+    return `rotate(${rotate}deg) translateX(${overlap / 2}px)`;
+  }, [overlap, rotate]);
 
   return (
     <div
@@ -37,9 +45,10 @@ export const GameCard: React.FC<TestProps> = ({
       }}
       style={{
         ...cardPaper,
+        width: 180 * scale,
         backgroundColor: card.color ? card.color : cardColor,
-        marginLeft: overlap * -1,
-        transform: `rotate(${rotate}deg)`,
+        marginLeft: marginLeft,
+        transform: transform,
       }}
     >
       <InfoPanel
@@ -96,6 +105,11 @@ export const TypeRow: React.FC<TypeProps> = ({ children, target }) => {
 
 type SliderProps = { slider: BalanceSlider };
 export const Slider: React.FC<SliderProps> = ({ slider }) => {
+  const statSx = {
+    backgroundColor: "rgb(255,255,255,0.2)",
+    borderRadius: "4px",
+    padding: "0px 2px",
+  };
   return (
     <div
       style={{
@@ -108,15 +122,15 @@ export const Slider: React.FC<SliderProps> = ({ slider }) => {
         ...textOutline.blackHalf,
       }}
     >
-      <span> {slider.leftStat}</span>
+      <span style={statSx}>{slider.leftStat}</span>
       <input
+        style={{ width: "50px" }}
         type="range"
-        className="balanceSlider"
         min="1"
         max="100"
         value={slider.value}
       />
-      <span> {slider.rightStat}</span>
+      <span style={statSx}>{slider.rightStat}</span>
     </div>
   );
 };
