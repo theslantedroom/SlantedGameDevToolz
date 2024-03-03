@@ -1,20 +1,37 @@
 import { useCallback } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 export const useSpeech = () => {
-  const { speak: _speak, cancel } = useSpeechSynthesis();
-
+  const onEnd = useCallback(() => {
+    console.log("end");
+  }, []);
+  const {
+    speak: _speak,
+    cancel,
+    // speaking,
+    // supported,
+    voices,
+  } = useSpeechSynthesis(onEnd);
   const speak = useCallback(
-    (string: string) => {
-      console.log("Speak:", string);
+    (string: string, voice = 5) => {
+      const isMexican = voice === 7;
+      const isBritishFemale = voice === 5;
+      const isManager = voice === 1;
+      const isCoach = isMexican;
+
+      let rate = 1;
+      if (isManager) rate = 1.2;
+      if (isBritishFemale) rate = 1;
+      if (isCoach) rate = 1;
+
       _speak({
         text: string,
-        onEnd: () => {
-          console.log("xxx");
-        },
+        voice: voices[voice],
+        rate: rate,
+        pitch: isManager ? 0.8 : 0.9,
       });
     },
-    [_speak]
+    [_speak, voices]
   );
 
-  return { speak };
+  return { speak, cancelSpeaking: cancel };
 };

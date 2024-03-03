@@ -2046,6 +2046,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/alegreya@npm:^5.0.9":
+  version: 5.0.9
+  resolution: "@fontsource-variable/alegreya@npm:5.0.9"
+  checksum: 15fd18debe6ad9bd58e55e978ddb2ce7915ad413667764d0f117be0170a7004591699344a29070094d028f59b3ff4e0a1b506174aa9eb270a0b754a31bcbb89b
+  languageName: node
+  linkType: hard
+
+"@fontsource/nova-cut@npm:^5.0.8":
+  version: 5.0.8
+  resolution: "@fontsource/nova-cut@npm:5.0.8"
+  checksum: bc97d593418036430d5e02dde35941435c7036a15d2db6a5c5fe3cda5b78fc5bb46301ed29a7f514ed082f7f00a0ae3a48327e3deb46c1daea1107c377f3d067
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.13
   resolution: "@humanwhocodes/config-array@npm:0.11.13"
@@ -9800,6 +9814,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "slanted-gamedev-toolz@workspace:."
   dependencies:
+    "@fontsource-variable/alegreya": "npm:^5.0.9"
+    "@fontsource/nova-cut": "npm:^5.0.8"
     "@storybook/addon-essentials": "npm:^7.6.17"
     "@storybook/addon-interactions": "npm:^7.6.17"
     "@storybook/addon-links": "npm:^7.6.17"

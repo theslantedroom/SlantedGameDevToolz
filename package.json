@@ -44,6 +44,8 @@
     "url": "git+https://github.com/theslantedroom/SlantedGameDevToolz.git"
   },
   "dependencies": {
+    "@fontsource-variable/alegreya": "^5.0.9",
+    "@fontsource/nova-cut": "^5.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-speech-kit": "^3.0.1",

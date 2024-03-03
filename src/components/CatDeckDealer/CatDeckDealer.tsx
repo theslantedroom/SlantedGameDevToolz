@@ -1,16 +1,24 @@
-import React, { CSSProperties, useCallback, useMemo, useState } from "react";
+import React, { CSSProperties, useCallback, useState } from "react";
 import { MassAppealCard } from "../../cardDecks/massAppealDeck";
 import { CardHand } from "../CardHand/CardHand";
 import { useCatDeckHandScore } from "../../cardDecks/hooks/useCatDeckHandScore";
 import { textOutline } from "../GameCard/GameCardSx";
 import { numberWithCommas } from "../../util/numberWithComma";
-
+import { bgGradient, dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
+import "./CatDeck.css";
+import "@fontsource/nova-cut";
+import "@fontsource-variable/alegreya";
 export type DeckDealerProps = { deck: MassAppealCard[]; handSize: number };
 
 export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
   handSize,
 }) => {
+  const [discardsRemaining, setDiscardsRemaining] = useState(3);
+  const [handsRemaining, setHandsRemaining] = useState(3);
+  const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
+  const hasSelectedCards = selectedHandIndexes.length > 0;
+  const [roundScore, setRoundScore] = useState();
   const [dealtCards, setDealtCards] = useState<MassAppealCard[]>([]);
   const [hand, setHand] = useState<MassAppealCard[]>([]);
   const [remainingDeck, setRemainingDeck] = useState<MassAppealCard[]>([
@@ -18,33 +26,22 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   ]);
   const { score, outcomes, multiplier, baseScore, clearOutcomes } =
     useCatDeckHandScore(hand);
-  const bgGradient =
-    "linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)";
-  const bgGradientGrass =
-    "background-image: linear-gradient(to bottom, #013a00, #23630a, #4a8f12, #76bc15, #a8eb12);";
-  const dealBtnStyle = {
-    display: "flex",
-    alignItems: "center",
-    fontFamily: "inherit",
-    cursor: "pointer",
-    fontWeight: "500",
-    fontSize: "17px",
-    padding: "0.8em 1.5em",
-    color: "white",
-    background: "linear-gradient(to right, #0f0c29, #302b63, #24243e)",
-    border: "none",
-    letterSpacing: "0.05em",
-    borderRadius: "16px",
-    margin: "auto",
-  };
-  const style = {
-    backgroundImage: bgGradient,
-    border: `10px solid green`,
-    borderRadius: "2px",
-  } as CSSProperties;
+
+  const clickDiscard = useCallback(() => {
+    if (!hasSelectedCards) return;
+    setDiscardsRemaining((p) => {
+      const def = 3;
+      if (p === 0) return def;
+      return p - 1;
+    });
+  }, [hasSelectedCards]);
+  const clickHands = useCallback(() => {}, []);
+
   const isNeedShuffle = remainingDeck.length < handSize;
+  const isAllowDealing = isNeedShuffle || hand.length === 0;
 
   const dealCards = useCallback(() => {
+    if (!isAllowDealing) return;
     clearOutcomes();
     if (isNeedShuffle) {
       setRemainingDeck(deck);
@@ -61,41 +58,141 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     setDealtCards((p) => [...p, ...newHand]);
     setHand([...newHand]);
     setRemainingDeck(updatedRemainingDeck);
-  }, [clearOutcomes, deck, handSize, isNeedShuffle, remainingDeck]);
+  }, [
+    clearOutcomes,
+    deck,
+    handSize,
+    isAllowDealing,
+    isNeedShuffle,
+    remainingDeck,
+  ]);
 
+  const isHandDealt = hand.length > 1;
+  const showTurnBtns = isHandDealt && !isNeedShuffle;
   return (
-    <div style={style}>
-      <button style={dealBtnStyle} onClick={() => dealCards()}>
-        {isNeedShuffle ? "Shuffle" : "Deal"}
-      </button>
-      <h1
+    <div style={deckStyle}>
+      <div
         style={{
-          borderBottom: "4px solid rgba(0,0,0,0.2)",
-          borderRadius: "2px",
-          textAlign: "center",
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          justifyContent: "center",
         }}
       >
-        {`score: ${baseScore} x ${multiplier} = `}
-        <span
-          style={{
-            color: "green",
-            fontSize: "1.5em",
-            ...textOutline.blackHalf,
-          }}
+        <button
+          style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
+          onClick={() => dealCards()}
         >
-          {numberWithCommas(score)}
-        </span>
-      </h1>
+          {"Deal"}
+        </button>
+        {!showTurnBtns ? null : (
+          <button
+            style={!hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
+            onClick={() => clickHands()}
+          >
+            {`${handsRemaining} Play`}
+          </button>
+        )}
+        {!showTurnBtns ? null : (
+          <button
+            style={hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
+            onClick={() => clickDiscard()}
+          >
+            {`${discardsRemaining} Discard`}
+          </button>
+        )}
+      </div>
+      <Score score={score} baseScore={baseScore} multiplier={multiplier} />
       <div>
         <CardHand cards={outcomes} overlap={0} chaos={0} />
       </div>
       <div>Hand</div>
       <div>
-        <CardHand cards={hand} overlap={0} chaos={6} />
+        <CardHand
+          cards={hand}
+          overlap={0}
+          chaos={2}
+          selectedHandIndexes={selectedHandIndexes}
+          setSelectedHandIndexes={setSelectedHandIndexes}
+        />
       </div>
       <div style={{ margin: "auto" }}>Dealt Cards: {dealtCards.length}</div>
       <div>Remaining Cards: {remainingDeck.length}</div>
       <CardHand cards={remainingDeck} overlap={130} />
+    </div>
+  );
+};
+const deckStyle = {
+  backgroundImage: bgGradient,
+  border: `10px solid green`,
+  borderRadius: "2px",
+  body: {
+    fontFamily: "'Nova Cut', system-ui",
+  },
+} as CSSProperties;
+
+export interface Props {
+  score: number;
+  baseScore: number;
+  multiplier: number;
+}
+export const Score: React.FC<Props> = ({ baseScore, multiplier, score }) => {
+  return (
+    <div
+      style={{
+        borderBottom: "4px solid rgba(0,0,0,0.2)",
+        borderRadius: "2px",
+        textAlign: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: "5px",
+        fontSize: "3em",
+        ...textOutline.whiteHalf,
+      }}
+    >
+      <span>Score:</span>
+      <span
+        style={{
+          color: "white",
+          ...textOutline.blackHalf,
+        }}
+      >
+        {numberWithCommas(baseScore)}
+      </span>
+      <span
+        style={{
+          color: "black",
+          ...textOutline.blackHalf,
+        }}
+      >
+        x
+      </span>
+      <span
+        style={{
+          color: "grey",
+          ...textOutline.blackHalf,
+        }}
+      >
+        {numberWithCommas(multiplier)}
+      </span>
+      <span
+        style={{
+          color: "white",
+          ...textOutline.blackHalf,
+        }}
+      >
+        =
+      </span>
+      <span
+        style={{
+          color: "green",
+          ...textOutline.blackHalf,
+        }}
+      >
+        {`${numberWithCommas(score)} cats`}
+      </span>
     </div>
   );
 };

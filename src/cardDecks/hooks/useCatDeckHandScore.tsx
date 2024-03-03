@@ -3,7 +3,6 @@ import { MassAppealCard } from "../massAppealDeck";
 import { catDeckOutcomes } from "../catsDeck";
 
 export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
-  console.log("***** useCatDeckHandScore");
   const [outcomes, setOutcomes] = useState<MassAppealCard[]>([]);
   // const [multiplier, setMultiplier] = useState(0);
   // const [baseScore, setBaseScore] = useState(0);

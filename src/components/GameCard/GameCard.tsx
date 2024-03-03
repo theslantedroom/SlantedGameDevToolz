@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { InfoPanel } from "./InfoPanel";
-import { cardPaper, sxInfo, textOutline } from "./GameCardSx";
+import { cardPaper, selectedGlow, sxInfo, textOutline } from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
 import {
   BalanceSlider,
@@ -15,40 +15,58 @@ export type TestProps = {
   rotate?: number;
   overlap?: number;
   scale?: number;
+  selectedLift?: number;
+  isSelected?: boolean;
+  onClick?: () => void;
 };
-
 export const GameCard: React.FC<TestProps> = ({
   rotate = 0,
   overlap = 0,
   scale = 1,
+  selectedLift = 20,
+  isSelected = false,
   card,
+  onClick = () => null,
 }) => {
   const headColor = "#FFEFCA";
   const cardColor = "#8D987E";
-  const { speak } = useSpeech();
+  const { speak, cancelSpeaking } = useSpeech();
   const marginLeft = useMemo(() => {
     return overlap * -1;
   }, [overlap]);
   const transform = useMemo(() => {
-    return `rotate(${rotate}deg) translateX(${overlap / 2}px)`;
-  }, [overlap, rotate]);
+    return `rotate(${rotate}deg) translateX(${overlap / 2}px)${
+      isSelected ? `translateY(${-selectedLift}px)` : ""
+    }`;
+  }, [overlap, rotate, isSelected, selectedLift]);
 
+  const [hovered, setHovered] = useState(false);
+
+  const handleClickCard = useCallback(() => {
+    onClick();
+    cancelSpeaking();
+    speak(card.headName);
+    if (card.infoSection) {
+      speak(card.infoSection);
+    }
+  }, [cancelSpeaking, onClick, speak, card]);
+  const hoveredScale = isSelected ? `90%` : `110%`;
   return (
     <div
       id="card"
-      onClick={() => {
-        speak(card.headName);
-
-        if (card.infoSection) {
-          speak(card.infoSection);
-        }
-      }}
+      onClick={handleClickCard}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         ...cardPaper,
         width: 180 * scale,
         backgroundColor: card.color ? card.color : cardColor,
         marginLeft: marginLeft,
         transform: transform,
+        cursor: "pointer",
+        transition: "scale 0.5s ease",
+        boxShadow: isSelected ? selectedGlow : "initial",
+        scale: hovered ? hoveredScale : "100%",
       }}
     >
       <InfoPanel
@@ -57,6 +75,7 @@ export const GameCard: React.FC<TestProps> = ({
           backgroundColor: "#FFEFCA",
           borderRadius: "9px 9px 2px 2px",
           fontWeight: "bold",
+          fontSize: "1.2em",
           ...textOutline.whiteHalf,
         }}
       >
