@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MassAppealCard } from "../massAppealDeck";
-import { catDeckOutcomes } from "../catsDeck";
+import { DeckModCard, catDeckOutcomes, getModdedDeck } from "../catsDeck";
 
-export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
+export const useCatDeckHandScore = ({
+  hand,
+  modCards,
+}: {
+  hand: MassAppealCard[];
+  modCards: DeckModCard[];
+}) => {
   const [outcomes, setOutcomes] = useState<MassAppealCard[]>([]);
   const addOutcome = useCallback(
     (headName: string) => {
@@ -10,8 +16,11 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
         return;
       }
       setOutcomes((p) => {
-        const outcome = catDeckOutcomes.find((c) => c.headName === headName);
-
+        const moddedOutcomes = getModdedDeck({
+          deck: catDeckOutcomes,
+          modCards: modCards,
+        });
+        const outcome = moddedOutcomes.find((c) => c.headName === headName);
         if (outcome !== undefined) {
           return [...p, outcome];
         } else {
@@ -19,7 +28,7 @@ export const useCatDeckHandScore = (hand: MassAppealCard[]) => {
         }
       });
     },
-    [hand.length]
+    [hand.length, modCards]
   );
 
   const baseScore = useMemo(() => {

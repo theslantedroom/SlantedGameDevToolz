@@ -1,5 +1,4 @@
 type CardTypes = string;
-export type CardTarget = "Body" | "Head";
 
 export type BalanceSlider = {
   leftStat: string;
@@ -16,7 +15,7 @@ export type MassAppealCard = {
   color?: string;
   emoji: string;
   type: CardTypes;
-  target?: CardTarget;
+  target?: string;
   tier?: "s" | "a" | "b" | "c" | "d" | "f";
   slider?: BalanceSlider;
 };

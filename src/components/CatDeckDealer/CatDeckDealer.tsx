@@ -8,12 +8,27 @@ import { bgGradient, dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
 import "./CatDeck.css";
 import "@fontsource/nova-cut";
 import "@fontsource-variable/alegreya";
-import { randomArrayItem } from "../../util/randomArrayItem";
 import { useSpeech } from "../../cardDecks/hooks/useSpeech";
-export type DeckDealerProps = { deck: MassAppealCard[]; handSize: number };
+import {
+  CatCard,
+  DeckModCard,
+  catDeckMods,
+  getModdedDeck,
+} from "../../cardDecks/catsDeck";
+import { ShuffleBtn } from "./ShuffleBtn";
+import { DiscardBtn } from "./DiscardBtn";
+import { HandScore } from "./HandScore";
+import { MatchScore } from "./MatchScore";
+
+export type DeckDealerProps = {
+  deck: CatCard[];
+  modCards?: DeckModCard[];
+  handSize: number;
+};
 
 export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
+  modCards = [],
   handSize,
 }) => {
   const { speak, cancelSpeaking } = useSpeech();
@@ -31,12 +46,12 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
   const hasSelectedCards = selectedHandIndexes.length > 0;
   const [hand, setHand] = useState<MassAppealCard[]>([]);
-  const [remainingDeck, setRemainingDeck] = useState<MassAppealCard[]>([
-    ...deck,
-  ]);
+  const [remainingDeck, setRemainingDeck] = useState<MassAppealCard[]>(
+    getModdedDeck({ deck, modCards })
+  );
   const [matchScore, setMatchScore] = useState(0);
   const { handScore, outcomes, multiplier, baseScore, clearOutcomes } =
-    useCatDeckHandScore(hand);
+    useCatDeckHandScore({ hand, modCards });
 
   const clickDiscard = useCallback(() => {
     if (!hasSelectedCards) return;
@@ -46,7 +61,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
       if (p === 0) return def;
       return p - 1;
     });
-
     // discard card in hand
     setHand((prevHand) => {
       return prevHand.filter(
@@ -54,14 +68,12 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
       );
     });
     setSelectedHandIndexes([]);
-
     // draw new cards
     const discardCount = selectedHandIndexes.length;
     const shuffledDeck = [...remainingDeck].sort(() => Math.random() - 0.5);
     const draw = shuffledDeck.slice(0, discardCount);
     const updatedRemainingDeck = [...shuffledDeck.slice(discardCount)];
     setRemainingDeck(updatedRemainingDeck);
-
     setHand((prevHand) => {
       return [...prevHand, ...draw];
     });
@@ -105,8 +117,8 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   }, [isAllowDealing, clearOutcomes, remainingDeck, handSize]);
 
   const shuffleDeck = useCallback(() => {
-    setRemainingDeck(deck);
-  }, [deck]);
+    setRemainingDeck(getModdedDeck({ deck, modCards }));
+  }, [deck, modCards]);
 
   const restartGame = useCallback(() => {
     console.log("restartGame");
@@ -156,6 +168,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     if (isGameOver) speak("Game Over");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver]);
+
   return (
     <div style={deckStyle}>
       <h1
@@ -189,80 +202,21 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         ) : null}
       </h1>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        {isHandDealt ? (
-          <button style={dealBtnStyle} onClick={shuffleDeck}>
-            {`Shuffle (${remainingDeck.length})`}
-          </button>
-        ) : (
-          <div>
-            {showNextLevelBtn && !isGameOver ? (
-              <button
-                style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
-                onClick={nextLevel}
-              >
-                {"Next Level"}
-              </button>
-            ) : (
-              <>
-                {isLevelBeaten ? (
-                  <button
-                    style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
-                    onClick={dealCards}
-                  >
-                    {`Deal (${handsRemaining} remaining)`}
-                  </button>
-                ) : (
-                  <button
-                    style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
-                    onClick={isGameOver ? restartGame : dealCards}
-                  >
-                    {`${
-                      isOutOfHands ? "Restart" : "Deal"
-                    } (${handsRemaining} hands remaining)`}
-                  </button>
-                )}
-              </>
-            )}
-          </div>
-        )}
-
-        {!showTurnBtns ? null : (
-          <button
-            style={!hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
-            onClick={() => clickPlayHands()}
-          >
-            {`Play Hand (${handsRemaining - 1} remaining)`}
-          </button>
-        )}
-        {!showTurnBtns ? null : (
-          <button
-            style={hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
-            onClick={() => clickDiscard()}
-          >
-            {`${discardsRemaining} Discard`}
-          </button>
-        )}
-      </div>
       <MatchScore score={matchScore} target={levelTarget} />
 
-      {handResults > 0 ? null : (
-        <HandScore
-          score={handScore}
-          baseScore={baseScore}
-          multiplier={multiplier}
-        />
-      )}
-
-      <div>
-        <CardHand cards={outcomes} overlap={0} chaos={0}>
+      <div id="outcomes">
+        {outcomes.length ? (
+          <div style={{ textAlign: "center" }}>Bonuses</div>
+        ) : null}
+        <CardHand
+          cards={
+            modCards.length && handResults === 0
+              ? [...modCards, ...outcomes]
+              : outcomes
+          }
+          overlap={0}
+          chaos={0}
+        >
           {handResults > 0 ? (
             <div>
               <h1>
@@ -288,7 +242,54 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           ) : null}
         </CardHand>
       </div>
-      <div>Hand</div>
+
+      {handResults > 0 ? null : (
+        <HandScore
+          score={handScore}
+          baseScore={baseScore}
+          multiplier={multiplier}
+        />
+      )}
+
+      <div
+        id="playBtnRow"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <ShuffleBtn
+          isHandDealt={isHandDealt}
+          showNextLevelBtn={showNextLevelBtn}
+          isGameOver={isGameOver}
+          isAllowDealing={isAllowDealing}
+          shuffleDeck={shuffleDeck}
+          remainingDeck={remainingDeck}
+          nextLevel={nextLevel}
+          isLevelBeaten={isLevelBeaten}
+          dealCards={dealCards}
+          handsRemaining={handsRemaining}
+          isOutOfHands={isOutOfHands}
+          restartGame={restartGame}
+        />
+        {!showTurnBtns ? null : (
+          <button
+            style={!hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
+            onClick={() => clickPlayHands()}
+          >
+            {`Play Hand (${handsRemaining - 1} remaining)`}
+          </button>
+        )}
+        <DiscardBtn
+          clickDiscard={clickDiscard}
+          discardsRemaining={discardsRemaining}
+          hasSelectedCards={hasSelectedCards}
+          showTurnBtns={showTurnBtns}
+        />
+      </div>
+
       <div>
         <CardHand
           cards={hand}
@@ -301,6 +302,9 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
       </div>
       <div>Remaining Cards: {remainingDeck.length}</div>
       <CardHand cards={remainingDeck} overlap={130} />
+
+      <h1 style={{ textAlign: "center" }}>Mods: {catDeckMods.length}</h1>
+      <CardHand cards={catDeckMods} overlap={20} />
     </div>
   );
 };
@@ -312,170 +316,3 @@ const deckStyle = {
     fontFamily: "'Nova Cut', system-ui",
   },
 } as CSSProperties;
-
-export interface HandScoreProps {
-  score: number;
-  baseScore: number;
-  multiplier: number;
-}
-export const HandScore: React.FC<HandScoreProps> = ({
-  baseScore,
-  multiplier,
-  score,
-}) => {
-  return (
-    <div
-      style={{
-        borderBottom: "4px solid rgba(0,0,0,0.2)",
-        borderRadius: "2px",
-        textAlign: "center",
-        alignItems: "baseline",
-        display: "flex",
-        flexWrap: "wrap",
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: "5px",
-        fontSize: "3em",
-        ...textOutline.whiteHalf,
-      }}
-    >
-      <span
-        style={{
-          fontSize: "0.6em",
-        }}
-      >
-        Round:
-      </span>
-      <span
-        style={{
-          color: "pink",
-          ...textOutline.blackHalf,
-        }}
-      >
-        {numberWithCommas(baseScore)}
-      </span>
-      <span
-        style={{
-          color: "black",
-          fontSize: "0.6em",
-          ...textOutline.blackHalf,
-        }}
-      >
-        x
-      </span>
-      <span
-        style={{
-          color: "grey",
-          ...textOutline.blackHalf,
-        }}
-      >
-        {`${numberWithCommas(multiplier)}`}
-      </span>
-      <span
-        style={{
-          color: "grey",
-          ...textOutline.blackHalf,
-          fontSize: "0.6em",
-        }}
-      >
-        {` cats`}
-      </span>
-      <span
-        style={{
-          color: "white",
-          ...textOutline.blackHalf,
-        }}
-      >
-        =
-      </span>
-      <span
-        style={{
-          color: "green",
-          ...textOutline.blackHalf,
-        }}
-      >
-        {`${numberWithCommas(score)}`}
-      </span>
-      <span
-        style={{
-          color: "green",
-          fontSize: "0.6em",
-          ...textOutline.blackHalf,
-        }}
-      >
-        {`total cats ${randomArrayItem([
-          "😺",
-          "😸",
-          "😹",
-          "😻",
-          "😼",
-          "😽",
-          "🙀",
-          "😿",
-          "😾",
-          "🐱",
-        ])}`}
-      </span>
-    </div>
-  );
-};
-
-export interface MatchScoreProps {
-  score: number;
-  target: number;
-}
-export const MatchScore: React.FC<MatchScoreProps> = ({ target, score }) => {
-  return (
-    <div
-      style={{
-        borderBottom: "4px solid rgba(0,0,0,0.2)",
-        borderRadius: "2px",
-        textAlign: "center",
-        alignItems: "baseline",
-        display: window.innerWidth > 400 ? "flex" : "block",
-        flexWrap: "wrap",
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: "20px",
-        fontSize: "2.8em",
-        ...textOutline.black,
-      }}
-    >
-      <div>
-        <span
-          style={{
-            fontSize: "0.6em",
-            color: "green",
-          }}
-        >
-          Total Cats:
-        </span>
-        <span
-          style={{
-            color: "green",
-          }}
-        >
-          {` ${numberWithCommas(score)}`}
-        </span>
-      </div>
-      <span>/</span>
-      <div>
-        <span
-          style={{
-            color: "red",
-            fontSize: "0.6em",
-          }}
-        >
-          Target:
-        </span>
-        <span
-          style={{
-            color: "red",
-          }}
-        >
-          {` ${numberWithCommas(target)}`}
-        </span>
-      </div>
-    </div>
-  );
-};

@@ -2,16 +2,13 @@ import React, { useCallback, useMemo, useState } from "react";
 import { InfoPanel } from "./InfoPanel";
 import { cardPaper, selectedGlow, sxInfo, textOutline } from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
-import {
-  BalanceSlider,
-  CardTarget,
-  MassAppealCard,
-} from "../../cardDecks/massAppealDeck";
+import { BalanceSlider, MassAppealCard } from "../../cardDecks/massAppealDeck";
 import { useSpeech } from "../../cardDecks/hooks/useSpeech";
 import "./gameCard.css";
+import { catMultiColor } from "../CatDeckDealer/catDeskSx";
 
 export type TestProps = {
-  card: MassAppealCard;
+  card?: MassAppealCard;
   rotate?: number;
   overlap?: number;
   scale?: number;
@@ -43,6 +40,7 @@ export const GameCard: React.FC<TestProps> = ({
   const [hovered, setHovered] = useState(false);
 
   const handleClickCard = useCallback(() => {
+    if (!card) return;
     onClick();
 
     if (isSelected) return;
@@ -51,15 +49,9 @@ export const GameCard: React.FC<TestProps> = ({
     if (card.infoSection) {
       speak(card.infoSection);
     }
-  }, [
-    onClick,
-    isSelected,
-    cancelSpeaking,
-    speak,
-    card.headName,
-    card.infoSection,
-  ]);
+  }, [card, onClick, isSelected, cancelSpeaking, speak]);
   const hoveredScale = isSelected ? `90%` : `110%`;
+  if (!card) return <div>No card</div>;
   return (
     <div
       id="card"
@@ -102,7 +94,11 @@ export const GameCard: React.FC<TestProps> = ({
       >
         {card.multiplier ? (
           <div
-            style={{ fontSize: "2em", color: "pink", ...textOutline.black }}
+            style={{
+              fontSize: "2em",
+              color: card.target ? catMultiColor : "lime",
+              ...textOutline.black,
+            }}
           >{`${card.multiplier}x`}</div>
         ) : undefined}
         {card.infoSection}
@@ -112,7 +108,7 @@ export const GameCard: React.FC<TestProps> = ({
   );
 };
 
-type TypeProps = { children: React.ReactNode; target?: CardTarget };
+type TypeProps = { children: React.ReactNode; target?: string };
 export const TypeRow: React.FC<TypeProps> = ({ children, target }) => {
   return (
     <div

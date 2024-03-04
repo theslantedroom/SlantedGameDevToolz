@@ -23,3 +23,5 @@ export const dealBtnDisabledStyle = {
   opacity: 0.5,
   cursor: "not-allowed",
 };
+
+export const catMultiColor = "#7CB9E8";

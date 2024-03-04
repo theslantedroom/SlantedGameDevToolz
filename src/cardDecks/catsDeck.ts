@@ -16,54 +16,79 @@ const catTypes = {
   white: "White Cat",
 };
 
-const _catDeck: MassAppealCard[] = [
+const catEmoji = {
+  orange: "🐱",
+  grey: "😼",
+  black: "😽",
+  white: "😸",
+};
+const catColor = {
+  orange: "orange",
+  grey: "grey",
+  black: "black",
+  white: "white",
+};
+
+export type CatCard = {
+  headName: string;
+  value: number;
+  multiplier?: number;
+  infoSection?: string;
+  code?: string;
+  color?: string;
+  target?: string;
+  emoji: string;
+  type: string;
+};
+
+const _catDeck: CatCard[] = [
   {
     headName: catHeadnames.cat1,
     value: 1,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   {
     headName: catHeadnames.cat2,
     value: 2,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   {
     headName: catHeadnames.cat3,
     value: 3,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   {
     headName: catHeadnames.cat4,
     value: 4,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   {
     headName: catHeadnames.cat5,
     value: 5,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   {
     headName: catHeadnames.cat6,
     value: 6,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.orange,
-    emoji: "🐈",
-    color: "orange",
+    emoji: catEmoji.orange,
+    color: catColor.orange,
   },
   ///
   {
@@ -71,48 +96,48 @@ const _catDeck: MassAppealCard[] = [
     value: 1,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   {
     headName: catHeadnames.cat2,
     value: 2,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   {
     headName: catHeadnames.cat3,
     value: 3,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   {
     headName: catHeadnames.cat4,
     value: 4,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   {
     headName: catHeadnames.cat5,
     value: 5,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   {
     headName: catHeadnames.cat6,
     value: 6,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.grey,
-    emoji: "😼",
-    color: "grey",
+    emoji: catEmoji.grey,
+    color: catColor.grey,
   },
   ///
   {
@@ -120,48 +145,48 @@ const _catDeck: MassAppealCard[] = [
     value: 1,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   {
     headName: catHeadnames.cat2,
     value: 2,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   {
     headName: catHeadnames.cat3,
     value: 3,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   {
     headName: catHeadnames.cat4,
     value: 4,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   {
     headName: catHeadnames.cat5,
     value: 5,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   {
     headName: catHeadnames.cat6,
     value: 6,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.black,
-    emoji: "🐈‍⬛",
-    color: "Black",
+    emoji: catEmoji.black,
+    color: catColor.black,
   },
   ///
   {
@@ -169,48 +194,48 @@ const _catDeck: MassAppealCard[] = [
     value: 1,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   {
     headName: catHeadnames.cat2,
     value: 2,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   {
     headName: catHeadnames.cat3,
     value: 3,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   {
     headName: catHeadnames.cat4,
     value: 4,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   {
     headName: catHeadnames.cat5,
     value: 5,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   {
     headName: catHeadnames.cat6,
     value: 6,
     infoSection: randomArrayItem(cardCardTexts),
     type: catTypes.white,
-    emoji: "🐱",
-    color: "White",
+    emoji: catEmoji.white,
+    color: catColor.white,
   },
   // multi
 
@@ -220,6 +245,7 @@ const _catDeck: MassAppealCard[] = [
     type: "Multiplier",
     emoji: "💗",
     color: "gold",
+    value: 0,
   },
   {
     headName: "Mating",
@@ -227,6 +253,7 @@ const _catDeck: MassAppealCard[] = [
     type: "Multiplier",
     emoji: "💗",
     color: "gold",
+    value: 0,
   },
   {
     headName: "Mating",
@@ -234,6 +261,7 @@ const _catDeck: MassAppealCard[] = [
     type: "Multiplier",
     emoji: "💗",
     color: "gold",
+    value: 0,
   },
 ];
 
@@ -243,16 +271,16 @@ const _catDeck: MassAppealCard[] = [
 //     value: 2,
 //     infoSection: randomArrayItem(cardCardTexts),
 //     type: catTypes.orange,
-//     emoji: "🐈",
-//     color: "orange",
+//     emoji: catEmoji.orange,
+//      color: catColor.orange,
 //   },
 //   {
 //     headName: catHeadnames.cat2,
 //     value: 2,
 //     infoSection: randomArrayItem(cardCardTexts),
 //     type: catTypes.orange,
-//     emoji: "🐈",
-//     color: "orange",
+//     emoji: catEmoji.orange,
+//      color: catColor.orange,
 //   },
 //   {
 //     headName: "Frisky",
@@ -267,7 +295,19 @@ export const catDeck = [..._catDeck].map((card, i) => {
   return { ...card, code: `${i + 1}${card.headName}` };
 });
 
-export const catDeckOutcomes: MassAppealCard[] = [
+export type OutcomesCard = {
+  headName: string;
+  value: number;
+  multiplier?: number;
+  infoSection?: string;
+  code?: string;
+  color?: string;
+  emoji: string;
+  type: "Outcome";
+  target?: string;
+};
+
+export const catDeckOutcomes: OutcomesCard[] = [
   // outcomes
   {
     headName: "Mixed Colors",
@@ -275,6 +315,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "🎨",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Matching Colors",
@@ -282,6 +323,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "🟫",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Mating",
@@ -289,6 +331,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "😻",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Cat Pack",
@@ -296,6 +339,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "🙀",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "No Cats",
@@ -303,6 +347,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "🏞️",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Equal Teams",
@@ -310,6 +355,7 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "⚖️",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Pure Bred",
@@ -317,13 +363,75 @@ export const catDeckOutcomes: MassAppealCard[] = [
     type: "Outcome",
     emoji: "🐾",
     color: "bisque",
+    value: 0,
   },
   {
     headName: "Cuddle Puddle",
     multiplier: 20,
     type: "Outcome",
-    emoji: "😽",
+    target: "2x Mating",
+    emoji: "💗",
     color: "bisque",
+    value: 0,
   },
 ];
 // 🐅🐯
+export type DeckModCard = {
+  headName: string;
+  multiplier: number;
+  code?: string;
+  color?: string;
+  emoji: string;
+  type: "Meowdifier";
+  target: string;
+};
+export const catDeckMods: DeckModCard[] = [
+  {
+    headName: "Ninja Cat",
+    type: "Meowdifier",
+    emoji: "🐱‍👤",
+    color: "silver",
+    target: catTypes.grey,
+    multiplier: 4,
+  },
+  {
+    headName: "Lover Cat",
+    type: "Meowdifier",
+    emoji: "🐅",
+    color: "pink",
+    target: "Mating",
+    multiplier: 2,
+  },
+];
+
+export const getModdedDeck = ({
+  deck,
+  modCards,
+}: {
+  deck: CatCard[] | OutcomesCard[];
+  modCards: DeckModCard[];
+}) => {
+  return [
+    ...deck.map((deckCard) => {
+      const moddedCardTypes = modCards.map((modCard) => modCard.target);
+      if (
+        moddedCardTypes.includes(deckCard.type) ||
+        moddedCardTypes.includes(deckCard.headName)
+      ) {
+        const actingModCard = modCards.find((mc) => {
+          return mc.target === deckCard.type || mc.target === deckCard.headName;
+        });
+        if (!actingModCard) return deckCard;
+        return {
+          ...deckCard,
+          value: deckCard.value * actingModCard.multiplier,
+          multiplier: deckCard.multiplier
+            ? deckCard.multiplier * actingModCard.multiplier
+            : undefined,
+          target: `${actingModCard.multiplier}x (${actingModCard.headName})`,
+        };
+      }
+      return deckCard;
+    }),
+  ];
+};
