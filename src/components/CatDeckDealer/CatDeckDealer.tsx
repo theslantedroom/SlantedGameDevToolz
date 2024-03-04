@@ -14,6 +14,7 @@ import {
   DeckModCard,
   catDeckMods,
   getModdedDeck,
+  getRandomMods,
 } from "../../cardDecks/catsDeck";
 import { ShuffleBtn } from "./ShuffleBtn";
 import { DiscardBtn } from "./DiscardBtn";
@@ -28,7 +29,6 @@ export type DeckDealerProps = {
 
 export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
-  modCards = [],
   handSize,
 }) => {
   const { speak, cancelSpeaking } = useSpeech();
@@ -45,8 +45,9 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const [handsRemaining, setHandsRemaining] = useState(maxHands);
   const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
   const hasSelectedCards = selectedHandIndexes.length > 0;
-  const [hand, setHand] = useState<MassAppealCard[]>([]);
-  const [remainingDeck, setRemainingDeck] = useState<MassAppealCard[]>(
+  const [hand, setHand] = useState<CatCard[]>([]);
+  const [modCards, setModCards] = useState<DeckModCard[]>([]);
+  const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(
     getModdedDeck({ deck, modCards })
   );
   const [matchScore, setMatchScore] = useState(0);
@@ -117,6 +118,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   }, [isAllowDealing, clearOutcomes, remainingDeck, handSize]);
 
   const shuffleDeck = useCallback(() => {
+    console.log("modCards", modCards);
     setRemainingDeck(getModdedDeck({ deck, modCards }));
   }, [deck, modCards]);
 
@@ -134,13 +136,14 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   }, [clearOutcomes, discardsRemainingMax, maxHands, shuffleDeck]);
 
   const nextLevel = useCallback(() => {
+    setModCards(getRandomMods(runLevel));
     setIsLevelBeaten(false);
     setHandsRemaining(maxHands);
     setLevelTarget((p) => p * 2);
     setRunLevel((p) => p + 1);
     setDiscardsRemaining(discardsRemainingMax);
     dealCards();
-  }, [dealCards, discardsRemainingMax, maxHands]);
+  }, [dealCards, discardsRemainingMax, maxHands, runLevel]);
 
   const isHandDealt = hand.length > 1;
   const showTurnBtns = isHandDealt && !isNeedShuffle;
@@ -161,13 +164,17 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handResults]);
   useEffect(() => {
-    if (isLevelBeaten) speak("Level Complete!");
+    if (isLevelBeaten) {
+      speak("Level Complete!");
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLevelBeaten]);
   useEffect(() => {
     if (isGameOver) speak("Game Over");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver]);
+  const isHandInPlay = handResults > 0;
 
   return (
     <div style={deckStyle}>
@@ -217,7 +224,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           overlap={0}
           chaos={0}
         >
-          {handResults > 0 ? (
+          {isHandInPlay ? (
             <div>
               <h1>
                 <span
@@ -243,7 +250,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         </CardHand>
       </div>
 
-      {handResults > 0 ? null : (
+      {isHandInPlay ? null : (
         <HandScore
           score={handScore}
           baseScore={baseScore}
@@ -301,7 +308,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         />
       </div>
       <div>Remaining Cards: {remainingDeck.length}</div>
-      <CardHand cards={remainingDeck} overlap={130} />
+      <CardHand cards={remainingDeck} overlap={100} />
 
       <h1 style={{ textAlign: "center" }}>Mods: {catDeckMods.length}</h1>
       <CardHand cards={catDeckMods} overlap={20} />

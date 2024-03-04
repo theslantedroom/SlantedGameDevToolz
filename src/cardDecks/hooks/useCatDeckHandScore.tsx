@@ -105,7 +105,7 @@ export const useCatDeckHandScore = ({
       addOutcome("No Cats");
     }
     if (!isAllUniqueType && !hasMultiplierCard) {
-      addOutcome("Cat Pack");
+      addOutcome("Group of Cats");
     }
 
     if (isAllCardsSameValue) {

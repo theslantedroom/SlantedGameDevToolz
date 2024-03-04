@@ -334,7 +334,7 @@ export const catDeckOutcomes: OutcomesCard[] = [
     value: 0,
   },
   {
-    headName: "Cat Pack",
+    headName: "Group of Cats",
     multiplier: 2,
     type: "Outcome",
     emoji: "🙀",
@@ -389,7 +389,7 @@ export const catDeckMods: DeckModCard[] = [
   {
     headName: "Ninja Cat",
     type: "Meowdifier",
-    emoji: "🐱‍👤",
+    emoji: "🐱",
     color: "silver",
     target: catTypes.grey,
     multiplier: 4,
@@ -435,3 +435,16 @@ export const getModdedDeck = ({
     }),
   ];
 };
+
+export function getRandomMods(cardCount: number) {
+  const numRemaining = cardCount;
+  if (numRemaining === 0) {
+    return [];
+  } else if (numRemaining === 1) {
+    const randomIndex = Math.floor(Math.random() * catDeckMods.length);
+    return [catDeckMods[randomIndex]];
+  } else {
+    const shuffledArray = catDeckMods.sort(() => Math.random() - 0.5); // Shuffle the array randomly
+    return shuffledArray.slice(0, 2);
+  }
+}
