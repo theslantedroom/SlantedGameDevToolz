@@ -1,15 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { MassAppealCard } from "../massAppealDeck";
-import { DeckModCard, catDeckOutcomes, getModdedDeck } from "../catsDeck";
+import {
+  CatCard,
+  DeckModCard,
+  OutcomesCard,
+  catDeckOutcomes,
+  getModdedDeck,
+} from "../catsDeck";
 
 export const useCatDeckHandScore = ({
   hand,
   modCards,
 }: {
-  hand: MassAppealCard[];
+  hand: CatCard[];
   modCards: DeckModCard[];
 }) => {
-  const [outcomes, setOutcomes] = useState<MassAppealCard[]>([]);
+  const [outcomes, setOutcomes] = useState<OutcomesCard[]>([]);
   const addOutcome = useCallback(
     (headName: string) => {
       if (hand.length !== 3) {

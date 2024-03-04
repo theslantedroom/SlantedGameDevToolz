@@ -1,12 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import { CardHand } from "../CardHand/CardHand";
 import { useCatDeckHandScore } from "../../cardDecks/hooks/useCatDeckHandScore";
-import { textOutline } from "../GameCard/GameCardSx";
-import { numberWithCommas } from "../../util/numberWithComma";
-import { bgGradient, dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
-import "./CatDeck.css";
-import "@fontsource/nova-cut";
-import "@fontsource-variable/alegreya";
+import { bgGradient } from "./catDeskSx";
 import { useSpeech } from "../../cardDecks/hooks/useSpeech";
 import {
   CatCard,
@@ -19,6 +14,12 @@ import { ShuffleBtn } from "./ShuffleBtn";
 import { DiscardBtn } from "./DiscardBtn";
 import { HandScore } from "./HandScore";
 import { MatchScore } from "./MatchScore";
+import { PlayHandBtn } from "./PlayHandBtn";
+import { GameHeader } from "./GameHeader";
+import { OutComes } from "./OutComes";
+import "./CatDeck.css";
+import "@fontsource/nova-cut";
+import "@fontsource-variable/alegreya";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -38,20 +39,16 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const [isLevelBeaten, setIsLevelBeaten] = useState(false);
   const [levelTarget, setLevelTarget] = useState(level1Target);
   const [discardsRemainingMax, setDiscardsRemainingMax] = useState(3);
-  const [discardsRemaining, setDiscardsRemaining] =
-    useState(discardsRemainingMax);
+  const [discardsRemaining, setDiscardsRemaining] = useState(discardsRemainingMax); //prettier-ignore
   const [maxHands, setMaxHands] = useState(3);
   const [handsRemaining, setHandsRemaining] = useState(maxHands);
   const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
   const hasSelectedCards = selectedHandIndexes.length > 0;
   const [hand, setHand] = useState<CatCard[]>([]);
   const [modCards, setModCards] = useState<DeckModCard[]>([]);
-  const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(
-    getModdedDeck({ deck, modCards })
-  );
+  const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(getModdedDeck({ deck, modCards })); //prettier-ignore
   const [matchScore, setMatchScore] = useState(0);
-  const { handScore, outcomes, multiplier, baseScore, clearOutcomes } =
-    useCatDeckHandScore({ hand, modCards });
+  const { handScore, outcomes, multiplier, baseScore, clearOutcomes } = useCatDeckHandScore({ hand, modCards }); //prettier-ignore
 
   const clickDiscard = useCallback(() => {
     if (!hasSelectedCards) return;
@@ -177,85 +174,24 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
 
   return (
     <div style={deckStyle}>
-      <h1
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "baseline",
-          padding: 0,
-          margin: 0,
-          gap: 8,
-          color: "pink",
-          ...textOutline.black,
-        }}
-      >
-        <span>{"Level"}</span>
-        <span>{runLevel}</span>
-        {isLevelBeaten ? (
-          <span style={{ color: "lime", ...textOutline.black }}>
-            {" Complete"}
-          </span>
-        ) : null}
-
-        {isGameOver ? (
-          <span
-            style={{ color: "red", fontSize: "0.8em", ...textOutline.white }}
-          >
-            {" Game Over"}
-          </span>
-        ) : null}
-      </h1>
-
+      <GameHeader
+        runLevel={runLevel}
+        isLevelBeaten={isLevelBeaten}
+        isGameOver={isGameOver}
+      />
       <MatchScore score={matchScore} target={levelTarget} />
-
-      <div id="outcomes">
-        {outcomes.length ? (
-          <div style={{ textAlign: "center" }}>Bonuses</div>
-        ) : null}
-        <CardHand
-          cards={
-            modCards.length && handResults === 0
-              ? [...modCards, ...outcomes]
-              : outcomes
-          }
-          overlap={0}
-          chaos={0}
-        >
-          {isHandInPlay ? (
-            <div>
-              <h1>
-                <span
-                  style={{
-                    ...textOutline.white,
-                    color: "green",
-                  }}
-                >
-                  {numberWithCommas(handResults)}
-                </span>
-                <span
-                  style={{
-                    ...textOutline.black,
-                    color: "green",
-                    fontSize: "0.8em",
-                  }}
-                >
-                  {" Cats Join!"}
-                </span>
-              </h1>
-            </div>
-          ) : null}
-        </CardHand>
-      </div>
-
-      {isHandInPlay ? null : (
-        <HandScore
-          score={handScore}
-          baseScore={baseScore}
-          multiplier={multiplier}
-        />
-      )}
+      <OutComes
+        outcomes={outcomes}
+        modCards={modCards}
+        isHandInPlay={isHandInPlay}
+        handResults={handResults}
+      />
+      <HandScore
+        score={handScore}
+        baseScore={baseScore}
+        multiplier={multiplier}
+        isHandInPlay={isHandInPlay}
+      />
 
       <div
         id="playBtnRow"
@@ -280,14 +216,13 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           isOutOfHands={isOutOfHands}
           restartGame={restartGame}
         />
-        {!showTurnBtns ? null : (
-          <button
-            style={!hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
-            onClick={() => clickPlayHands()}
-          >
-            {`Play Hand (${handsRemaining - 1} remaining)`}
-          </button>
-        )}
+
+        <PlayHandBtn
+          clickPlayHands={clickPlayHands}
+          handsRemaining={handsRemaining}
+          hasSelectedCards={hasSelectedCards}
+          showTurnBtns={showTurnBtns}
+        />
         <DiscardBtn
           clickDiscard={clickDiscard}
           discardsRemaining={discardsRemaining}
