@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
-export const useSpeech = () => {
+export const useSpeech = ({
+  isMuteSpeech = false,
+}: {
+  isMuteSpeech?: boolean;
+}) => {
   const onEnd = useCallback(() => {
     console.log("end");
   }, []);
@@ -13,6 +17,7 @@ export const useSpeech = () => {
   } = useSpeechSynthesis(onEnd);
   const speak = useCallback(
     (string: string, voice = 5) => {
+      if (isMuteSpeech) return;
       const isMexican = voice === 7;
       const isBritishFemale = voice === 5;
       const isManager = voice === 1;

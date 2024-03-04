@@ -1,4 +1,4 @@
-import { catDeck, catDeckMods, getRandomMods } from "../../cardDecks/catsDeck";
+import { catDeck } from "../../cardDecks/catsDeck";
 import { CatDeckDealer } from "../../components/CatDeckDealer/CatDeckDealer";
 import { GamepadOverlay } from "../../components/GamepadOverlay/GamepadOverlay";
 import { MobileGamePadOverLay } from "../../components/MobileGamePadOverLay/MobileGamePadOverLay";

@@ -27,7 +27,7 @@ export const GameCard: React.FC<TestProps> = ({
 }) => {
   const headColor = "#FFEFCA";
   const cardColor = "#8D987E";
-  const { speak, cancelSpeaking } = useSpeech();
+  const { speak, cancelSpeaking } = useSpeech({ isMuteSpeech: false });
   const marginLeft = useMemo(() => {
     return overlap * -1;
   }, [overlap]);

@@ -1,33 +1,15 @@
 import { randomArrayItem } from "../util/randomArrayItem";
 import { cardCardTexts } from "./catCardTexts";
-import { MassAppealCard } from "./massAppealDeck";
-const catHeadnames = {
-  cat1: "1 Cat",
-  cat2: "2 Cats",
-  cat3: "3 Cats",
-  cat4: "4 Cats",
-  cat5: "5 Cats",
-  cat6: "6 Cats",
-};
-const catTypes = {
-  orange: "Orange Cat",
-  grey: "Grey Cat",
-  black: "Black Cat",
-  white: "White Cat",
-};
 
-const catEmoji = {
-  orange: "🐱",
-  grey: "😼",
-  black: "😽",
-  white: "😸",
-};
-const catColor = {
-  orange: "orange",
-  grey: "grey",
-  black: "black",
-  white: "white",
-};
+type CatDeckCardTypes =
+  | "Orange Cat"
+  | "Grey Cat"
+  | "Black Cat"
+  | "White Cat"
+  | "Mating"
+  | "Multiplier"
+  | "Outcome"
+  | "Meowdifier";
 
 export type CatCard = {
   headName: string;
@@ -38,258 +20,80 @@ export type CatCard = {
   color?: string;
   target?: string;
   emoji: string;
-  type: string;
+  type: CatDeckCardTypes;
+};
+
+const generateCatCards = ({
+  color,
+  count,
+}: {
+  color: "black" | "orange" | "grey" | "white";
+  count: number;
+}) => {
+  const catHeadnames = [
+    "1 Cat",
+    "2 Cats",
+    "3 Cats",
+    "4 Cats",
+    "5 Cats",
+    "6 Cats",
+  ];
+  const catTypes = {
+    orange: "Orange Cat",
+    grey: "Grey Cat",
+    black: "Black Cat",
+    white: "White Cat",
+  } as {
+    orange: CatDeckCardTypes;
+    grey: CatDeckCardTypes;
+    black: CatDeckCardTypes;
+    white: CatDeckCardTypes;
+  };
+  const catEmoji = {
+    orange: "🐱",
+    grey: "😼",
+    black: "😽",
+    white: "😸",
+  };
+  const cards: CatCard[] = [];
+  for (let i = 0; i < count; i++) {
+    const cardValue = i + 1;
+    const card: CatCard = {
+      headName: catHeadnames[i],
+      value: cardValue,
+      infoSection: randomArrayItem(cardCardTexts),
+      type: catTypes[color],
+      emoji: catEmoji[color],
+      color: color,
+    };
+    cards.push(card);
+  }
+  return cards;
+};
+
+const generateMatingCards = ({ count }: { count: number }) => {
+  const cards: CatCard[] = [];
+  for (let i = 0; i < count; i++) {
+    const card: CatCard = {
+      headName: "Mating",
+      infoSection: "Meow",
+      type: "Multiplier",
+      emoji: "💗",
+      color: "gold",
+      value: 0,
+    };
+    cards.push(card);
+  }
+  return cards;
 };
 
 const _catDeck: CatCard[] = [
-  {
-    headName: catHeadnames.cat1,
-    value: 1,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  {
-    headName: catHeadnames.cat2,
-    value: 2,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  {
-    headName: catHeadnames.cat3,
-    value: 3,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  {
-    headName: catHeadnames.cat4,
-    value: 4,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  {
-    headName: catHeadnames.cat5,
-    value: 5,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  {
-    headName: catHeadnames.cat6,
-    value: 6,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.orange,
-    emoji: catEmoji.orange,
-    color: catColor.orange,
-  },
-  ///
-  {
-    headName: catHeadnames.cat1,
-    value: 1,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  {
-    headName: catHeadnames.cat2,
-    value: 2,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  {
-    headName: catHeadnames.cat3,
-    value: 3,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  {
-    headName: catHeadnames.cat4,
-    value: 4,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  {
-    headName: catHeadnames.cat5,
-    value: 5,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  {
-    headName: catHeadnames.cat6,
-    value: 6,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.grey,
-    emoji: catEmoji.grey,
-    color: catColor.grey,
-  },
-  ///
-  {
-    headName: catHeadnames.cat1,
-    value: 1,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  {
-    headName: catHeadnames.cat2,
-    value: 2,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  {
-    headName: catHeadnames.cat3,
-    value: 3,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  {
-    headName: catHeadnames.cat4,
-    value: 4,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  {
-    headName: catHeadnames.cat5,
-    value: 5,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  {
-    headName: catHeadnames.cat6,
-    value: 6,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.black,
-    emoji: catEmoji.black,
-    color: catColor.black,
-  },
-  ///
-  {
-    headName: catHeadnames.cat1,
-    value: 1,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  {
-    headName: catHeadnames.cat2,
-    value: 2,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  {
-    headName: catHeadnames.cat3,
-    value: 3,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  {
-    headName: catHeadnames.cat4,
-    value: 4,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  {
-    headName: catHeadnames.cat5,
-    value: 5,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  {
-    headName: catHeadnames.cat6,
-    value: 6,
-    infoSection: randomArrayItem(cardCardTexts),
-    type: catTypes.white,
-    emoji: catEmoji.white,
-    color: catColor.white,
-  },
-  // multi
-
-  {
-    headName: "Mating",
-    infoSection: "Meow",
-    type: "Multiplier",
-    emoji: "💗",
-    color: "gold",
-    value: 0,
-  },
-  {
-    headName: "Mating",
-    infoSection: "Meow",
-    type: "Multiplier",
-    emoji: "💗",
-    color: "gold",
-    value: 0,
-  },
-  {
-    headName: "Mating",
-    infoSection: "Meow",
-    type: "Multiplier",
-    emoji: "💗",
-    color: "gold",
-    value: 0,
-  },
+  ...generateCatCards({ color: "black", count: 6 }),
+  ...generateCatCards({ color: "grey", count: 6 }),
+  ...generateCatCards({ color: "orange", count: 6 }),
+  ...generateCatCards({ color: "white", count: 6 }),
+  ...generateMatingCards({ count: 3 }),
 ];
-
-// const force = [
-//   {
-//     headName: catHeadnames.cat2,
-//     value: 2,
-//     infoSection: randomArrayItem(cardCardTexts),
-//     type: catTypes.orange,
-//     emoji: catEmoji.orange,
-//      color: catColor.orange,
-//   },
-//   {
-//     headName: catHeadnames.cat2,
-//     value: 2,
-//     infoSection: randomArrayItem(cardCardTexts),
-//     type: catTypes.orange,
-//     emoji: catEmoji.orange,
-//      color: catColor.orange,
-//   },
-//   {
-//     headName: "Frisky",
-//     infoSection: "Meow",
-//     type: "Multiplier",
-//     emoji: "💗",
-//     color: "gold",
-//   },
-// ];
 
 export const catDeck = [..._catDeck].map((card, i) => {
   return { ...card, code: `${i + 1}${card.headName}` };
@@ -303,12 +107,11 @@ export type OutcomesCard = {
   code?: string;
   color?: string;
   emoji: string;
-  type: "Outcome";
+  type: CatDeckCardTypes;
   target?: string;
 };
 
 export const catDeckOutcomes: OutcomesCard[] = [
-  // outcomes
   {
     headName: "Mixed Colors",
     multiplier: 4,
@@ -375,15 +178,15 @@ export const catDeckOutcomes: OutcomesCard[] = [
     value: 0,
   },
 ];
-// 🐅🐯
+
 export type DeckModCard = {
   headName: string;
   multiplier: number;
   code?: string;
   color?: string;
   emoji: string;
-  type: "Meowdifier";
-  target: string;
+  type: CatDeckCardTypes;
+  target: CatDeckCardTypes;
 };
 export const catDeckMods: DeckModCard[] = [
   {
@@ -391,7 +194,7 @@ export const catDeckMods: DeckModCard[] = [
     type: "Meowdifier",
     emoji: "🐱",
     color: "silver",
-    target: catTypes.grey,
+    target: "Grey Cat",
     multiplier: 4,
   },
   {
@@ -413,7 +216,9 @@ export const getModdedDeck = ({
 }) => {
   return [
     ...deck.map((deckCard) => {
-      const moddedCardTypes = modCards.map((modCard) => modCard.target);
+      const moddedCardTypes: string[] = modCards.map(
+        (modCard) => modCard.target
+      );
       if (
         moddedCardTypes.includes(deckCard.type) ||
         moddedCardTypes.includes(deckCard.headName)

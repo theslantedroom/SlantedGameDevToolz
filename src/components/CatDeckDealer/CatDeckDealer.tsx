@@ -1,5 +1,4 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
-import { MassAppealCard } from "../../cardDecks/massAppealDeck";
 import { CardHand } from "../CardHand/CardHand";
 import { useCatDeckHandScore } from "../../cardDecks/hooks/useCatDeckHandScore";
 import { textOutline } from "../GameCard/GameCardSx";
@@ -31,7 +30,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
   handSize,
 }) => {
-  const { speak, cancelSpeaking } = useSpeech();
+  const { speak, cancelSpeaking } = useSpeech({ isMuteSpeech: false });
 
   const level1Target = 100;
   const [runLevel, setRunLevel] = useState(1);
