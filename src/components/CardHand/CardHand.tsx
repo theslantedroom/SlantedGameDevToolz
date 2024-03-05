@@ -69,7 +69,7 @@ export const CardHand: React.FC<CardHandProps> = ({
             />
           );
         })}
-        {children}
+        <div style={{ width: "100%" }}> {children}</div>
       </div>
     </div>
   );
