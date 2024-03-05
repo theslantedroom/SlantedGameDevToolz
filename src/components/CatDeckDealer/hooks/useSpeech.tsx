@@ -35,7 +35,7 @@ export const useSpeech = ({
         pitch: isManager ? 0.8 : 0.9,
       });
     },
-    [_speak, voices]
+    [_speak, isMuteSpeech, voices]
   );
 
   return { speak, cancelSpeaking: cancel };

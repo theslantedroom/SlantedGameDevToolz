@@ -14,13 +14,16 @@ export const MatchScore: React.FC<MatchScoreProps> = ({ target, score }) => {
         borderRadius: "2px",
         textAlign: "center",
         alignItems: "baseline",
-        display: window.innerWidth > 400 ? "flex" : "block",
+        display: "flex",
         flexWrap: "wrap",
         flexDirection: "row",
         justifyContent: "center",
         gap: "20px",
-        fontSize: "2.8em",
-        ...textOutline.black,
+        fontSize: "2em",
+        fontWeight: "bold",
+        ...textOutline.white,
+        padding: 0,
+        margin: 0,
       }}
     >
       <div>
@@ -40,7 +43,7 @@ export const MatchScore: React.FC<MatchScoreProps> = ({ target, score }) => {
           {` ${numberWithCommas(score)}`}
         </span>
       </div>
-      <span>/</span>
+
       <div>
         <span
           style={{

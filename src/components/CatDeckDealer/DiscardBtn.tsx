@@ -1,5 +1,6 @@
 import React from "react";
 import { dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
+import { selectedGlow } from "../GameCard/GameCardSx";
 export interface Props {
   clickDiscard: () => void;
   discardsRemaining: number;
@@ -12,14 +13,21 @@ export const DiscardBtn: React.FC<Props> = ({
   hasSelectedCards,
   showTurnBtns,
 }) => {
+  const sx = hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle;
+  const text = hasSelectedCards
+    ? `Replace (${discardsRemaining})`
+    : "select to replace";
   return (
     <>
       {!showTurnBtns ? null : (
         <button
-          style={hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle}
+          style={{
+            ...sx,
+            boxShadow: hasSelectedCards ? selectedGlow : "initial",
+          }}
           onClick={() => clickDiscard()}
         >
-          {`${discardsRemaining} Discard`}
+          {text}
         </button>
       )}
     </>

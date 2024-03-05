@@ -9,6 +9,7 @@ export type CardHandProps = {
   overlap?: number;
   chaos?: number;
   selectedHandIndexes?: number[];
+  selectedLift?: number;
   isUnSelectable?: boolean;
   setSelectedHandIndexes?: React.Dispatch<React.SetStateAction<number[]>>;
 };
@@ -20,10 +21,9 @@ export const CardHand: React.FC<CardHandProps> = ({
   selectedHandIndexes,
   isUnSelectable = false,
   setSelectedHandIndexes = () => null,
+  selectedLift,
   children,
 }) => {
-  const xPaddingSpace = window.innerWidth > 800 ? 100 : 40;
-
   const selectCard = useCallback(
     (index: number) => {
       if (isUnSelectable) return;
@@ -47,8 +47,8 @@ export const CardHand: React.FC<CardHandProps> = ({
           flexWrap: "wrap",
           flexDirection: "row",
           justifyContent: "center",
-          padding: `10px ${xPaddingSpace}px`,
-          minHeight: "300px",
+          padding: `25px ${40}px`,
+          minHeight: "30px",
           backgroundColor: "rgb(0,0,0,0.2)",
           border: "1px solid rgb(0,0,0,0.2)",
           borderRadius: "2px",
@@ -65,7 +65,7 @@ export const CardHand: React.FC<CardHandProps> = ({
               rotate={chaos ? rollDice(chaos) - chaos / 2 : 0}
               onClick={() => selectCard(i)}
               isSelected={isSelected}
-              selectedLift={isSelected ? 60 : 0}
+              selectedLift={isSelected ? selectedLift : 0}
             />
           );
         })}

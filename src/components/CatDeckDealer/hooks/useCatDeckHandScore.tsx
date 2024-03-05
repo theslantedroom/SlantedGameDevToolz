@@ -5,14 +5,18 @@ import {
   OutcomesCard,
   catDeckOutcomes,
   getModdedDeck,
-} from "../catsDeck";
+} from "../../../cardDecks/catsDeck";
 
 export const useCatDeckHandScore = ({
   hand,
+  lastHand,
   modCards,
+  lastOutcomes,
 }: {
   hand: CatCard[];
+  lastHand: CatCard[];
   modCards: DeckModCard[];
+  lastOutcomes: OutcomesCard[];
 }) => {
   const [outcomes, setOutcomes] = useState<OutcomesCard[]>([]);
   const addOutcome = useCallback(
@@ -37,7 +41,9 @@ export const useCatDeckHandScore = ({
   );
 
   const baseScore = useMemo(() => {
-    const catCardsWithValue = hand.filter(
+    const _hand = hand.length ? hand : lastHand;
+
+    const catCardsWithValue = _hand.filter(
       (card) => card.value !== undefined && card.type.includes("Cat")
     );
     let handScore = 0;
@@ -45,15 +51,17 @@ export const useCatDeckHandScore = ({
       handScore += card.value || 0;
     });
     return handScore;
-  }, [hand]);
+  }, [hand, lastHand]);
 
   const multiplier = useMemo(() => {
+    const _outcomes = outcomes.length ? outcomes : lastOutcomes;
+
     let handScore = 0;
-    outcomes.forEach((card) => {
+    _outcomes.forEach((card) => {
       handScore += card.multiplier || 0;
     });
     return handScore;
-  }, [outcomes]);
+  }, [lastOutcomes, outcomes]);
 
   const clearOutcomes = useCallback(() => {
     setOutcomes([]);
@@ -61,7 +69,6 @@ export const useCatDeckHandScore = ({
 
   useEffect(() => {
     clearOutcomes();
-
     const catCards = hand.filter((card) => {
       return card.type.includes("Cat");
     });
@@ -122,11 +129,7 @@ export const useCatDeckHandScore = ({
     if (isCuddlePuddle) {
       addOutcome("Cuddle Puddle");
     }
-    if (hand.length === 0) {
-      clearOutcomes();
-    }
   }, [addOutcome, clearOutcomes, hand]);
-
   return {
     multiplier,
     baseScore,

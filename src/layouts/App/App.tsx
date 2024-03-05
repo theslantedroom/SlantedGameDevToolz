@@ -7,7 +7,6 @@ function App() {
   return (
     <>
       <CatDeckDealer deck={catDeck} handSize={3} />
-      <p className="read-the-docs">Game Screen</p>
 
       {/* <MobileGamePadOverLay /> */}
       {/* <GamepadOverlay /> */}

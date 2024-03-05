@@ -1,16 +1,18 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import { CardHand } from "../CardHand/CardHand";
-import { useCatDeckHandScore } from "../../cardDecks/hooks/useCatDeckHandScore";
+import { useCatDeckHandScore } from "./hooks/useCatDeckHandScore";
 import { bgGradient } from "./catDeskSx";
-import { useSpeech } from "../../cardDecks/hooks/useSpeech";
+import { useSpeech } from "./hooks/useSpeech";
 import {
   CatCard,
   DeckModCard,
+  OutcomesCard,
   catDeckMods,
   getModdedDeck,
   getRandomMods,
+  levelCards,
 } from "../../cardDecks/catsDeck";
-import { ShuffleBtn } from "./ShuffleBtn";
+import { ShuffleDealBtn } from "./ShuffleDealBtn";
 import { DiscardBtn } from "./DiscardBtn";
 import { HandScore } from "./HandScore";
 import { MatchScore } from "./MatchScore";
@@ -20,6 +22,8 @@ import { OutComes } from "./OutComes";
 import "./CatDeck.css";
 import "@fontsource/nova-cut";
 import "@fontsource-variable/alegreya";
+import { useCardOverlap } from "./hooks/useCardOverlap";
+import { HandFooter } from "./HandFooter";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -35,7 +39,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
 
   const level1Target = 100;
   const [runLevel, setRunLevel] = useState(1);
-  const [handResults, setHandResults] = useState(0);
+  const [lastHandScore, setLastHandScore] = useState(0);
   const [isLevelBeaten, setIsLevelBeaten] = useState(false);
   const [levelTarget, setLevelTarget] = useState(level1Target);
   const [discardsRemainingMax, setDiscardsRemainingMax] = useState(3);
@@ -47,9 +51,13 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const [hand, setHand] = useState<CatCard[]>([]);
   const [modCards, setModCards] = useState<DeckModCard[]>([]);
   const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(getModdedDeck({ deck, modCards })); //prettier-ignore
-  const [matchScore, setMatchScore] = useState(0);
-  const { handScore, outcomes, multiplier, baseScore, clearOutcomes } = useCatDeckHandScore({ hand, modCards }); //prettier-ignore
-
+  const [runScore, setRunScore] = useState(0);
+  const [lastHand, setLastHand] = useState<CatCard[]>([]);
+  const [lastOutcomes, setLastOutcomes] = useState<OutcomesCard[]>([
+    levelCards[0],
+  ]);
+  const { handScore, outcomes, multiplier, baseScore, clearOutcomes } =
+    useCatDeckHandScore({ hand, modCards, lastHand, lastOutcomes }); //prettier-ignore
   const clickDiscard = useCallback(() => {
     if (!hasSelectedCards) return;
     // reduce remaining discard plays
@@ -76,17 +84,18 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     });
   }, [hasSelectedCards, remainingDeck, selectedHandIndexes]);
 
-  const clickPlayHands = useCallback(() => {
+  const clickPlayHand = useCallback(() => {
     // reduce remaining plays
     setHandsRemaining((p) => {
       const def = 3;
       if (p === 0) return def;
       return p - 1;
     });
-
-    setHandResults(handScore);
-
-    setMatchScore((p) => {
+    setLastHand(hand);
+    setLastHandScore(handScore);
+    setLastOutcomes(outcomes);
+    setHand([]);
+    setRunScore((p) => {
       const newMatchScore = p + handScore;
       if (newMatchScore >= levelTarget) {
         setIsLevelBeaten(true);
@@ -94,17 +103,16 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
 
       return newMatchScore;
     });
-    setHand([]);
     const readTextString = outcomes.map((o) => `${o.headName}`).join(" ");
     cancelSpeaking();
     speak(readTextString);
-  }, [cancelSpeaking, handScore, levelTarget, outcomes, speak]);
+  }, [cancelSpeaking, hand, handScore, levelTarget, outcomes, speak]);
 
   const isNeedShuffle = remainingDeck.length < handSize;
   const isAllowDealing = isNeedShuffle || hand.length === 0;
   const dealCards = useCallback(() => {
     if (!isAllowDealing) return;
-    setHandResults(0);
+    setLastHandScore(0);
     clearOutcomes();
     const shuffledDeck = [...remainingDeck].sort(() => Math.random() - 0.5);
     const newHand = shuffledDeck.slice(0, handSize);
@@ -114,7 +122,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   }, [isAllowDealing, clearOutcomes, remainingDeck, handSize]);
 
   const shuffleDeck = useCallback(() => {
-    console.log("modCards", modCards);
     setRemainingDeck(getModdedDeck({ deck, modCards }));
   }, [deck, modCards]);
 
@@ -124,10 +131,12 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     setIsLevelBeaten(false);
     setHandsRemaining(maxHands);
     setLevelTarget(level1Target);
-    setMatchScore(0);
+    setRunScore(0);
     setRunLevel(1);
+    setLastHand([]);
+    setLastOutcomes([]);
     clearOutcomes();
-    setHandResults(0);
+    setLastHandScore(0);
     setDiscardsRemaining(discardsRemainingMax);
   }, [clearOutcomes, discardsRemainingMax, maxHands, shuffleDeck]);
 
@@ -156,21 +165,21 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [levelTarget]);
   useEffect(() => {
-    if (handResults) speak(`${handResults} cats join`);
+    if (lastHandScore) speak(`${lastHandScore} cats join`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handResults]);
+  }, [lastHandScore]);
   useEffect(() => {
     if (isLevelBeaten) {
       speak("Level Complete!");
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLevelBeaten]);
   useEffect(() => {
     if (isGameOver) speak("Game Over");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver]);
-  const isHandInPlay = handResults > 0;
+  const isHandInPlay = hand.length > 0;
+  const { overlap } = useCardOverlap();
 
   return (
     <div style={deckStyle}>
@@ -178,19 +187,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         runLevel={runLevel}
         isLevelBeaten={isLevelBeaten}
         isGameOver={isGameOver}
-      />
-      <MatchScore score={matchScore} target={levelTarget} />
-      <OutComes
-        outcomes={outcomes}
-        modCards={modCards}
-        isHandInPlay={isHandInPlay}
-        handResults={handResults}
-      />
-      <HandScore
-        score={handScore}
-        baseScore={baseScore}
-        multiplier={multiplier}
-        isHandInPlay={isHandInPlay}
       />
 
       <div
@@ -202,7 +198,52 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           justifyContent: "center",
         }}
       >
-        <ShuffleBtn
+        <DiscardBtn
+          clickDiscard={clickDiscard}
+          discardsRemaining={discardsRemaining}
+          hasSelectedCards={hasSelectedCards}
+          showTurnBtns={showTurnBtns}
+        />
+        <PlayHandBtn
+          clickPlayHand={clickPlayHand}
+          handsRemaining={handsRemaining}
+          hasSelectedCards={hasSelectedCards}
+          showTurnBtns={showTurnBtns}
+        />
+      </div>
+      <MatchScore score={runScore} target={levelTarget} />
+
+      <HandScore
+        score={handScore}
+        runScore={runScore}
+        baseScore={baseScore}
+        multiplier={multiplier}
+      />
+
+      <OutComes
+        levelTarget={levelTarget}
+        isLevelBeaten={isLevelBeaten}
+        outcomes={outcomes}
+        runScore={runScore}
+        overlap={overlap}
+        lastHand={lastHand}
+        lastOutcomes={lastOutcomes}
+        modCards={modCards}
+        isHandInPlay={isHandInPlay}
+        lastHandScore={lastHandScore}
+      />
+      <CardHand
+        cards={hand}
+        overlap={overlap}
+        chaos={2}
+        selectedLift={-50}
+        isUnSelectable={discardsRemaining === 0}
+        selectedHandIndexes={selectedHandIndexes}
+        setSelectedHandIndexes={setSelectedHandIndexes}
+      >
+        <HandFooter hand={hand} />
+        <ShuffleDealBtn
+          runScore={runScore}
           isHandDealt={isHandDealt}
           showNextLevelBtn={showNextLevelBtn}
           isGameOver={isGameOver}
@@ -216,43 +257,21 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           isOutOfHands={isOutOfHands}
           restartGame={restartGame}
         />
+      </CardHand>
 
-        <PlayHandBtn
-          clickPlayHands={clickPlayHands}
-          handsRemaining={handsRemaining}
-          hasSelectedCards={hasSelectedCards}
-          showTurnBtns={showTurnBtns}
-        />
-        <DiscardBtn
-          clickDiscard={clickDiscard}
-          discardsRemaining={discardsRemaining}
-          hasSelectedCards={hasSelectedCards}
-          showTurnBtns={showTurnBtns}
-        />
-      </div>
-
-      <div>
-        <CardHand
-          cards={hand}
-          overlap={0}
-          chaos={2}
-          isUnSelectable={discardsRemaining === 0}
-          selectedHandIndexes={selectedHandIndexes}
-          setSelectedHandIndexes={setSelectedHandIndexes}
-        />
-      </div>
-      <div>Remaining Cards: {remainingDeck.length}</div>
-      <CardHand cards={remainingDeck} overlap={100} />
-
-      <h1 style={{ textAlign: "center" }}>Mods: {catDeckMods.length}</h1>
-      <CardHand cards={catDeckMods} overlap={20} />
+      <>
+        <div>Remaining Deck: {remainingDeck.length}</div>
+        <CardHand cards={remainingDeck} overlap={100} />
+        <h1 style={{ textAlign: "center" }}>Mods: {catDeckMods.length}</h1>
+        <CardHand cards={catDeckMods} overlap={20} />
+      </>
     </div>
   );
 };
 const deckStyle = {
   backgroundImage: bgGradient,
-  border: `10px solid green`,
   borderRadius: "2px",
+  minHeight: "100vh",
   body: {
     fontFamily: "'Nova Cut', system-ui",
   },

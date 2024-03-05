@@ -12,10 +12,11 @@ export interface Props {
   isLevelBeaten: boolean;
   dealCards: () => void;
   handsRemaining: number;
+  runScore: number;
   isOutOfHands: boolean;
   restartGame: () => void;
 }
-export const ShuffleBtn: React.FC<Props> = ({
+export const ShuffleDealBtn: React.FC<Props> = ({
   isHandDealt,
   shuffleDeck,
   remainingDeck,
@@ -28,12 +29,14 @@ export const ShuffleBtn: React.FC<Props> = ({
   handsRemaining,
   restartGame,
   isOutOfHands,
+  runScore,
 }) => {
+  const dealTxt = runScore === 0 ? "Deal" : "Next Round";
   return (
     <>
       {isHandDealt ? (
         <button style={dealBtnStyle} onClick={shuffleDeck}>
-          {`Shuffle (${remainingDeck.length})`}
+          {`Shuffle Deck (${remainingDeck.length})`}
         </button>
       ) : (
         <div>
@@ -51,7 +54,7 @@ export const ShuffleBtn: React.FC<Props> = ({
                   style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
                   onClick={dealCards}
                 >
-                  {`Deal (${handsRemaining} remaining)`}
+                  {`${dealTxt} (${handsRemaining} remaining)`}
                 </button>
               ) : (
                 <button
@@ -59,7 +62,7 @@ export const ShuffleBtn: React.FC<Props> = ({
                   onClick={isGameOver ? restartGame : dealCards}
                 >
                   {`${
-                    isOutOfHands ? "Restart" : "Deal"
+                    isOutOfHands ? "Restart" : dealTxt
                   } (${handsRemaining} hands remaining)`}
                 </button>
               )}

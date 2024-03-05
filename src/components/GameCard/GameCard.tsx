@@ -3,7 +3,7 @@ import { InfoPanel } from "./InfoPanel";
 import { cardPaper, selectedGlow, sxInfo, textOutline } from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
 import { BalanceSlider, MassAppealCard } from "../../cardDecks/massAppealDeck";
-import { useSpeech } from "../../cardDecks/hooks/useSpeech";
+import { useSpeech } from "../CatDeckDealer/hooks/useSpeech";
 import "./gameCard.css";
 import { catMultiColor } from "../CatDeckDealer/catDeskSx";
 
@@ -19,7 +19,7 @@ export type TestProps = {
 export const GameCard: React.FC<TestProps> = ({
   rotate = 0,
   overlap = 0,
-  scale = 1,
+  scale = 0.75,
   selectedLift = 20,
   isSelected = false,
   card,
@@ -67,6 +67,7 @@ export const GameCard: React.FC<TestProps> = ({
         cursor: "pointer",
         transition: "scale 0.5s ease",
         boxShadow: isSelected ? selectedGlow : "initial",
+        zIndex: isSelected ? 2 : "initial",
         scale: hovered ? hoveredScale : "100%",
       }}
     >
@@ -89,7 +90,7 @@ export const GameCard: React.FC<TestProps> = ({
           ...sxInfo,
           backgroundColor: headColor,
           borderRadius: "2px 2px 9px 9px",
-          minHeight: 80,
+          minHeight: 50,
         }}
       >
         {card.multiplier ? (

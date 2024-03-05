@@ -9,6 +9,7 @@ type CatDeckCardTypes =
   | "Mating"
   | "Multiplier"
   | "Outcome"
+  | "Boss Cat"
   | "Meowdifier";
 
 export type CatCard = {
@@ -204,6 +205,18 @@ export const catDeckMods: DeckModCard[] = [
     color: "pink",
     target: "Mating",
     multiplier: 2,
+  },
+];
+
+export const levelCards: OutcomesCard[] = [
+  {
+    headName: "Level 1",
+    code: "level1",
+    type: "Boss Cat",
+    infoSection: "Create 100 cats in 3 hands.",
+    emoji: "😼",
+    color: "purple",
+    value: 100,
   },
 ];
 

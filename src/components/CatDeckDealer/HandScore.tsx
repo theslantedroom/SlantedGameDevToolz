@@ -8,15 +8,15 @@ export interface HandScoreProps {
   score: number;
   baseScore: number;
   multiplier: number;
-  isHandInPlay: boolean;
+  runScore: number;
 }
 export const HandScore: React.FC<HandScoreProps> = ({
   baseScore,
   multiplier,
   score,
-  isHandInPlay,
+  runScore,
 }) => {
-  if (isHandInPlay) return null;
+  if (runScore === 0) return null;
   return (
     <div
       style={{
@@ -33,13 +33,6 @@ export const HandScore: React.FC<HandScoreProps> = ({
         ...textOutline.whiteHalf,
       }}
     >
-      <span
-        style={{
-          fontSize: "0.6em",
-        }}
-      >
-        Round:
-      </span>
       <span
         style={{
           color: "lime",
@@ -74,14 +67,14 @@ export const HandScore: React.FC<HandScoreProps> = ({
       >
         {` cats`}
       </span>
-      <span
+      <div
         style={{
           color: "white",
           ...textOutline.blackHalf,
         }}
       >
         =
-      </span>
+      </div>
       <span
         style={{
           color: "green",
@@ -97,7 +90,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
           ...textOutline.blackHalf,
         }}
       >
-        {`total cats ${randomArrayItem([
+        {`cats ${randomArrayItem([
           "😺",
           "😸",
           "😹",
