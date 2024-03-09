@@ -27,6 +27,7 @@ import { BtnWrapRow } from "./BtnWrapRow";
 import useCatInterval from "./hooks/useCatInterval";
 import { usePlayCatMusicFile } from "./hooks/usePlayCatMusicFile";
 import { selectedGreenGlow, textOutline } from "../GameCard/GameCardSx";
+import { IntroScreen } from "./IntroScreen";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -226,35 +227,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const { overlap } = useCardOverlap();
   if (!hasInteracted) {
     return (
-      <div style={deckStyle}>
-        <h1
-          style={{
-            textAlign: "center",
-            fontSize: "4em",
-            padding: 0,
-            margin: 0,
-            color: "pink",
-            ...textOutline.black,
-          }}
-        >{`Kitty Krush`}</h1>
-        <h1
-          style={{
-            textAlign: "center",
-            fontSize: "8em",
-            padding: 0,
-            margin: 60,
-          }}
-        >{`😹`}</h1>
-        <button
-          style={{
-            ...dealBtnStyle,
-            boxShadow: selectedGreenGlow,
-          }}
-          onClick={() => setHasInteracted(true)}
-        >
-          Play
-        </button>
-      </div>
+      <IntroScreen setHasInteracted={setHasInteracted} overlap={overlap} />
     );
   }
   return (
@@ -289,7 +262,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         overlap={overlap}
         chaos={2}
         selectedLift={-20}
-        isUnSelectable={discardsRemaining === 0}
+        isUnSelectable={false}
         selectedHandIndexes={selectedHandIndexes}
         setSelectedHandIndexes={setSelectedHandIndexes}
         setSelectedHand={setSelectedHand}

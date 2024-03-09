@@ -1,6 +1,7 @@
 import React from "react";
 import { dealBtnDisabledStyle, dealBtnStyle } from "./style/catDeskSx";
 import { MassAppealCard } from "../../cardDecks/massAppealDeck";
+import { selectedGreenGlow } from "../GameCard/GameCardSx";
 export interface Props {
   isHandDealt: boolean;
   showNextLevelBtn: boolean;
@@ -42,7 +43,10 @@ export const ShuffleDealBtn: React.FC<Props> = ({
         <div>
           {showNextLevelBtn && !isGameOver ? (
             <button
-              style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
+              style={{
+                ...(isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle),
+                boxShadow: selectedGreenGlow,
+              }}
               onClick={nextLevel}
             >
               {"Next Level"}
@@ -51,14 +55,20 @@ export const ShuffleDealBtn: React.FC<Props> = ({
             <>
               {isLevelBeaten ? (
                 <button
-                  style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
+                  style={{
+                    ...(isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle),
+                    boxShadow: selectedGreenGlow,
+                  }}
                   onClick={nextHand}
                 >
                   {`${dealTxt} (${handsRemaining} remaining)`}
                 </button>
               ) : (
                 <button
-                  style={isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle}
+                  style={{
+                    ...(isAllowDealing ? dealBtnStyle : dealBtnDisabledStyle),
+                    boxShadow: selectedGreenGlow,
+                  }}
                   onClick={isGameOver ? restartGame : nextHand}
                 >
                   {`${

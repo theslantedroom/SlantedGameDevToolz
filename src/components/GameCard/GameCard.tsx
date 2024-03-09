@@ -3,6 +3,7 @@ import { InfoPanel } from "./InfoPanel";
 import {
   cardPaper,
   selectedGreenGlow,
+  selectedPinkGlow,
   sxInfo,
   textOutline,
 } from "./GameCardSx";
@@ -55,12 +56,21 @@ export const GameCard: React.FC<TestProps> = ({
       speak(card.infoSection);
     }
   }, [card, onClick, isSelected, cancelSpeaking, speak]);
-
-  if (!card) return <div>No card</div>;
   const _scale = "80%";
   const hoveredScale = isSelected ? _scale : _scale;
   const zIndex = `initial`;
-  const boxShadow = isSelected ? selectedGreenGlow : "initial";
+  const isOutcome = card?.type === "Outcome";
+
+  const boxShadow = useMemo(() => {
+    if (isOutcome) {
+      return selectedPinkGlow;
+    }
+    if (isSelected) {
+      return selectedGreenGlow;
+    }
+    return "initial";
+  }, [isSelected, isOutcome]);
+  if (!card) return <div>No card</div>;
 
   return (
     <div

@@ -25,7 +25,7 @@ export const HandFooter: React.FC<MatchScoreProps> = ({ hand }) => {
         ...textOutline.blackHalf,
       }}
     >
-      Click Cards to Select
+      Select 3 Cards
     </div>
   );
 };

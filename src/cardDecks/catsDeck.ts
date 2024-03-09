@@ -7,6 +7,7 @@ type CatDeckCardTypes =
   | "Black Cat"
   | "White Cat"
   | "Mating"
+  | "Kittens"
   | "Multiplier"
   | "Outcome"
   | "Boss Cat"
@@ -24,7 +25,7 @@ export type CatCard = {
   type: CatDeckCardTypes;
 };
 
-const generateCatCards = ({
+export const generateCatCards = ({
   color,
   count,
 }: {
@@ -77,9 +78,9 @@ const generateMatingCards = ({ count }: { count: number }) => {
   for (let i = 0; i < count; i++) {
     const card: CatCard = {
       headName: "Mating",
-      infoSection: "Meow",
+      infoSection: "The cats are in heat and looking to mate",
       type: "Multiplier",
-      emoji: "💗",
+      emoji: "😻",
       color: "gold",
       value: 0,
     };
@@ -114,26 +115,10 @@ export type OutcomesCard = {
 
 export const catDeckOutcomes: OutcomesCard[] = [
   {
-    headName: "Mixed Colors",
-    multiplier: 4,
+    headName: "No Cats",
+    multiplier: 0,
     type: "Outcome",
-    emoji: "🎨",
-    color: "bisque",
-    value: 0,
-  },
-  {
-    headName: "Matching Colors",
-    multiplier: 12,
-    type: "Outcome",
-    emoji: "🟫",
-    color: "bisque",
-    value: 0,
-  },
-  {
-    headName: "Mating",
-    multiplier: 8,
-    type: "Outcome",
-    emoji: "😻",
+    emoji: "🏞️",
     color: "bisque",
     value: 0,
   },
@@ -146,34 +131,50 @@ export const catDeckOutcomes: OutcomesCard[] = [
     value: 0,
   },
   {
-    headName: "No Cats",
-    multiplier: 0,
+    headName: "Mixed",
+    multiplier: 4,
     type: "Outcome",
-    emoji: "🏞️",
+    emoji: "🎨",
     color: "bisque",
     value: 0,
   },
   {
-    headName: "Equal Teams",
-    multiplier: 12,
+    headName: "Matching",
+    multiplier: 6,
     type: "Outcome",
-    emoji: "⚖️",
+    emoji: "🟫",
+    color: "bisque",
+    value: 0,
+  },
+  {
+    headName: "Kittens",
+    multiplier: 8,
+    type: "Outcome",
+    emoji: "😻",
     color: "bisque",
     value: 0,
   },
   {
     headName: "Pure Bred",
-    multiplier: 15,
+    multiplier: 10,
     type: "Outcome",
     emoji: "🐾",
     color: "bisque",
     value: 0,
   },
   {
-    headName: "Cuddle Puddle",
+    headName: "Equal Teams",
     multiplier: 20,
     type: "Outcome",
-    target: "2x Mating",
+    emoji: "⚖️",
+    color: "bisque",
+    value: 0,
+  },
+  {
+    headName: "Cuddle Crazy",
+    multiplier: 25,
+    type: "Outcome",
+    target: "2x Kittens",
     emoji: "💗",
     color: "bisque",
     value: 0,
@@ -203,7 +204,7 @@ export const catDeckMods: DeckModCard[] = [
     type: "Meowdifier",
     emoji: "🐅",
     color: "pink",
-    target: "Mating",
+    target: "Kittens",
     multiplier: 2,
   },
 ];

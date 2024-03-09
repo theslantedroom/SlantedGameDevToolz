@@ -16,6 +16,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
   score,
 }) => {
   if (score === 0) return null;
+  const pink = "#ff66b3";
   return (
     <div
       style={{
@@ -51,7 +52,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
       </span>
       <span
         style={{
-          color: "lime",
+          color: pink,
           fontSize: "0.6em",
           ...textOutline.black,
         }}
@@ -60,7 +61,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
       </span>
       <span
         style={{
-          color: "lime",
+          color: pink,
           ...textOutline.black,
         }}
       >

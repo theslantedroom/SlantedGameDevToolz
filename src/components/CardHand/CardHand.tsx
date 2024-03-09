@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { ReactNode, useCallback, useMemo } from "react";
 import { GameCard } from "../GameCard/GameCard";
 import { rollDice } from "../../lib";
 import { CatCard } from "../../cardDecks/catsDeck";
@@ -10,6 +10,7 @@ export type CardHandProps = {
   chaos?: number;
   selectedHandIndexes?: number[];
   selectedLift?: number;
+  scale?: number;
   isUnSelectable?: boolean;
   setSelectedHandIndexes?: React.Dispatch<React.SetStateAction<number[]>>;
   setSelectedHand?: React.Dispatch<React.SetStateAction<CatCard[]>>;
@@ -25,6 +26,7 @@ export const CardHand: React.FC<CardHandProps> = ({
   setSelectedHand = () => null,
   selectedLift,
   children,
+  scale = 1,
 }) => {
   const selectCard = useCallback(
     ({ index, card }: { index: number; card: CatCard }) => {
@@ -52,6 +54,16 @@ export const CardHand: React.FC<CardHandProps> = ({
     },
     [isUnSelectable, setSelectedHand, setSelectedHandIndexes]
   );
+
+  const _overlap = useMemo(() => {
+    if (cards.length >= 6) {
+      return overlap + 25;
+    }
+    if (cards.length === 5) {
+      return overlap + 20;
+    }
+    return overlap;
+  }, [cards.length, overlap]);
   return (
     <div>
       <div
@@ -74,9 +86,10 @@ export const CardHand: React.FC<CardHandProps> = ({
           const isSelected = selectedHandIndexes?.includes(i);
           return (
             <GameCard
+              scale={scale}
               key={(card?.code ? card.code : card.headName) + i}
               card={card}
-              overlap={overlap}
+              overlap={_overlap}
               rotate={chaos ? rollDice(chaos) - chaos / 2 : 0}
               onClick={() => {
                 selectCard({ index: i, card });

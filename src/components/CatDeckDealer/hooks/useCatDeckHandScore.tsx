@@ -103,14 +103,14 @@ export const useCatDeckHandScore = ({
     const isPureBredMating = hasOneMultiplierCatCards && isAllCatsSameType;
     const isCuddlePuddle = hasTwoMultiplierCatCards;
     if (hasMultiplierCard && hasTwoCatCards) {
-      addOutcome("Mating");
+      addOutcome("Kittens");
     }
     // Return a handScore based on the conditions
     if (isAllCardsSameType && isAllCardsCatCards) {
-      addOutcome("Matching Colors");
+      addOutcome("Matching");
     }
     if (isAllUniqueType && isAllCardsCatCards) {
-      addOutcome("Mixed Colors");
+      addOutcome("Mixed");
     }
     if (hasThreeMultiplierCatCards) {
       addOutcome("No Cats");
@@ -126,7 +126,7 @@ export const useCatDeckHandScore = ({
       addOutcome("Pure Bred");
     }
     if (isCuddlePuddle) {
-      addOutcome("Cuddle Puddle");
+      addOutcome("Cuddle Crazy");
     }
   }, [addOutcome, clearOutcomes, hand]);
   return {

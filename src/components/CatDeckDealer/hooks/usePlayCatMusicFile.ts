@@ -3,7 +3,6 @@ import { useGlobalAudioPlayer } from "react-use-audio-player";
 import { randomArrayItem } from "../../../util/randomArrayItem";
 
 const audioSources = [
-  `./audio/${"Columbian Soul"}.mp3`,
   `./audio/${"In Love With You"}.mp3`,
   `./audio/${"Walking In My Sleep"}.mp3`,
 ];
