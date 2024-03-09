@@ -1,6 +1,6 @@
 import React from "react";
-import { dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
-import { selectedGlow } from "../GameCard/GameCardSx";
+import { dealBtnDisabledStyle, dealBtnStyle } from "./style/catDeskSx";
+import { selectedGreenGlow } from "../GameCard/GameCardSx";
 export interface Props {
   clickPlayHand: () => void;
   handsRemaining: number;
@@ -13,7 +13,8 @@ export const PlayHandBtn: React.FC<Props> = ({
   hasSelectedCards,
   showTurnBtns,
 }) => {
-  const sx = !hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle;
+  const sx = hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle;
+  const _handsRemaining = handsRemaining - 1;
 
   return (
     <>
@@ -21,11 +22,11 @@ export const PlayHandBtn: React.FC<Props> = ({
         <button
           style={{
             ...sx,
-            boxShadow: !hasSelectedCards ? selectedGlow : "initial",
+            boxShadow: !hasSelectedCards ? selectedGreenGlow : "initial",
           }}
           onClick={() => clickPlayHand()}
         >
-          {`Play Hand (${handsRemaining - 1})`}
+          {`Meow OK! (${_handsRemaining})`}
         </button>
       )}
     </>

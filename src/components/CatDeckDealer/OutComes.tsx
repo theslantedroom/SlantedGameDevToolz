@@ -27,8 +27,9 @@ export const OutComes: React.FC<Props> = ({
   levelTarget,
   isLevelBeaten,
 }) => {
-  const outcomeTexts = useMemo(() => {
-    const outcomesTexts = outcomes.map((o, i) => (
+  const outcomesChips = useMemo(() => {
+    const _outcomesChips = outcomes.map((o, i) => (
+      // MultiChip
       <div
         key={i + o.headName}
         style={{
@@ -44,7 +45,7 @@ export const OutComes: React.FC<Props> = ({
         {`${o.headName} x ${o.multiplier}`}
       </div>
     ));
-    return outcomesTexts;
+    return _outcomesChips;
   }, [outcomes]);
   if (isHandInPlay)
     return (
@@ -59,7 +60,7 @@ export const OutComes: React.FC<Props> = ({
           gap: 10,
         }}
       >
-        {outcomeTexts}
+        {outcomesChips}
       </div>
     );
   return (

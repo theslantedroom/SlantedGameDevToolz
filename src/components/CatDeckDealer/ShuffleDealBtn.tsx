@@ -1,5 +1,5 @@
 import React from "react";
-import { dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
+import { dealBtnDisabledStyle, dealBtnStyle } from "./style/catDeskSx";
 import { MassAppealCard } from "../../cardDecks/massAppealDeck";
 export interface Props {
   isHandDealt: boolean;

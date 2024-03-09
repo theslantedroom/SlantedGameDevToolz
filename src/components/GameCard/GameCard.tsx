@@ -1,11 +1,16 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { InfoPanel } from "./InfoPanel";
-import { cardPaper, selectedGlow, sxInfo, textOutline } from "./GameCardSx";
+import {
+  cardPaper,
+  selectedGreenGlow,
+  sxInfo,
+  textOutline,
+} from "./GameCardSx";
 import { ImgEmoji } from "./ImgEmoji";
 import { BalanceSlider, MassAppealCard } from "../../cardDecks/massAppealDeck";
 import { useSpeech } from "../CatDeckDealer/hooks/useSpeech";
 import "./gameCard.css";
-import { catMultiColor } from "../CatDeckDealer/catDeskSx";
+import { catMultiColor } from "../CatDeckDealer/style/catDeskSx";
 
 export type TestProps = {
   card?: MassAppealCard;
@@ -33,7 +38,7 @@ export const GameCard: React.FC<TestProps> = ({
   }, [overlap]);
   const transform = useMemo(() => {
     return `rotate(${rotate}deg) translateX(${overlap / 2}px)${
-      isSelected ? `translateY(${-selectedLift}px)` : ""
+      isSelected ? `translateY(${selectedLift}px)` : ""
     }`;
   }, [overlap, rotate, isSelected, selectedLift]);
 
@@ -50,8 +55,12 @@ export const GameCard: React.FC<TestProps> = ({
       speak(card.infoSection);
     }
   }, [card, onClick, isSelected, cancelSpeaking, speak]);
-  const hoveredScale = isSelected ? `90%` : `110%`;
+
   if (!card) return <div>No card</div>;
+
+  const hoveredScale = isSelected ? `90%` : `110%`;
+  const boxShadow = isSelected ? selectedGreenGlow : "initial";
+
   return (
     <div
       id="card"
@@ -66,8 +75,7 @@ export const GameCard: React.FC<TestProps> = ({
         transform: transform,
         cursor: "pointer",
         transition: "scale 0.5s ease",
-        boxShadow: isSelected ? selectedGlow : "initial",
-        zIndex: isSelected ? 2 : "initial",
+        boxShadow: boxShadow,
         scale: hovered ? hoveredScale : "100%",
       }}
     >

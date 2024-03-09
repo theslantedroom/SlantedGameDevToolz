@@ -55,5 +55,7 @@ export const sxInfo = {
   backgroundColor: "#FEFEDF",
 } as CSSProperties;
 
-export const selectedGlow = `0 0 10px rgba(0, 255, 0, 1), 0 0 20px 5px rgba(0, 175, 0, 0.8),
+export const selectedRedGlow = `0 0 10px rgba(255, 0, 0, 1), 0 0 20px 5px rgba(175, 0, 0, 0.8),
+    0 0 30px 15px rgba(0, 225, 0, 0.5)`;
+export const selectedGreenGlow = `0 0 10px rgba(0, 255, 0, 1), 0 0 20px 5px rgba(0, 175, 0, 0.8),
     0 0 30px 15px rgba(0, 225, 0, 0.5)`;

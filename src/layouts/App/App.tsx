@@ -6,7 +6,7 @@ import { MobileGamePadOverLay } from "../../components/MobileGamePadOverLay/Mobi
 function App() {
   return (
     <>
-      <CatDeckDealer deck={catDeck} handSize={3} />
+      <CatDeckDealer deck={catDeck} handSize={4} />
 
       {/* <MobileGamePadOverLay /> */}
       {/* <GamepadOverlay /> */}

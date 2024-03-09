@@ -2,7 +2,8 @@ import React from "react";
 import { textOutline } from "../GameCard/GameCardSx";
 import { numberWithCommas } from "../../util/numberWithComma";
 import { randomArrayItem } from "../../util/randomArrayItem";
-import { catMultiColor } from "./catDeskSx";
+import { catMultiColor } from "./style/catDeskSx";
+import { addPluralS } from "../GamePad/hooks/useAddPlural";
 
 export interface HandScoreProps {
   score: number;
@@ -35,11 +36,20 @@ export const HandScore: React.FC<HandScoreProps> = ({
     >
       <span
         style={{
-          color: "lime",
+          color: catMultiColor,
+          ...textOutline.black,
+          fontSize: "0.6em",
+        }}
+      >
+        {` cats`}
+      </span>
+      <span
+        style={{
+          color: catMultiColor,
           ...textOutline.black,
         }}
       >
-        {numberWithCommas(multiplier)}
+        {`${numberWithCommas(baseScore)}`}
       </span>
       <span
         style={{
@@ -52,21 +62,13 @@ export const HandScore: React.FC<HandScoreProps> = ({
       </span>
       <span
         style={{
-          color: catMultiColor,
+          color: "lime",
           ...textOutline.black,
         }}
       >
-        {`${numberWithCommas(baseScore)}`}
+        {numberWithCommas(multiplier)}
       </span>
-      <span
-        style={{
-          color: catMultiColor,
-          ...textOutline.black,
-          fontSize: "0.6em",
-        }}
-      >
-        {` cats`}
-      </span>
+      {/* = */}
       <div
         style={{
           color: "white",
@@ -75,6 +77,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
       >
         =
       </div>
+      {/* TOTAL */}
       <span
         style={{
           color: "green",
@@ -90,7 +93,7 @@ export const HandScore: React.FC<HandScoreProps> = ({
           ...textOutline.blackHalf,
         }}
       >
-        {`cats ${randomArrayItem([
+        {`cat${addPluralS(score)} ${randomArrayItem([
           "😺",
           "😸",
           "😹",

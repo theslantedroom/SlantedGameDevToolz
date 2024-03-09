@@ -16,5 +16,5 @@ export const useCardOverlap = () => {
     if (w < 575) return 10;
     return 0;
   }, [windowSize.width]);
-  return { overlap };
+  return { overlap: overlap + 40 };
 };

@@ -22,9 +22,11 @@ export const HandFooter: React.FC<MatchScoreProps> = ({ hand }) => {
         border: "1px solid green",
         margin: 20,
         borderRadius: "10px",
+        color: "white",
+        ...textOutline.blackHalf,
       }}
     >
-      Click Cards to replace
+      Click Cards to Select
     </div>
   );
 };

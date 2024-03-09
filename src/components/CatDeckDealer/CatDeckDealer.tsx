@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import { CardHand } from "../CardHand/CardHand";
 import { useCatDeckHandScore } from "./hooks/useCatDeckHandScore";
-import { bgGradient } from "./catDeskSx";
+import { bgGradient } from "./style/catDeskSx";
 import { useSpeech } from "./hooks/useSpeech";
 import {
   CatCard,
@@ -19,11 +19,12 @@ import { MatchScore } from "./MatchScore";
 import { PlayHandBtn } from "./PlayHandBtn";
 import { GameHeader } from "./GameHeader";
 import { OutComes } from "./OutComes";
-import "./CatDeck.css";
+import "./style/CatDeck.css";
 import "@fontsource/nova-cut";
 import "@fontsource-variable/alegreya";
 import { useCardOverlap } from "./hooks/useCardOverlap";
 import { HandFooter } from "./HandFooter";
+import { BtnWrapRow } from "./BtnWrapRow";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -48,10 +49,12 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const [handsRemaining, setHandsRemaining] = useState(maxHands);
   const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
   const hasSelectedCards = selectedHandIndexes.length > 0;
-  const [hand, setHand] = useState<CatCard[]>([]);
+  // Deck
   const [modCards, setModCards] = useState<DeckModCard[]>([]);
   const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(getModdedDeck({ deck, modCards })); //prettier-ignore
   const [runScore, setRunScore] = useState(0);
+  // HAND
+  const [hand, setHand] = useState<CatCard[]>([]);
   const [lastHand, setLastHand] = useState<CatCard[]>([]);
   const [lastOutcomes, setLastOutcomes] = useState<OutcomesCard[]>([
     levelCards[0],
@@ -188,60 +191,9 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         isLevelBeaten={isLevelBeaten}
         isGameOver={isGameOver}
       />
-
-      <div
-        id="playBtnRow"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <DiscardBtn
-          clickDiscard={clickDiscard}
-          discardsRemaining={discardsRemaining}
-          hasSelectedCards={hasSelectedCards}
-          showTurnBtns={showTurnBtns}
-        />
-        <PlayHandBtn
-          clickPlayHand={clickPlayHand}
-          handsRemaining={handsRemaining}
-          hasSelectedCards={hasSelectedCards}
-          showTurnBtns={showTurnBtns}
-        />
-      </div>
       <MatchScore score={runScore} target={levelTarget} />
 
-      <HandScore
-        score={handScore}
-        runScore={runScore}
-        baseScore={baseScore}
-        multiplier={multiplier}
-      />
-
-      <OutComes
-        levelTarget={levelTarget}
-        isLevelBeaten={isLevelBeaten}
-        outcomes={outcomes}
-        runScore={runScore}
-        overlap={overlap}
-        lastHand={lastHand}
-        lastOutcomes={lastOutcomes}
-        modCards={modCards}
-        isHandInPlay={isHandInPlay}
-        lastHandScore={lastHandScore}
-      />
-      <CardHand
-        cards={hand}
-        overlap={overlap}
-        chaos={2}
-        selectedLift={-50}
-        isUnSelectable={discardsRemaining === 0}
-        selectedHandIndexes={selectedHandIndexes}
-        setSelectedHandIndexes={setSelectedHandIndexes}
-      >
-        <HandFooter hand={hand} />
+      <BtnWrapRow>
         <ShuffleDealBtn
           runScore={runScore}
           isHandDealt={isHandDealt}
@@ -257,6 +209,51 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           isOutOfHands={isOutOfHands}
           restartGame={restartGame}
         />
+      </BtnWrapRow>
+
+      <OutComes
+        levelTarget={levelTarget}
+        isLevelBeaten={isLevelBeaten}
+        outcomes={outcomes}
+        runScore={runScore}
+        overlap={overlap}
+        lastHand={lastHand}
+        lastOutcomes={lastOutcomes}
+        modCards={modCards}
+        isHandInPlay={isHandInPlay}
+        lastHandScore={lastHandScore}
+      />
+      <HandScore
+        score={handScore}
+        runScore={runScore}
+        baseScore={baseScore}
+        multiplier={multiplier}
+      />
+      <CardHand
+        cards={hand}
+        overlap={overlap}
+        chaos={2}
+        selectedLift={-50}
+        isUnSelectable={discardsRemaining === 0}
+        selectedHandIndexes={selectedHandIndexes}
+        setSelectedHandIndexes={setSelectedHandIndexes}
+      >
+        <HandFooter hand={hand} />
+
+        <BtnWrapRow>
+          <DiscardBtn
+            clickDiscard={clickDiscard}
+            discardsRemaining={discardsRemaining}
+            hasSelectedCards={hasSelectedCards}
+            showTurnBtns={showTurnBtns}
+          />
+          <PlayHandBtn
+            clickPlayHand={clickPlayHand}
+            handsRemaining={handsRemaining}
+            hasSelectedCards={hasSelectedCards}
+            showTurnBtns={showTurnBtns}
+          />
+        </BtnWrapRow>
       </CardHand>
 
       <>

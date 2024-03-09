@@ -1,6 +1,6 @@
 import React from "react";
-import { dealBtnDisabledStyle, dealBtnStyle } from "./catDeskSx";
-import { selectedGlow } from "../GameCard/GameCardSx";
+import { dealBtnDisabledStyle, dealBtnStyle } from "./style/catDeskSx";
+import { selectedRedGlow } from "../GameCard/GameCardSx";
 export interface Props {
   clickDiscard: () => void;
   discardsRemaining: number;
@@ -14,16 +14,15 @@ export const DiscardBtn: React.FC<Props> = ({
   showTurnBtns,
 }) => {
   const sx = hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle;
-  const text = hasSelectedCards
-    ? `Replace (${discardsRemaining})`
-    : "select to replace";
+  const text = hasSelectedCards ? `Replace (${discardsRemaining})` : "Replace";
+
   return (
     <>
       {!showTurnBtns ? null : (
         <button
           style={{
             ...sx,
-            boxShadow: hasSelectedCards ? selectedGlow : "initial",
+            boxShadow: selectedRedGlow,
           }}
           onClick={() => clickDiscard()}
         >
