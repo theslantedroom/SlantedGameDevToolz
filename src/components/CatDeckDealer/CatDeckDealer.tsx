@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import { CardHand } from "../CardHand/CardHand";
 import { useCatDeckHandScore } from "./hooks/useCatDeckHandScore";
-import { bgGradient } from "./style/catDeskSx";
+import { bgGradient, dealBtnStyle } from "./style/catDeskSx";
 import { useSpeech } from "./hooks/useSpeech";
 import {
   CatCard,
@@ -25,6 +25,8 @@ import { useCardOverlap } from "./hooks/useCardOverlap";
 import { HandFooter } from "./HandFooter";
 import { BtnWrapRow } from "./BtnWrapRow";
 import useCatInterval from "./hooks/useCatInterval";
+import { usePlayCatMusicFile } from "./hooks/usePlayCatMusicFile";
+import { selectedGreenGlow, textOutline } from "../GameCard/GameCardSx";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -36,14 +38,16 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
   handSize,
 }) => {
-  const [gamepads, setGamepads] = useState({});
   const [tick, setTick] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  // Check for new gamepads regularly
   useCatInterval(() => {
     setTick((t) => t + 1);
   }, 75);
-
+  usePlayCatMusicFile({
+    hasInteracted,
+  });
+  // const [gamepads, setGamepads] = useState({});
   // useGamepadCatDeck((gamepads) => setGamepads(gamepads));
   // const isAPressed = gamepads[0]?.buttons[0].pressed;
   // if (isAPressed) {
@@ -165,6 +169,9 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const isAllowDealing = isNeedShuffle || hand.length === 0;
   const nextHand = useCallback(() => {
     if (!isAllowDealing) return;
+
+    setHasInteracted(true);
+
     clearOutcomes();
     setLastOutcomes([]);
     setLastHand([]);
@@ -217,6 +224,39 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   }, [isGameOver]);
   const isHandInPlay = hand.length > 0;
   const { overlap } = useCardOverlap();
+  if (!hasInteracted) {
+    return (
+      <div style={deckStyle}>
+        <h1
+          style={{
+            textAlign: "center",
+            fontSize: "4em",
+            padding: 0,
+            margin: 0,
+            color: "pink",
+            ...textOutline.black,
+          }}
+        >{`Kitty Krush`}</h1>
+        <h1
+          style={{
+            textAlign: "center",
+            fontSize: "8em",
+            padding: 0,
+            margin: 60,
+          }}
+        >{`😹`}</h1>
+        <button
+          style={{
+            ...dealBtnStyle,
+            boxShadow: selectedGreenGlow,
+          }}
+          onClick={() => setHasInteracted(true)}
+        >
+          Play
+        </button>
+      </div>
+    );
+  }
   return (
     <div style={deckStyle}>
       <GameHeader
@@ -286,7 +326,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           lastHandScore={lastHandScore}
         />
       </CardHand>
-
       <>
         {modCards.length ? (
           <>

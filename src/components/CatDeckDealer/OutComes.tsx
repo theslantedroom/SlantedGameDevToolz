@@ -67,7 +67,7 @@ export const OutComes: React.FC<Props> = ({
       <CardHand
         cards={[...lastHand, ...lastOutcomes]}
         overlap={overlap}
-        chaos={5}
+        chaos={2}
       >
         {levelScore === 0 ? (
           <div

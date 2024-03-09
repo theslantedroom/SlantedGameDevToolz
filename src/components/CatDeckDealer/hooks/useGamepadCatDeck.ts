@@ -1,5 +1,8 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+// This directive instructs TypeScript to ignore the entire file
 
+import { useEffect, useRef } from "react";
 export default function useGamepadCatDeck(callback) {
   const gamepads = useRef({});
   const requestRef = useRef();
