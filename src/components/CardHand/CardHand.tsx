@@ -52,7 +52,6 @@ export const CardHand: React.FC<CardHandProps> = ({
     },
     [isUnSelectable, setSelectedHand, setSelectedHandIndexes]
   );
-
   return (
     <div>
       <div
@@ -65,6 +64,7 @@ export const CardHand: React.FC<CardHandProps> = ({
           alignContent: "baseline",
           alignItems: "center",
           padding: `${0}px ${0}px`,
+          margin: `${0}px ${0}px`,
           backgroundColor: "rgb(0,0,0,0.2)",
           border: "1px solid rgb(0,0,0,0.2)",
           borderRadius: "2px",

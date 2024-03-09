@@ -39,28 +39,30 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   const { speak, cancelSpeaking } = useSpeech({ isMuteSpeech: false });
 
   const level1Target = 100;
+  // LEVEL
   const [runLevel, setRunLevel] = useState(1);
-  const [lastHandScore, setLastHandScore] = useState(0);
-  const [isLevelBeaten, setIsLevelBeaten] = useState(false);
   const [levelTarget, setLevelTarget] = useState(level1Target);
+  const [levelScore, setLevelScore] = useState(0);
+  const [isLevelBeaten, setIsLevelBeaten] = useState(false);
   const [discardsRemainingMax, setDiscardsRemainingMax] = useState(3);
   const [discardsRemaining, setDiscardsRemaining] = useState(discardsRemainingMax); //prettier-ignore
   const [maxHands, setMaxHands] = useState(3);
   const [handsRemaining, setHandsRemaining] = useState(maxHands);
+
   // Deck
   const [modCards, setModCards] = useState<DeckModCard[]>([]);
   const [remainingDeck, setRemainingDeck] = useState<CatCard[]>(getModdedDeck({ deck, modCards })); //prettier-ignore
-  const [runScore, setRunScore] = useState(0);
+
   // HAND
   const [hand, setHand] = useState<CatCard[]>([]);
   const [selectedHand, setSelectedHand] = useState<CatCard[]>([]);
   const [selectedHandIndexes, setSelectedHandIndexes] = useState<number[]>([]);
   const [lastHand, setLastHand] = useState<CatCard[]>([]);
+  const [lastHandScore, setLastHandScore] = useState(0);
   const [lastOutcomes, setLastOutcomes] = useState<OutcomesCard[]>([
     levelCards[0],
   ]);
-  console.log("selectedHandIndexes", selectedHandIndexes);
-  console.log("selectedHand", selectedHand);
+
   const hasSelectedCards = selectedHandIndexes.length > 0;
 
   const { handScore, outcomes, multiplier, baseScore, 
@@ -72,7 +74,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
       lastOutcomes,
     }); //prettier-ignore
 
-  console.log("outcomes", outcomes);
   const clickDiscard = useCallback(() => {
     if (!hasSelectedCards) return;
     // reduce remaining discard plays
@@ -113,31 +114,17 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     setHand([]);
     setSelectedHand([]);
     setSelectedHandIndexes([]);
-    setRunScore((p) => {
+    setLevelScore((p) => {
       const newMatchScore = p + handScore;
       if (newMatchScore >= levelTarget) {
         setIsLevelBeaten(true);
       }
-
       return newMatchScore;
     });
     const readTextString = outcomes.map((o) => `${o.headName}`).join(" ");
     cancelSpeaking();
     speak(readTextString);
   }, [cancelSpeaking, handScore, levelTarget, outcomes, selectedHand, speak]);
-
-  const isNeedShuffle = remainingDeck.length < handSize;
-  const isAllowDealing = isNeedShuffle || hand.length === 0;
-  const dealCards = useCallback(() => {
-    if (!isAllowDealing) return;
-    setLastHandScore(0);
-    clearOutcomes();
-    const shuffledDeck = [...remainingDeck].sort(() => Math.random() - 0.5);
-    const newHand = shuffledDeck.slice(0, handSize);
-    const updatedRemainingDeck = [...shuffledDeck.slice(handSize)];
-    setHand([...newHand]);
-    setRemainingDeck(updatedRemainingDeck);
-  }, [isAllowDealing, clearOutcomes, remainingDeck, handSize]);
 
   const shuffleDeck = useCallback(() => {
     setRemainingDeck(getModdedDeck({ deck, modCards }));
@@ -149,25 +136,44 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
     setIsLevelBeaten(false);
     setHandsRemaining(maxHands);
     setLevelTarget(level1Target);
-    setRunScore(0);
+    setLevelScore(0);
     setRunLevel(1);
     setLastHand([]);
     setLastOutcomes([]);
     clearOutcomes();
     setLastHandScore(0);
+    setModCards([]);
+    setSelectedHand([]);
+    setSelectedHandIndexes([]);
     setDiscardsRemaining(discardsRemainingMax);
   }, [clearOutcomes, discardsRemainingMax, maxHands, shuffleDeck]);
 
+  const isNeedShuffle = remainingDeck.length < handSize;
+  const isAllowDealing = isNeedShuffle || hand.length === 0;
+  const nextHand = useCallback(() => {
+    if (!isAllowDealing) return;
+    clearOutcomes();
+    setLastOutcomes([]);
+    setLastHand([]);
+    setLastHandScore(0);
+    setSelectedHand([]);
+    setSelectedHandIndexes([]);
+    const shuffledDeck = [...remainingDeck].sort(() => Math.random() - 0.5);
+    const newHand = shuffledDeck.slice(0, handSize);
+    const updatedRemainingDeck = [...shuffledDeck.slice(handSize)];
+    setHand([...newHand]);
+    setRemainingDeck(updatedRemainingDeck);
+  }, [isAllowDealing, clearOutcomes, remainingDeck, handSize]);
   const nextLevel = useCallback(() => {
     setModCards(getRandomMods(runLevel));
     setIsLevelBeaten(false);
     setHandsRemaining(maxHands);
     setLevelTarget((p) => p * 2);
     setRunLevel((p) => p + 1);
+    setLevelScore(0);
     setDiscardsRemaining(discardsRemainingMax);
-    dealCards();
-  }, [dealCards, discardsRemainingMax, maxHands, runLevel]);
-
+    nextHand();
+  }, [nextHand, discardsRemainingMax, maxHands, runLevel]);
   const isHandDealt = hand.length > 1;
   const showTurnBtns = isHandDealt && !isNeedShuffle;
   const isOutOfHands = handsRemaining === 0;
@@ -205,11 +211,11 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         isLevelBeaten={isLevelBeaten}
         isGameOver={isGameOver}
       />
-      <MatchScore score={runScore} target={levelTarget} />
+      <MatchScore score={levelScore} target={levelTarget} />
 
       <BtnWrapRow>
         <ShuffleDealBtn
-          runScore={runScore}
+          levelScore={levelScore}
           isHandDealt={isHandDealt}
           showNextLevelBtn={showNextLevelBtn}
           isGameOver={isGameOver}
@@ -218,7 +224,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           remainingDeck={remainingDeck}
           nextLevel={nextLevel}
           isLevelBeaten={isLevelBeaten}
-          dealCards={dealCards}
+          nextHand={nextHand}
           handsRemaining={handsRemaining}
           isOutOfHands={isOutOfHands}
           restartGame={restartGame}
@@ -260,7 +266,7 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
           levelTarget={levelTarget}
           isLevelBeaten={isLevelBeaten}
           outcomes={outcomes}
-          runScore={runScore}
+          levelScore={levelScore}
           overlap={overlap}
           lastHand={lastHand}
           lastOutcomes={lastOutcomes}

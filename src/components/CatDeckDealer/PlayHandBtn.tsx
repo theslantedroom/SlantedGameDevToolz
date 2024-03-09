@@ -29,7 +29,7 @@ export const PlayHandBtn: React.FC<Props> = ({
           }}
           onClick={() => clickPlayHand()}
         >
-          {`Meow OK! (${_handsRemaining})`}
+          {isEnabled ? `Meow OK! (${_handsRemaining})` : "Select 3 cards"}
         </button>
       )}
     </>

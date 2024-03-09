@@ -11,7 +11,7 @@ export interface Props {
   isLevelBeaten: boolean;
   lastHandScore: number;
   overlap: number;
-  runScore: number;
+  levelScore: number;
   levelTarget: number;
 }
 export const OutComes: React.FC<Props> = ({
@@ -21,7 +21,7 @@ export const OutComes: React.FC<Props> = ({
   lastHandScore,
   lastHand,
   overlap,
-  runScore,
+  levelScore,
   levelTarget,
   isLevelBeaten,
 }) => {
@@ -69,21 +69,36 @@ export const OutComes: React.FC<Props> = ({
         overlap={overlap}
         chaos={5}
       >
-        {runScore === 0 ? (
+        {levelScore === 0 ? (
           <div
             style={{
-              ...textOutline.blackHalf,
-              color: "white",
-              marginTop: 10,
-              background: `rgb(0,0,0,0.3)`,
-              border: "1px solid green",
-              borderRadius: "10px",
-              padding: "0px 10px",
               textAlign: "center",
             }}
           >
-            Play three card. You can discard cards and replace. Certain combos
-            like matching colors grant cat multipliers.
+            <div
+              style={{
+                ...textOutline.blackHalf,
+                color: "white",
+                background: `rgb(0,0,0,0.3)`,
+                borderRadius: "10px",
+                textAlign: "center",
+              }}
+            >
+              Reach the target
+              <span
+                style={{
+                  ...textOutline.blackHalf,
+                  color: "red",
+                }}
+              >{` 100 cats `}</span>
+              in
+              <span
+                style={{
+                  ...textOutline.blackHalf,
+                  color: "aqua",
+                }}
+              >{` 3 turns `}</span>
+            </div>
           </div>
         ) : (
           <HandResults
