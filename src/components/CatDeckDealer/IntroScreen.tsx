@@ -85,7 +85,7 @@ export const IntroScreen: React.FC<Props> = ({ setHasInteracted, overlap }) => {
 
   const cuddlePuddle = useMemo(() => {
     const comboCard1 = catDeckOutcomes.find(
-      (c) => c.headName === "Cuddle Crazy"
+      (c) => c.headName === "Cuddle Puddle"
     );
     const card1 = generateCatCards({ color: "black", count: 6 })[5];
     const card2 = catDeck.find((c) => c.headName === "Mating");
@@ -95,7 +95,7 @@ export const IntroScreen: React.FC<Props> = ({ setHasInteracted, overlap }) => {
     return allCardsFound ? hand : [];
   }, []);
 
-  const comboHandScale = 0.8;
+  const comboHandScale = 0.85;
   return (
     <div style={sx}>
       <h1

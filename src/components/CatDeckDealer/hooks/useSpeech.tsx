@@ -32,6 +32,7 @@ export const useSpeech = ({
         text: string,
         voice: voices[voice],
         rate: rate,
+        lang: "en-AU",
         pitch: isManager ? 0.8 : 0.9,
       });
     },

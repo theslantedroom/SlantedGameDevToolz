@@ -126,7 +126,7 @@ export const useCatDeckHandScore = ({
       addOutcome("Pure Bred");
     }
     if (isCuddlePuddle) {
-      addOutcome("Cuddle Crazy");
+      addOutcome("Cuddle Puddle");
     }
   }, [addOutcome, clearOutcomes, hand]);
   return {

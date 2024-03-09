@@ -94,7 +94,7 @@ const _catDeck: CatCard[] = [
   ...generateCatCards({ color: "grey", count: 6 }),
   ...generateCatCards({ color: "orange", count: 6 }),
   ...generateCatCards({ color: "white", count: 6 }),
-  ...generateMatingCards({ count: 3 }),
+  ...generateMatingCards({ count: 12 }),
 ];
 
 export const catDeck = [..._catDeck].map((card, i) => {
@@ -171,7 +171,7 @@ export const catDeckOutcomes: OutcomesCard[] = [
     value: 0,
   },
   {
-    headName: "Cuddle Crazy",
+    headName: "Cuddle Puddle",
     multiplier: 25,
     type: "Outcome",
     target: "2x Kittens",
