@@ -1,28 +1,31 @@
 import React from "react";
 import { dealBtnDisabledStyle, dealBtnStyle } from "./style/catDeskSx";
 import { selectedGreenGlow } from "../GameCard/GameCardSx";
+import { CatCard } from "../../cardDecks/catsDeck";
 export interface Props {
   clickPlayHand: () => void;
   handsRemaining: number;
-  hasSelectedCards: boolean;
   showTurnBtns: boolean;
+  selectedHand: CatCard[];
 }
 export const PlayHandBtn: React.FC<Props> = ({
   clickPlayHand,
   handsRemaining,
-  hasSelectedCards,
   showTurnBtns,
+  selectedHand,
 }) => {
-  const sx = hasSelectedCards ? dealBtnStyle : dealBtnDisabledStyle;
+  const isEnabled = selectedHand.length === 3;
+  const sx = isEnabled ? dealBtnStyle : dealBtnDisabledStyle;
   const _handsRemaining = handsRemaining - 1;
 
   return (
     <>
       {!showTurnBtns ? null : (
         <button
+          disabled={!isEnabled}
           style={{
             ...sx,
-            boxShadow: !hasSelectedCards ? selectedGreenGlow : "initial",
+            boxShadow: isEnabled ? selectedGreenGlow : "initial",
           }}
           onClick={() => clickPlayHand()}
         >

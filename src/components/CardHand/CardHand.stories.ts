@@ -23,16 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    cards: boxingPunchCards,
-  },
-};
-export const StarterDeck: Story = {
-  args: {
-    cards: startingCards,
-  },
-};
-export const CatDeck: Story = {
-  args: {
-    cards: catDeck,
+    cards: [],
   },
 };

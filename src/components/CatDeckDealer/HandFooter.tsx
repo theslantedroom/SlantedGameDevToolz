@@ -1,6 +1,5 @@
 import React from "react";
 import { textOutline } from "../GameCard/GameCardSx";
-import { numberWithCommas } from "../../util/numberWithComma";
 import { CatCard } from "../../cardDecks/catsDeck";
 
 export interface MatchScoreProps {
@@ -20,8 +19,8 @@ export const HandFooter: React.FC<MatchScoreProps> = ({ hand }) => {
         justifyContent: "center",
         background: "rgba(0,0,0,0.2)",
         border: "1px solid green",
-        margin: 20,
         borderRadius: "10px",
+        margin: "4px 0 30px 0",
         color: "white",
         ...textOutline.blackHalf,
       }}

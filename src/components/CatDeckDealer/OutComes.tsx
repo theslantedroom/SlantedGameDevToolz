@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
 import { CardHand } from "../CardHand/CardHand";
-import { CatCard, DeckModCard, OutcomesCard } from "../../cardDecks/catsDeck";
+import { CatCard, OutcomesCard } from "../../cardDecks/catsDeck";
 import { HandResults } from "./HandResults";
 import { textOutline } from "../GameCard/GameCardSx";
 export interface Props {
   outcomes: OutcomesCard[];
-  modCards: DeckModCard[];
   lastOutcomes: OutcomesCard[];
   lastHand: CatCard[];
   isHandInPlay: boolean;
@@ -17,7 +16,6 @@ export interface Props {
 }
 export const OutComes: React.FC<Props> = ({
   outcomes,
-  modCards,
   lastOutcomes,
   isHandInPlay,
   lastHandScore,
@@ -45,9 +43,6 @@ export const OutComes: React.FC<Props> = ({
         {`${o.headName} x ${o.multiplier}`}
       </div>
     ));
-    return _outcomesChips;
-  }, [outcomes]);
-  if (isHandInPlay)
     return (
       <div
         style={{
@@ -60,18 +55,18 @@ export const OutComes: React.FC<Props> = ({
           gap: 10,
         }}
       >
-        {outcomesChips}
+        {_outcomesChips}
       </div>
     );
+  }, [outcomes]);
+
+  if (isHandInPlay) return outcomesChips;
   return (
     <div id="outcomes">
+      {outcomesChips}
       <CardHand
-        cards={
-          modCards.length && lastHandScore === 0
-            ? [...lastHand, ...modCards, ...outcomes, ...lastOutcomes]
-            : [...lastHand, ...outcomes, ...lastOutcomes]
-        }
-        overlap={overlap + 50}
+        cards={[...lastHand, ...lastOutcomes]}
+        overlap={overlap}
         chaos={5}
       >
         {runScore === 0 ? (

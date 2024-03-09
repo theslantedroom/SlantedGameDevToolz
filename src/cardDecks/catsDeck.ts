@@ -97,7 +97,7 @@ const _catDeck: CatCard[] = [
 ];
 
 export const catDeck = [..._catDeck].map((card, i) => {
-  return { ...card, code: `${i + 1}${card.headName}` };
+  return { ...card, code: `${i + 1}_${card.headName}` };
 });
 
 export type OutcomesCard = {
@@ -240,6 +240,10 @@ export const getModdedDeck = ({
           return mc.target === deckCard.type || mc.target === deckCard.headName;
         });
         if (!actingModCard) return deckCard;
+
+        console.log(
+          `${actingModCard.headName} > modding card ${deckCard.headName}`
+        );
         return {
           ...deckCard,
           value: deckCard.value * actingModCard.multiplier,

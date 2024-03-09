@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { InfoPanel } from "./InfoPanel";
 import {
   cardPaper,
@@ -38,7 +38,7 @@ export const GameCard: React.FC<TestProps> = ({
   }, [overlap]);
   const transform = useMemo(() => {
     return `rotate(${rotate}deg) translateX(${overlap / 2}px)${
-      isSelected ? `translateY(${selectedLift}px)` : ""
+      isSelected ? `translateY(${-selectedLift}px)` : ""
     }`;
   }, [overlap, rotate, isSelected, selectedLift]);
 
@@ -57,8 +57,9 @@ export const GameCard: React.FC<TestProps> = ({
   }, [card, onClick, isSelected, cancelSpeaking, speak]);
 
   if (!card) return <div>No card</div>;
-
-  const hoveredScale = isSelected ? `90%` : `110%`;
+  const _scale = "80%";
+  const hoveredScale = isSelected ? _scale : _scale;
+  const zIndex = `initial`;
   const boxShadow = isSelected ? selectedGreenGlow : "initial";
 
   return (
@@ -76,7 +77,11 @@ export const GameCard: React.FC<TestProps> = ({
         cursor: "pointer",
         transition: "scale 0.5s ease",
         boxShadow: boxShadow,
-        scale: hovered ? hoveredScale : "100%",
+        scale: hovered ? hoveredScale : _scale,
+        borderRadius: "2px",
+        zIndex,
+        position: "relative",
+        left: 10,
       }}
     >
       <InfoPanel
@@ -98,7 +103,9 @@ export const GameCard: React.FC<TestProps> = ({
           ...sxInfo,
           backgroundColor: headColor,
           borderRadius: "2px 2px 9px 9px",
-          minHeight: 50,
+          minHeight: 90,
+          padding: 4,
+          fontSize: "0.9em",
         }}
       >
         {card.multiplier ? (

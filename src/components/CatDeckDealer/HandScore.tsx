@@ -9,15 +9,13 @@ export interface HandScoreProps {
   score: number;
   baseScore: number;
   multiplier: number;
-  runScore: number;
 }
 export const HandScore: React.FC<HandScoreProps> = ({
   baseScore,
   multiplier,
   score,
-  runScore,
 }) => {
-  if (runScore === 0) return null;
+  if (score === 0) return null;
   return (
     <div
       style={{
