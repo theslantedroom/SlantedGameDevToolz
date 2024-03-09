@@ -22,7 +22,7 @@ export const DiscardBtn: React.FC<Props> = ({
         <button
           style={{
             ...sx,
-            boxShadow: selectedRedGlow,
+            boxShadow: hasSelectedCards ? selectedRedGlow : "initial",
           }}
           onClick={() => clickDiscard()}
         >

@@ -241,9 +241,9 @@ export const getModdedDeck = ({
         });
         if (!actingModCard) return deckCard;
 
-        console.log(
-          `${actingModCard.headName} > modding card ${deckCard.headName}`
-        );
+        // console.log(
+        //   `${actingModCard.headName} > modding card ${deckCard.headName}`
+        // );
         return {
           ...deckCard,
           value: deckCard.value * actingModCard.multiplier,

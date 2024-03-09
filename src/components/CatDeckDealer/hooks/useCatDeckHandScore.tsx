@@ -42,8 +42,6 @@ export const useCatDeckHandScore = ({
 
   const baseScore = useMemo(() => {
     const _hand = hand.length ? hand : lastHand;
-    console.log("lastHand", lastHand);
-    console.log("hand", hand);
     const catCardsWithValue = _hand.filter(
       (card) => card.value !== undefined && card.type.includes("Cat")
     );

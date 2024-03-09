@@ -7,7 +7,6 @@ import {
   CatCard,
   DeckModCard,
   OutcomesCard,
-  catDeckMods,
   getModdedDeck,
   getRandomMods,
   levelCards,
@@ -25,6 +24,7 @@ import "@fontsource-variable/alegreya";
 import { useCardOverlap } from "./hooks/useCardOverlap";
 import { HandFooter } from "./HandFooter";
 import { BtnWrapRow } from "./BtnWrapRow";
+import useCatInterval from "./hooks/useCatInterval";
 
 export type DeckDealerProps = {
   deck: CatCard[];
@@ -36,6 +36,19 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
   deck,
   handSize,
 }) => {
+  const [gamepads, setGamepads] = useState({});
+  const [tick, setTick] = useState(0);
+
+  // Check for new gamepads regularly
+  useCatInterval(() => {
+    setTick((t) => t + 1);
+  }, 75);
+
+  // useGamepadCatDeck((gamepads) => setGamepads(gamepads));
+  // const isAPressed = gamepads[0]?.buttons[0].pressed;
+  // if (isAPressed) {
+  //   console.log("isAPressed");
+  // }
   const { speak, cancelSpeaking } = useSpeech({ isMuteSpeech: false });
 
   const level1Target = 100;
@@ -242,7 +255,6 @@ export const CatDeckDealer: React.FC<DeckDealerProps> = ({
         setSelectedHand={setSelectedHand}
       >
         <HandFooter hand={hand} />
-
         <BtnWrapRow>
           <DiscardBtn
             clickDiscard={clickDiscard}

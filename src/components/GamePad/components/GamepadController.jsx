@@ -5,6 +5,8 @@ import GamepadSvg from "./GamepadSvg";
 
 export function GamepadController() {
   const [gamepads, setGamepads] = useState({});
+
+  console.log('gamepads',gamepads)
   useGamepads((newGamepads) => {
 
     setGamepads(newGamepads);
