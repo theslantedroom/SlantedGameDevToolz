@@ -47,6 +47,7 @@
 	"dependencies": {
 		"@fontsource-variable/alegreya": "^5.2.5",
 		"@fontsource/nova-cut": "^5.2.5",
+		"lorem-ipsum": "^2.0.8",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-speech-kit": "^3.0.1",

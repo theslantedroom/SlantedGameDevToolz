@@ -6,8 +6,20 @@
 		"useIgnoreFile": false
 	},
 	"files": {
+		"include": [],
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [
+			"android/",
+			"ios/",
+			"dist/",
+			"/marketingImages",
+			"node_modules",
+			"unusedAssets/",
+			"test-results/",
+			"playwright-report/",
+			".vscode/",
+			"out/"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -19,12 +31,47 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noUnusedTemplateLiteral": "off",
+				"useExponentiationOperator": "off",
+				"noNonNullAssertion": "off",
+				"useTemplate": "off",
+				"noParameterAssign": "warn",
+				"useSelfClosingElements": "off"
+			},
+			"suspicious": {
+				"noEmptyInterface": "off",
+				"noArrayIndexKey": "off",
+				"noPrototypeBuiltins": "off",
+				"noExplicitAny": "off"
+			},
+			"complexity": {
+				"noUselessFragments": "off",
+				"noForEach": "off",
+				"useLiteralKeys": "off",
+				"useArrowFunction": "off",
+				"noBannedTypes": "off",
+				"noUselessTernary": "off"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off",
+				"useKeyWithMouseEvents": "off",
+				"useValidAnchor": "off",
+				"useGenericFontNames": "off",
+				"useButtonType": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "error",
+				"useJsxKeyInIterable": "off",
+				"noEmptyPattern": "off"
+			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"jsxQuoteStyle": "double"
 		}
 	}
 }

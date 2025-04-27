@@ -1,0 +1,65 @@
+.journal-book {
+	font-family: "Times New Roman", serif;
+	max-width: 800px;
+	margin: 0 auto;
+	border: 1px solid #d4a373;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fefae0;
+	padding: 20px;
+}
+
+.journal-tabs {
+	display: flex;
+	border-bottom: 1px solid #d4a373;
+	margin-bottom: 20px;
+	overflow-x: auto;
+}
+
+.journal-tab {
+	padding: 10px 15px;
+	background: none;
+	border: none;
+	border-bottom: 3px solid transparent;
+	cursor: pointer;
+	font-size: 16px;
+	color: #6c757d;
+	transition: all 0.3s;
+}
+
+.journal-tab:hover {
+	color: #495057;
+}
+
+.journal-tab.active {
+	color: #000;
+	border-bottom: 3px solid #d4a373;
+	font-weight: bold;
+}
+
+.journal-navigation {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+	padding-top: 15px;
+	border-top: 1px solid #d4a373;
+}
+
+.journal-navigation button {
+	padding: 8px 16px;
+	background-color: #d4a373;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.journal-navigation button:disabled {
+	background-color: #e9ecef;
+	cursor: not-allowed;
+}
+
+.journal-navigation span {
+	color: #6c757d;
+}
