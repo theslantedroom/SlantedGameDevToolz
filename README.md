@@ -8,109 +8,72 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 - These tools can be used in PC and Mac apps when built with [**Electron**](https://www.electronjs.org/)
 
 
-## Usage Instructions  
+## Tools  
 
 - dice
 - weighted dice
 - percentage
-- todo.... and more
+- React components
 
 
 </br></br>
 
 
+# Usage Instructions  
 
-# rollDice
+## Components
+```typescript 
+import { Example } from "slanted-gamedev-toolz";
 
-A fair dice roll.
+function App() {
+	return (
+	  <Example />
+	);
+}
+export default App;
+```
 
-#### Usage
+# Dice
+ - `rollDice()` A fair dice roll.
+ - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll low.
+ - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll high.
 
-```bash
+#### Example Usage
+
+```typescript 
 import { rollDice } from "slanted-gamedev-toolz";
 
-const diceSides = 6
-const diceRollOutcome = rollDice(diceSides);
-
+ const outcome = rollDice(6); // roll 6 sided dice
+ console.log(`outcome:`, outcome)
 ```
 
-#### Parameters
+| Parameter | Type | Description                     |
+| - | - | - |
+| diceSides | number | sides on the dice |
 
-| Parameter | Description                     |
-| --------- | ------------------------------- |
-| diceSides | the amount of sides on the dice |
 
-#### Return Value
-
-| Type   | Description                 |
-| ------ | --------------------------- |
-| number | the result of the dice roll |
+| Returns  | Type | Description                 |
+| - |- | - |
+|   | number | the result of the dice roll |
 
 </br></br>
 
-# rollLowWeightedDice
-
-An unfair fair dice roll that is more likely to roll low.
-
-#### Usage
-
-```bash
-import { rollLowWeightedDice } from "slanted-gamedev-toolz";
-
-const diceSides = 6
-const diceRollOutcome = rollLowWeightedDice(diceSides);
-
-```
-
-#### Parameters
-
-| Parameter | Description                     |
-| --------- | ------------------------------- |
-| diceSides | the amount of sides on the dice |
-
-#### Return Value
-
-| Type   | Description                 |
-| ------ | --------------------------- |
-| number | the result of the dice roll |
-
-</br></br>
-
-# rollHighWeightedDice
-
-An unfair fair dice roll that is more likely to roll high.
-
-#### Usage
-
-```bash
-import { rollHighWeightedDice } from "slanted-gamedev-toolz";
-
-const diceSides = 6
-const diceRollOutcome = rollHighWeightedDice(diceSides);
-
-```
-
-#### Parameters
-
-| Parameter | Description                     |
-| --------- | ------------------------------- |
-| diceSides | the amount of sides on the dice |
-
-#### Return Value
-
-| Type   | Description                 |
-| ------ | --------------------------- |
-| number | the result of the dice roll |
 
 
 
+ 
 
 
-
-
-
+ 
 
 # Developer Instructions
+
+
+
+To Publish:
+set version in package.json > `npm publish`
+
+
 
 
 
@@ -130,6 +93,12 @@ $ yarn install
 ```
 
 </br></br>
+
+
+### How to publish to NPM
+bump version in package.json > `npm publish`
+
+ex: "version": "1.0.24"
 
 ### Examples
 

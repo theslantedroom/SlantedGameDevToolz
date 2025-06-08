@@ -1,3 +1,9 @@
+/**
+ * Rolls a fair die with a specified number of sides.
+ *
+ * @param {number} diceSides - The number of sides on the die. Must be a positive integer.
+ * @returns {number} A random number between 1 and diceSides (inclusive).
+ */
 export const rollDice = (diceSides: number): number => {
 	if (!Number.isInteger(diceSides) || diceSides <= 0) {
 		console.error(
@@ -9,7 +15,14 @@ export const rollDice = (diceSides: number): number => {
 	return thisRollValue;
 };
 
-export const rollLowWeightedDice = (diceSides: number) => {
+/**
+ * Rolls a die with a bias toward lower numbers.
+ * High rolls (above or equal to half of diceSides) have a 50% chance of being halved.
+ *
+ * @param {number} diceSides - The number of sides on the die. Must be a positive integer.
+ * @returns {number} A number between 1 and diceSides, more likely to be lower.
+ */
+export const rollLowWeightedDice = (diceSides: number): number => {
 	if (!Number.isInteger(diceSides) || diceSides <= 0) {
 		console.error(
 			"Invalid input: Please provide a positive integer for dice sides",
@@ -22,7 +35,14 @@ export const rollLowWeightedDice = (diceSides: number) => {
 	return thisRollValue;
 };
 
-export const rollHighWeightedDice = (diceSides: number) => {
+/**
+ * Rolls a die with a bias toward higher numbers.
+ * Low rolls (less than or equal to half of diceSides) have a 50% chance of being doubled.
+ *
+ * @param {number} diceSides - The number of sides on the die. Must be a positive integer.
+ * @returns {number} A number between 1 and diceSides, more likely to be higher.
+ */
+export const rollHighWeightedDice = (diceSides: number): number => {
 	if (!Number.isInteger(diceSides) || diceSides <= 0) {
 		console.error(
 			"Invalid input: Please provide a positive integer for dice sides",
@@ -30,12 +50,20 @@ export const rollHighWeightedDice = (diceSides: number) => {
 		return 1;
 	}
 	const thisRollValue = Math.floor(Math.random() * diceSides + 1);
-
 	const isLowRoll = thisRollValue <= diceSides / 2;
 	if (isLowRoll && percentageChance(50)) return Math.round(thisRollValue * 2);
 	return thisRollValue;
 };
 
+/**
+ * Returns true based on a given percentage chance.
+ *
+ * @param {number} chance - An integer representing the percent chance (0–100).
+ * @returns {boolean} True if the random roll is below the chance threshold.
+ *
+ * @example
+ * percentageChance(25); // roughly 1 in 4 chance to return true
+ */
 export function percentageChance(chance: number): boolean {
 	if (!Number.isInteger(chance)) {
 		console.error("Invalid input");
