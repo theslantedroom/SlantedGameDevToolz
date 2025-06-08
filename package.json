@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.26",
+	"version": "1.0.27",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -12,7 +12,7 @@
 	"type": "module",
 	"main": "lib/lib.js",
 	"types": "lib/lib.d.ts",
-	"files": ["/lib"],
+	"files": ["lib", "public"],
 	"keywords": [
 		"dice",
 		"percentage",
