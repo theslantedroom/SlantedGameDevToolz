@@ -4,17 +4,31 @@ import { Example } from "./components/Example/Example";
 // import { Example } from 'your-package-name';
 
 import {
+	randomArrayItem,
+	removeObjectsWithSameName,
+} from "./_arrays/_arrayUtils";
+
+import {
 	percentageChance,
 	rollDice,
+	rollDiceIsMaxRoll,
 	rollHighWeightedDice,
 	rollLowWeightedDice,
 } from "./_dice/diceUtil";
 
+import { isNumberTooLarge } from "./_numbers/_numberUtils";
+import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
+
 export {
-	rollDice,
 	percentageChance,
+	rollDice,
 	rollLowWeightedDice,
 	rollHighWeightedDice,
+	removeObjectsWithSameName,
+	randomArrayItem,
+	isNumberTooLarge,
+	rollDiceIsMaxRoll,
+	LocalizationSelect,
 };
 
 // Now people can do

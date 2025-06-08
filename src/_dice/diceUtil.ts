@@ -78,3 +78,14 @@ export function percentageChance(chance: number): boolean {
 	const randomValue = Math.random() * 100;
 	return randomValue < chance;
 }
+
+/**
+ * Rolls a dice with a specified number of sides and checks if the result is the maximum possible value.
+ *
+ * @param diceSides - The number of sides on the die (e.g. 6 for a standard die).
+ * @returns `true` if the roll landed on the maximum value, otherwise `false`.
+ */
+export const rollDiceIsMaxRoll = (diceSides: number): boolean => {
+	const thisRollValue = Math.floor(Math.random() * diceSides + 1);
+	return thisRollValue === diceSides;
+};

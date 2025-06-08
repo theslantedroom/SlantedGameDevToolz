@@ -11,22 +11,25 @@ const lorem = new LoremIpsum({
 	},
 });
 
+import { numberWithCommas } from "../../_numbers/numberWithComma";
 import { JournalUi } from "../../components/JournalUi/JournalUi";
+import { LocalizationSelect } from "../../components/LocalizationSelect/LocalizationSelect";
 // Runs on vite server, via yarn start
 function App() {
 	return (
-		<>
+		<div style={{ backgroundColor: "rgb(4, 28, 49)" }}>
+			<LocalizationSelect />
 			<JournalUi
 				pageContents={[
-					<div>{lorem.generateParagraphs(1)}</div>,
+					<div>{numberWithCommas(1_000_000, true)}</div>,
 					<div>{lorem.generateParagraphs(2)}</div>,
 					<div>{lorem.generateParagraphs(3)}</div>,
 					<div>{lorem.generateParagraphs(4)}</div>,
 				]}
-				pageTitles={["1", "2", "3", "4"]}
+				pageTitles={["Million", "2", "3", "4"]}
 				showFooter={false}
 			/>
-		</>
+		</div>
 	);
 }
 export default App;

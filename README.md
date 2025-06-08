@@ -22,21 +22,38 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 # Usage Instructions  
 
 ## Components
+
+### LocalizationSelect
+
+saves the selected language in localstorage under key `lagCode`
+
+![LocalizationSelect](/public/marketingImages/LocalizationSelect.png)
+
 ```typescript 
-import { Example } from "slanted-gamedev-toolz";
+import { LocalizationSelect } from "slanted-gamedev-toolz";
+
+
 
 function App() {
 	return (
-	  <Example />
+	  <LocalizationSelect />
 	);
 }
 export default App;
 ```
 
-# Dice
+# Dice Utils
  - `rollDice()` A fair dice roll.
  - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll low.
  - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll high.
+
+# Array Utils
+ - `removeObjectsWithSameName()` Removes objects from the first array if their `name` property matches any object's `name` in the second array.
+ - `randomArrayItem()` Returns a random item from the provided array.
+
+# Number Utils
+- `numberWithCommas()` Formats a number with comma separators and optional suffixes for large values. Ex. 1,000,000(M)
+- `isNumberTooLarge()` Checks if a number exceeds JavaScript's `Number.MAX_SAFE_INTEGER`.
 
 #### Example Usage
 
@@ -100,6 +117,9 @@ bump version in package.json > `npm publish`
 
 ex: "version": "1.0.24"
 
+https://www.npmjs.com/package/slanted-gamedev-toolz
+
+https://github.com/theslantedroom/SlantedGameDevToolz
 ### Examples
 
 - [Idle Trillionaire](https://www.idletrillionaire.com/)
