@@ -12,7 +12,9 @@
 	"type": "module",
 	"main": "lib/lib.js",
 	"types": "lib/lib.d.ts",
-	"files": ["/lib"],
+	"files": [
+		"/lib"
+	],
 	"keywords": [
 		"dice",
 		"percentage",
@@ -34,7 +36,8 @@
 		"preview": "vite preview",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"test": "test",
+		"biome:check": "biome check",
+		"biome:fix": "biome format",
 		"check-versions": "npx npm-check-updates -p yarn",
 		"update-versions": "npx npm-check-updates -u -p yarn"
 	},
@@ -48,10 +51,7 @@
 		"lorem-ipsum": "^2.0.8",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
-		"react-speech-kit": "^3.0.1",
-		"react-use-audio-player": "^4.0.2",
-		"slanted-gamedev-toolz": "^1.0.23",
-		"yarn": "^1.22.21"
+		"slanted-gamedev-toolz": "^1.0.23"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

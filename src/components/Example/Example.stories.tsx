@@ -2,13 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Example } from "./Example";
 
-const meta: Meta<typeof Example> = {
+const meta = {
 	component: Example,
-};
+} satisfies Meta<typeof Example>;
 
 export default meta;
-type Story = StoryObj<typeof Example>;
+type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-	render: () => <Example count={2} />,
+export const Default: Story = {
+	args: {
+		count: 1,
+	},
 };

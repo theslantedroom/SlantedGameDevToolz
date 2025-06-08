@@ -1,34 +1,18 @@
-import { LoremIpsum } from "lorem-ipsum";
-
-const lorem = new LoremIpsum({
-	sentencesPerParagraph: {
-		max: 8,
-		min: 4,
-	},
-	wordsPerSentence: {
-		max: 16,
-		min: 4,
-	},
-});
-
 import type React from "react";
 import { useState } from "react";
 import "./JournalUi.css";
 export type Props = {
-	pageTitles?: string[];
-	pageContents?: React.ReactNode[];
-	showFooter?: boolean;
+	pageTitles: string[];
+	pageContents: React.ReactNode[];
+	showFooter: boolean;
+	showFooterText?: boolean;
 };
 
 export const JournalUi: React.FC<Props> = ({
-	pageTitles = ["Character", "Magic", "Items", "Skills"],
-	pageContents = [
-		<div>{lorem.generateParagraphs(1)}</div>,
-		<div>{lorem.generateParagraphs(2)}</div>,
-		<div>{lorem.generateParagraphs(3)}</div>,
-		<div>{lorem.generateParagraphs(4)}</div>,
-	],
+	pageTitles = [],
+	pageContents = [],
 	showFooter = false,
+	showFooterText = false,
 }) => {
 	const [currentPage, setCurrentPage] = useState(0);
 
@@ -60,9 +44,11 @@ export const JournalUi: React.FC<Props> = ({
 					<button onClick={handlePrev} disabled={currentPage === 0}>
 						Previous
 					</button>
-					<span>
-						Page {currentPage + 1} of {pageTitles.length}
-					</span>
+					{showFooter && showFooterText && (
+						<span>
+							Page {currentPage + 1} of {pageTitles.length}
+						</span>
+					)}
 					<button
 						onClick={handleNext}
 						disabled={currentPage === pageTitles.length - 1}
