@@ -6,7 +6,7 @@
 	border-radius: 5px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	background-color: #fefae0;
-	padding: 20px;
+	padding: 15px;
 }
 
 .journal-tabs {
@@ -14,6 +14,7 @@
 	border-bottom: 1px solid #d4a373;
 	margin-bottom: 20px;
 	overflow-x: auto;
+	flex-wrap: wrap;
 }
 
 .journal-tab {
@@ -35,6 +36,15 @@
 	color: #000;
 	border-bottom: 3px solid #d4a373;
 	font-weight: bold;
+}
+
+.journal-content {
+	height: 300px;
+	padding: 15px;
+	background-color: #fff;
+	border: 1px solid #e9ecef;
+	border-radius: 4px;
+	overflow: auto;
 }
 
 .journal-navigation {

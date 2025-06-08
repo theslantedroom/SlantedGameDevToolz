@@ -1,18 +1,24 @@
 # SlantedGameToolz
 
-A collection of functions for use in games.
+
+SlantedGameToolz is a collection of tools designed to be used in games made with typescript. UI components are rendered with react. 
+ 
+
+- These tools can be used in iOS and Android apps when built with [**Capacitor**](https://capacitorjs.com/)
+- These tools can be used in PC and Mac apps when built with [**Electron**](https://www.electronjs.org/)
+
+
+## Usage Instructions  
 
 - dice
 - weighted dice
 - percentage
+- todo.... and more
 
-## Install
-
-```
-$ yarn install
-```
 
 </br></br>
+
+
 
 # rollDice
 
@@ -95,3 +101,37 @@ const diceRollOutcome = rollHighWeightedDice(diceSides);
 | Type   | Description                 |
 | ------ | --------------------------- |
 | number | the result of the dice roll |
+
+
+
+
+
+
+
+
+
+# Developer Instructions
+
+
+
+You want to contribute to SlantedGameToolz?
+- Install the repo dependencies
+- Render components
+  - storybook `yarn storybook`
+  - Vite app `yarn dev`
+- Make code changes
+- Submit PR
+
+
+From the root of the repo, open a terminal then run:
+
+```
+$ yarn install
+```
+
+</br></br>
+
+### Examples
+
+- [Idle Trillionaire](https://www.idletrillionaire.com/)
+- [Turn Based Boxing](https://www.hbcboxing.online/)

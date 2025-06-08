@@ -3,48 +3,11 @@
 		{
 			"path": "."
 		}
-  ],
-  "settings": {
-  "restoreTerminals.runOnStartup": true,
-  "restoreTerminals.artificialDelayMilliseconds": 1000,
-  "restoreTerminals.terminals": [
-    {
-      "profile": "Git Bash",
-      "splitTerminals": [
-            {
-              "name": " Git Bash",
-              "commands": []
-            },
-            {
-              "name": "server",
-              "commands": [
-                "yarn dev"
-              ],
- 		         "shouldRunCommands": false
-            },
-            {
-              "name": "typescript",
-              "commands": [
-                "yarn watch"
-              ],
- 		         "shouldRunCommands": true 
-            },
-            {
-              "name": "typescript",
-              "commands": [
-              "yarn storybook"
-              ],
- 		          "shouldRunCommands": false 
-            }
-          ]
-    }
-  ],
-  "cSpell.words": [
-    "",
-    "Dpad",
-    "Headnames"
-  ],
-  "npm.enableRunFromFolder": true,  
-  "typescript.check.npmIsInstalled": false
-  }
+	],
+	"settings": {
+		"cSpell.words": [""],
+		"npm.enableRunFromFolder": false,
+		"typescript.check.npmIsInstalled": false,
+		"typescript.tsdk": "node_modules\\typescript\\lib"
+	}
 }

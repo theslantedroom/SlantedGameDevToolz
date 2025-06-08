@@ -54,18 +54,7 @@ export const JournalUi: React.FC<Props> = ({
 				))}
 			</div>
 
-			<div
-				style={{
-					height: 200,
-					overflowY: "auto",
-					padding: "15px",
-					backgroundColor: "#fff",
-					border: "1px solid #e9ecef",
-					borderRadius: "4px",
-				}}
-			>
-				{pageContents[currentPage]}
-			</div>
+			<div className="journal-content">{pageContents[currentPage]}</div>
 			{showFooter && (
 				<div className="journal-navigation">
 					<button onClick={handlePrev} disabled={currentPage === 0}>
