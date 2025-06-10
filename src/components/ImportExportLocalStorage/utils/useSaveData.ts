@@ -1,30 +1,33 @@
 import { useCallback, useEffect, useState } from "react";
-import { type SAVE_DATA, saveKeys } from "../constants/SAVE_KEYS";
+import { saveKeys } from "../constants/SAVE_KEYS";
 import { useIsLoadingLocalStorage } from "../stores/importExportLocalStorageStore";
 import {
 	compressObjectWithPako,
 	decompressStringWithPako,
 } from "./saveStringUtil";
 
-export const getDataFromLocalStorage = () => {
+export const getDataFromLocalStorage = (defaultData: Record<string, any>) => {
 	const savedDataString = localStorage.getItem(saveKeys.data);
 	const savedData = savedDataString
-		? (decompressStringWithPako(savedDataString) as SAVE_DATA)
+		? (decompressStringWithPako(savedDataString) as typeof defaultData)
 		: null;
 	return savedData;
 };
 
-export const saveDataToLocalStorage = (savedData: SAVE_DATA) => {
+export const saveDataToLocalStorage = (
+	defaultData: Record<string, any>,
+	savedData: typeof defaultData,
+) => {
 	localStorage.setItem(saveKeys.data, compressObjectWithPako(savedData));
 };
 export const deleteDataFromLocalStorage = () => {
 	localStorage.removeItem(saveKeys.data);
 };
 
-export const useLocalSaveData = () => {
+export const useLocalSaveData = (defaultData: Record<string, any>) => {
 	const isLoading = useIsLoadingLocalStorage();
 	const saveLocalStorageData = useCallback(
-		async (savedData: SAVE_DATA) => {
+		async (savedData: typeof defaultData) => {
 			if (isLoading) return;
 
 			if (!saveKeys.data) {
@@ -32,10 +35,10 @@ export const useLocalSaveData = () => {
 				return;
 			}
 
-			saveDataToLocalStorage(savedData);
+			saveDataToLocalStorage(defaultData, savedData);
 			_setsaveGameData(savedData);
 		},
-		[isLoading],
+		[isLoading, defaultData],
 	);
 
 	const clearLocalStorageData = useCallback(() => {
@@ -47,15 +50,15 @@ export const useLocalSaveData = () => {
 		_setsaveGameData(null);
 	}, []);
 
-	let loadedSaveData = getDataFromLocalStorage();
+	let loadedSaveData = getDataFromLocalStorage(defaultData);
 
-	const isSaveOk = checkSaveIsValid(loadedSaveData);
+	const isSaveOk = checkSaveIsValid(defaultData, loadedSaveData);
 
 	if (!isSaveOk) {
 		loadedSaveData = null;
 	}
 
-	const [saveGameData, _setsaveGameData] = useState<SAVE_DATA | null>(
+	const [saveGameData, _setsaveGameData] = useState<typeof defaultData | null>(
 		loadedSaveData,
 	);
 
@@ -64,25 +67,28 @@ export const useLocalSaveData = () => {
 			console.error("!localSaveDataId");
 			return;
 		}
-		const save = getDataFromLocalStorage();
+		const save = getDataFromLocalStorage(defaultData);
 
-		const isSaveValid = checkSaveIsValid(save);
+		const isSaveValid = checkSaveIsValid(defaultData, save);
 		if (save && isSaveValid) {
 			_setsaveGameData(save);
 		}
 
 		return function cleanup() {
-			const save = getDataFromLocalStorage();
+			const save = getDataFromLocalStorage(defaultData);
 			if (!save) {
 				_setsaveGameData(null);
 			}
 		};
-	}, []);
+	}, [defaultData]);
 
 	return { saveLocalStorageData, clearLocalStorageData, saveGameData };
 };
 
-const checkSaveIsValid = (save?: SAVE_DATA | null) => {
+const checkSaveIsValid = (
+	defaultData: Record<string, any>,
+	save?: typeof defaultData | null,
+) => {
 	if (!save) return false;
 	return true;
 };

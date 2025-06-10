@@ -1,14 +1,14 @@
 /* eslint-disable no-prototype-builtins */
-import React, {
-	useRef,
+import type React from "react";
+import {
 	type ChangeEvent,
 	useCallback,
-	useState,
 	useLayoutEffect,
+	useRef,
+	useState,
 } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-import { color } from "storybook/internal/theming";
 import { btnSx, jsxCss } from "../../theme/jsxCssClassics";
 import { colors } from "../../theme/palettes/colors";
 import {
@@ -22,14 +22,18 @@ import { LoadFileBtns } from "./LoadFileBtns";
 import { LoadGameInstruction } from "./LoadGameInstruction";
 import { TextAreaSaveString } from "./TextAreaSaveString";
 import { importExportSaveLocalization } from "./constants/ImportExportLocalization";
-import { type SAVE_DATA, saveKeys } from "./constants/SAVE_KEYS";
+import { saveKeys } from "./constants/SAVE_KEYS";
 import { useImportExportLocalStorageActions } from "./stores/importExportLocalStorageStore";
 import {
 	compressObjectWithPako,
 	decompressStringWithPako,
 } from "./utils/saveStringUtil";
 
-export function ImportExportLocalStorage() {
+export interface Props {
+	defaultData: Record<string, any>;
+}
+
+export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 	const hasShownToastOnSave = useRef(false);
 	const [saveString, setSaveString] = useState("");
 	const { setIsLoading, handleResetGame } =
@@ -79,10 +83,12 @@ export function ImportExportLocalStorage() {
 					showLoadError("File: !importedData");
 					return;
 				}
-				const hasData1 = importedData.hasOwnProperty(saveKeys.data1);
-				const isValidSave = hasData1;
+
+				const hasdata = importedData.hasOwnProperty(saveKeys.data);
+
+				const isValidSave = hasdata;
 				if (!isValidSave) {
-					showLoadError("File: !isValidSave");
+					showLoadError(`File: missing ${saveKeys.data}`);
 					return;
 				}
 				for (const key in importedData) {
@@ -181,10 +187,10 @@ export function ImportExportLocalStorage() {
 		const importedData = decompressStringWithPako(saveString);
 
 		if (importedData && typeof importedData === "object") {
-			const hasData1 = importedData.hasOwnProperty(saveKeys.data1);
-			const isValidSave = hasData1;
+			const hasdata = importedData.hasOwnProperty(saveKeys.data);
+			const isValidSave = hasdata;
 			if (!isValidSave) {
-				showLoadError("String: !isValidSave");
+				showLoadError(`String: missing ${saveKeys.data}`);
 				return;
 			}
 
@@ -192,8 +198,8 @@ export function ImportExportLocalStorage() {
 
 			// Assuming localStorageData is an object
 			for (const key in importedData) {
-				const isData1 = key === saveKeys.data1;
-				if (!isData1) {
+				const isdata = key === saveKeys.data;
+				if (!isdata) {
 					console.log("skip loading.. additional key detected", key);
 				}
 				// @ts-ignore
@@ -223,11 +229,10 @@ export function ImportExportLocalStorage() {
 
 	useLayoutEffect(() => {
 		// Initialize Data
-		if (!localStorage.getItem(saveKeys.data1)) {
-			const data1: SAVE_DATA = { id: saveKeys.data1 };
-			localStorage.setItem(saveKeys.data1, compressObjectWithPako(data1));
+		if (!localStorage.getItem(saveKeys.data)) {
+			localStorage.setItem(saveKeys.data, compressObjectWithPako(defaultData));
 		}
-	}, []);
+	}, [defaultData]);
 
 	const sx = {
 		...btnSx,
@@ -357,4 +362,4 @@ export function ImportExportLocalStorage() {
 			</div>
 		</>
 	);
-}
+};

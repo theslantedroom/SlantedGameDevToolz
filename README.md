@@ -23,11 +23,6 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 
 todo: complete this section
 
-define type for your SAVE data in `SAVE_KEYS.ts`
-
-``` typescript 
-export type SAVE_DATA = { id: string };
-```
 
 can access zustand state:
 ``` typescript 

@@ -12,5 +12,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
-export const FontColor: Story = { args: { fontColor: "red", size: 50 } };
 export const HideTitle: Story = { args: { hideTitle: true } };

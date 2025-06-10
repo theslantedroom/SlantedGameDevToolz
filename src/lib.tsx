@@ -17,7 +17,9 @@ import {
 } from "./_dice/diceUtil";
 
 import { isNumberTooLarge } from "./_numbers/_numberUtils";
+import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/ImportExportLocalStorage";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
+import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 
 export {
 	percentageChance,
@@ -28,7 +30,9 @@ export {
 	randomArrayItem,
 	isNumberTooLarge,
 	rollDiceIsMaxRoll,
+	ImportExportLocalStorage,
 	LocalizationSelect,
+	HexBtn,
 };
 
 // Now people can do
