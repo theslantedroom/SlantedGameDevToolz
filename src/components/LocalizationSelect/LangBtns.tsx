@@ -9,13 +9,15 @@ export interface Props {
 	langCode: LangCode;
 	setLanguage: (code: LangCode) => void;
 	hideTitle?: boolean;
-	size?: number;
+	size: number;
+	fontColor: string;
 }
 export const LangBtns: React.FC<Props> = ({
 	langCode,
 	setLanguage,
 	hideTitle = false,
 	size,
+	fontColor,
 }) => {
 	const select_lang = useMemo(() => {
 		return getMenuText(menuText.select_lang, langCode);
@@ -28,6 +30,7 @@ export const LangBtns: React.FC<Props> = ({
 						marginTop: "15px",
 						marginBottom: "5px",
 						textAlign: "center",
+						color: fontColor,
 					}}
 				>
 					{select_lang}

@@ -9,7 +9,7 @@
 		"declaration": true,
 		"declarationMap": true,
 		/* Bundler mode */
-		"moduleResolution": "Node",
+		"moduleResolution": "bundler", // 'Node' makes imports types break.
 		// "allowImportingTsExtensions": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
