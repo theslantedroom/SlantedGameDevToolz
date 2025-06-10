@@ -1,0 +1,85 @@
+export const colors = {
+	absoluteBlack: "#000000",
+	armyGreen: "#4B5320",
+	asparagusGreen: "#87A96B",
+	azureBlue: "#F0FFFF",
+	black: "#15191D",
+	blackestBlack: "#111213",
+	blueBoxerDark: "#00335c",
+	blueBoxerDark2: "#002644",
+	blueBoxerLight: "#006699",
+	blueLogLight: "#B0E0E6",
+	boxRecDrawBlue: "#7faefd ",
+	boxRecLoseRed: "#c70300 ",
+	boxRecWinGreen: "green",
+	darkBlue: "#003153",
+	darkestBlue: "#0C2340",
+	darkGreen: "#4B6F44",
+
+	dryBlood: "#3C0700",
+	facebook: "#3B5998",
+	float: "#ACE1AF",
+	gold: "#FFD700",
+	google: "#DD4B39",
+	grass: "#348C31 ",
+	gritGreen: "#1F2819",
+	hbcMuteBtnNavyBlue: "#060a65",
+	hbcOrange: "#fa9a53",
+	journalBorder: "#d4a373",
+	journalBg: "#fefae0",
+	hbcOrange2: "#CA7C42",
+	hbcStone: "#563c3d",
+	hbcTurquoise: "#4cad93",
+	ivory: "#FFFFF0",
+	lime: "#00FF00 ",
+
+	mossyStone: "#353735",
+	obsidianDark: "#0B070E",
+	obsidianLight: "#0d101a",
+	red: "#E04726",
+	redBoxerDark: "#660000",
+	redBoxerDark2: "#4e0000",
+	redBoxerLight: "#cc0000",
+	redBoxerPinkRed: "#E44D2E",
+	redLogLight: "#FFCBCB",
+	resolutionBlue: "#002387",
+	royalAirForceBlue: "#5D8AA8",
+	royalBlue: "#006699",
+	seashell: "#FFF5EE",
+	slightWhite: "#fbfbfb",
+	steel: "#616161",
+	veryDarkGrey: "#484848",
+	grey: "#808080",
+	darkGrey: "#585858",
+	dimGray: "#696969",
+	middleGrey2: "#787878",
+	middleGrey: "#BCC1C6",
+	lightGrey2: "#A0A0A0",
+	lightGrey: "#888888",
+	veryLightGrey2: "#989898",
+	veryLightGrey: "#909090",
+	white: "#FFFFFF",
+	//colors temp
+	veryHot: "#A50021",
+	hot: "#D82632",
+	warm: "#F76D5E",
+	mild: "#FFAD72",
+	neutralHot: "#FFE099",
+	neutral: "#FFFFBF",
+	neutralCool: "#E0FFFF",
+	cool: "#AAF7FF",
+	chilly: "#72D8FF",
+	cold: "#3FA0FF",
+	veryCold: "#264CFF",
+};
+
+export function getRandomDarkColor() {
+	const letters = "0123456789ABCDEF";
+	let color = "#";
+	for (let i = 0; i < 3; i++) {
+		const index = Math.floor(Math.random() * letters.length);
+		const letter = letters[index];
+		color += letter + letter;
+	}
+	return color;
+}

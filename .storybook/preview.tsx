@@ -20,6 +20,7 @@ export const decorators = [
 			>
 				<div
 					style={{
+						overflow: "auto",
 						border: "10px solid grey",
 						borderRadius: "2px",
 						maxWidth: "100%",

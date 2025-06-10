@@ -15,13 +15,28 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 - percentage
 - React components
 
+<br/> 
 
-</br></br>
+# Components
 
+### ImportExportLocalStorage
 
-# Usage Instructions  
+todo: complete this section
 
-## Components
+define type for your SAVE data in `SAVE_KEYS.ts`
+
+``` typescript 
+export type SAVE_DATA = { id: string };
+```
+
+can access zustand state:
+``` typescript 
+const { isLoading } = useIsLoadingLocalStorage();
+const { setIsLoading, handleResetGame } =
+		useImportExportLocalStorageActions();
+const { saveLocalStorageData, clearLocalStorageData, saveGameData } =
+		useLocalSaveData();
+```
 
 ### LocalizationSelect
 
@@ -36,8 +51,6 @@ saves the selected language in localstorage under key `lagCode`
 ```typescript 
 import { LocalizationSelect } from "slanted-gamedev-toolz";
 
-
-
 function App() {
 	return (
 	  <LocalizationSelect />
@@ -46,16 +59,23 @@ function App() {
 export default App;
 ```
 
-# Dice Utils
+### HexBtn
+todo
+### SquareTileButton
+todo
+
+# Functions
+
+## Dice Utils
  - `rollDice()` A fair dice roll.
  - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll low.
  - `rollLowWeightedDice()` An unfair fair dice roll that is more likely to roll high.
 
-# Array Utils
+## Array Utils
  - `removeObjectsWithSameName()` Removes objects from the first array if their `name` property matches any object's `name` in the second array.
  - `randomArrayItem()` Returns a random item from the provided array.
 
-# Number Utils
+## Number Utils
 - `numberWithCommas()` Formats a number with comma separators and optional suffixes for large values. Ex. 1,000,000(M)
 - `isNumberTooLarge()` Checks if a number exceeds JavaScript's `Number.MAX_SAFE_INTEGER`.
 
@@ -72,31 +92,15 @@ import { rollDice } from "slanted-gamedev-toolz";
 | - | - | - |
 | diceSides | number | sides on the dice |
 
-
 | Returns  | Type | Description                 |
 | - |- | - |
 |   | number | the result of the dice roll |
 
 </br></br>
 
-
-
-
- 
-
-
- 
-
 # Developer Instructions
-
-
-
 To Publish:
 set version in package.json > `npm publish`
-
-
-
-
 
 You want to contribute to SlantedGameToolz?
 - Install the repo dependencies
@@ -114,7 +118,6 @@ $ yarn install
 ```
 
 </br></br>
-
 
 ### How to publish to NPM
 bump version in package.json > `npm publish`

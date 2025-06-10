@@ -12,7 +12,10 @@
 	"type": "module",
 	"main": "lib/lib.js",
 	"types": "lib/lib.d.ts",
-	"files": ["lib", "public"],
+	"files": [
+		"lib",
+		"public"
+	],
 	"keywords": [
 		"dice",
 		"percentage",
@@ -43,13 +46,17 @@
 		"@fontsource-variable/alegreya": "^5.2.6",
 		"@fontsource/nova-cut": "^5.2.6",
 		"lorem-ipsum": "^2.0.8",
+		"pako": "^2.1.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
-		"slanted-gamedev-toolz": "^1.0.23"
+		"react-toastify": "^11.0.5",
+		"slanted-gamedev-toolz": "^1.0.23",
+		"zustand": "^5.0.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@storybook/react-vite": "^9.0.6",
+		"@types/pako": "^2",
 		"@types/react": "^19.1.6",
 		"@types/react-dom": "^19.1.6",
 		"@vitejs/plugin-react": "^4.5.1",

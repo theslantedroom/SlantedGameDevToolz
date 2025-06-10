@@ -31,6 +31,9 @@ export const LangBtns: React.FC<Props> = ({
 						marginBottom: "5px",
 						textAlign: "center",
 						color: fontColor,
+						backgroundColor: "rgba(0, 0, 0, 0.2)", // light translucent black
+						padding: "8px", // optional, for better spacing
+						borderRadius: "4px", // optional, for soft corners
 					}}
 				>
 					{select_lang}

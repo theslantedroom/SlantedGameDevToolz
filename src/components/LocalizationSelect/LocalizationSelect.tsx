@@ -1,4 +1,5 @@
 import type React from "react";
+import { colors } from "../../theme/palettes/colors";
 import { LangBtns } from "./LangBtns";
 import type { LangCode, LocalizedLine } from "./langCodes";
 import { useLocalization } from "./useLocalization";
@@ -20,7 +21,7 @@ export interface Props {
 export const LocalizationSelect: React.FC<Props> = ({
 	hideTitle,
 	size = 70,
-	fontColor = "black",
+	fontColor = colors.azureBlue,
 }) => {
 	const { setLanguage, langCode } = useLocalization();
 
