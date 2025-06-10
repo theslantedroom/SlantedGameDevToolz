@@ -3,5 +3,5 @@ export interface Props {
 	count: number;
 }
 export const Example: React.FC<Props> = ({ count }) => {
-	return <div>Example:{count}</div>;
+	return <h1>😃:{count}</h1>;
 };

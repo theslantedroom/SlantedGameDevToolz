@@ -7,7 +7,7 @@ export interface Props {
 	imgPath: string;
 	setLanguage: (code: LangCode) => void;
 	code: LangCode;
-	size?: number;
+	size: number;
 }
 
 export const LangBtn: React.FC<Props> = ({
@@ -15,7 +15,7 @@ export const LangBtn: React.FC<Props> = ({
 	setLanguage,
 	imgPath,
 	code,
-	size = 70,
+	size,
 }) => {
 	const linkBtnStyle = {
 		cursor: "pointer",

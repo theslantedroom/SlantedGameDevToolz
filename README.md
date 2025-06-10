@@ -27,6 +27,10 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 
 saves the selected language in localstorage under key `lagCode`
 
+- add `.png` images to `/public/flags/`
+- required files `en.png, de.png, es.png, zh.png, ja.png, ko.png, fr.png, ru.png, it.png, pt.png, hi.png`
+  
+
 ![LocalizationSelect](/public/marketingImages/LocalizationSelect.png)
 
 ```typescript 

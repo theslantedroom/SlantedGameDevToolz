@@ -4,6 +4,7 @@ import { Example } from "./Example";
 
 const meta = {
 	component: Example,
+	decorators: [],
 } satisfies Meta<typeof Example>;
 
 export default meta;
