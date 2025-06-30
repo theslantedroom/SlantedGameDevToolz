@@ -23,17 +23,17 @@ export const LangBtns: React.FC<Props> = ({
 		return getMenuText(menuText.select_lang, langCode);
 	}, [langCode]);
 	return (
-		<>
+		<div>
 			{hideTitle ? null : (
 				<div
 					style={{
-						marginTop: "15px",
-						marginBottom: "5px",
+						margin: "15px auto 5px auto",
+						maxWidth: 815,
 						textAlign: "center",
 						color: fontColor,
-						backgroundColor: "rgba(0, 0, 0, 0.2)", // light translucent black
-						padding: "8px", // optional, for better spacing
-						borderRadius: "4px", // optional, for soft corners
+						backgroundColor: "rgba(0, 0, 0, 0.4)",
+						padding: "8px 0px",
+						borderRadius: "4px",
 					}}
 				>
 					{select_lang}
@@ -42,6 +42,7 @@ export const LangBtns: React.FC<Props> = ({
 
 			<div
 				style={{
+					margin: "auto",
 					display: "flex",
 					flexWrap: "wrap",
 					flexDirection: "row",
@@ -126,6 +127,6 @@ export const LangBtns: React.FC<Props> = ({
 					size={size}
 				/>
 			</div>
-		</>
+		</div>
 	);
 };

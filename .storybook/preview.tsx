@@ -11,24 +11,12 @@ export const decorators = [
 					right: 0,
 					bottom: 0,
 					backgroundColor: "rgb(59, 59, 59)",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
 					padding: "20px",
 					boxSizing: "border-box",
+					border: `1px solid ${"gold"}`,
 				}}
 			>
-				<div
-					style={{
-						overflow: "auto",
-						border: "10px solid grey",
-						borderRadius: "2px",
-						maxWidth: "100%",
-						maxHeight: "100%",
-					}}
-				>
-					{<Story />}
-				</div>
+				{<Story />}
 			</div>
 		);
 	},
