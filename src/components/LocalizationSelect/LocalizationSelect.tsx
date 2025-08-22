@@ -17,7 +17,7 @@ export interface Props {
 	hideTitle?: boolean;
 	size?: number;
 	fontColor?: string;
-	onSelect?: () => {};
+	onSelect?: () => any;
 }
 export const LocalizationSelect: React.FC<Props> = ({
 	hideTitle,

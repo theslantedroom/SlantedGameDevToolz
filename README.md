@@ -101,6 +101,7 @@ You want to contribute to SlantedGameToolz?
 - Install the repo dependencies
 - Render components
   - storybook `yarn storybook`
+  - or
   - Vite app `yarn dev`
 - Make code changes
 - Submit PR

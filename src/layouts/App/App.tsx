@@ -14,11 +14,12 @@ const lorem = new LoremIpsum({
 import { numberWithCommas } from "../../_numbers/numberWithComma";
 import { JournalUi } from "../../components/JournalUi/JournalUi";
 import { LocalizationSelect } from "../../components/LocalizationSelect/LocalizationSelect";
+
 // Runs on vite server, via yarn start
 function App() {
 	return (
 		<div style={{ backgroundColor: "rgb(4, 28, 49)" }}>
-			<LocalizationSelect />
+			<LocalizationSelect onSelect={() => {}} />
 			<JournalUi
 				pageContents={[
 					<div>{numberWithCommas(1_000_000, true)}</div>,
