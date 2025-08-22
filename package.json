@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.31",
+	"version": "1.0.32",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -12,7 +12,10 @@
 	"type": "module",
 	"main": "lib/lib.js",
 	"types": "lib/lib.d.ts",
-	"files": ["lib", "public"],
+	"files": [
+		"lib",
+		"public"
+	],
 	"keywords": [
 		"dice",
 		"percentage",
@@ -51,7 +54,7 @@
 		"zustand": "^5.0.5"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.0.6",
 		"@storybook/react-vite": "^9.0.6",
 		"@types/pako": "^2",
 		"@types/react": "^19.1.6",

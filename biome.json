@@ -1,33 +1,31 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
 		"useIgnoreFile": false
 	},
 	"files": {
-		"include": [],
-		"ignoreUnknown": false,
-		"ignore": [
-			"android/",
-			"ios/",
-			"dist/",
-			"/marketingImages",
-			"node_modules",
-			"unusedAssets/",
-			"test-results/",
-			"playwright-report/",
-			".vscode/",
-			"out/"
-		]
+		"includes": [
+			"**",
+			"!**/android/",
+			"!**/ios/",
+			"!**/dist/",
+			"!**//marketingImages",
+			"!**/node_modules",
+			"!**/unusedAssets/",
+			"!**/test-results/",
+			"!**/playwright-report/",
+			"!**/.vscode/",
+			"!**/out/"
+		],
+		"ignoreUnknown": false
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -38,7 +36,14 @@
 				"noNonNullAssertion": "off",
 				"useTemplate": "off",
 				"noParameterAssign": "warn",
-				"useSelfClosingElements": "off"
+				"useSelfClosingElements": "off",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSingleVarDeclarator": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
 			},
 			"suspicious": {
 				"noEmptyInterface": "off",
