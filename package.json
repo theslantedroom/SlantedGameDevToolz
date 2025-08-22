@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.32",
+	"version": "1.0.33",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
