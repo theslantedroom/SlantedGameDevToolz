@@ -17,18 +17,23 @@ export interface Props {
 	hideTitle?: boolean;
 	size?: number;
 	fontColor?: string;
+	onSelect?: () => {};
 }
 export const LocalizationSelect: React.FC<Props> = ({
 	hideTitle,
 	size = 70,
 	fontColor = colors.azureBlue,
+	onSelect = () => null,
 }) => {
 	const { setLanguage, langCode } = useLocalization();
 
 	return (
 		<LangBtns
 			langCode={langCode}
-			setLanguage={setLanguage}
+			setLanguage={(e) => {
+				setLanguage(e);
+				onSelect();
+			}}
 			hideTitle={hideTitle}
 			size={size}
 			fontColor={fontColor}
