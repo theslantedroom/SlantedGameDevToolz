@@ -5,7 +5,12 @@ import { LocalizationSelect } from "./LocalizationSelect";
 const meta = {
 	component: LocalizationSelect,
 	decorators: [],
-	args: { hideTitle: false, size: undefined, fontColor: undefined },
+	args: {
+		hideTitle: false,
+		size: undefined,
+		fontColor: undefined,
+		onSelect: () => {},
+	},
 } satisfies Meta<typeof LocalizationSelect>;
 
 export default meta;
