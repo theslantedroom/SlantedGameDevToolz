@@ -272,10 +272,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 				style={{
 					...jsxCss.centerSpill,
 					width: "100%",
-					margin: "10px auto",
-					boxSizing: "border-box",
-					borderRadius: "12px",
-					padding: "10px",
+					gap: 0,
 				}}
 			>
 				<input
@@ -329,27 +326,27 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 								</div>
 							</>
 						)}
-					</div>
 
-					<div style={cardStyle}>
-						<HexBtn
-							onClick={resetGame}
-							label={
-								showResetConfirmation
-									? getLocalizedTextRaw(
-											importExportSaveLocalization.clearDataNewGame,
-										)
-									: getLocalizedTextRaw(importExportSaveLocalization.newGame)
-							}
-						/>
-						{showResetConfirmation ? (
+						<div style={cardStyle}>
 							<HexBtn
-								onClick={() => setShowResetConfirmation(false)}
-								label={getLocalizedTextRaw(
-									importExportSaveLocalization._cancel,
-								)}
+								onClick={resetGame}
+								label={
+									showResetConfirmation
+										? getLocalizedTextRaw(
+												importExportSaveLocalization.clearDataNewGame,
+											)
+										: getLocalizedTextRaw(importExportSaveLocalization.newGame)
+								}
 							/>
-						) : null}
+							{showResetConfirmation ? (
+								<HexBtn
+									onClick={() => setShowResetConfirmation(false)}
+									label={getLocalizedTextRaw(
+										importExportSaveLocalization._cancel,
+									)}
+								/>
+							) : null}
+						</div>
 					</div>
 				</div>
 			</div>

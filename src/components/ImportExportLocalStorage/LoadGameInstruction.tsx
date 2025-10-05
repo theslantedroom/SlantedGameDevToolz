@@ -83,6 +83,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 			</div>
 			<div
 				style={{
+					fontSize: "0.95em",
 					textAlign: "left",
 					color: textColor,
 					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
@@ -94,7 +95,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 						2. click{" "}
 						<span
 							style={{
-								color: "#00ac1aff",
+								color: "#008f15ff",
 								fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 								...textOutlineBlack,
 							}}

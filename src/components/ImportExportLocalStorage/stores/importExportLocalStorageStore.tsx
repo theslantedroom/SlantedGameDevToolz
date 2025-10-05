@@ -1,5 +1,4 @@
 import { create } from "zustand";
-type AppRoutes = "mainMenu" | "play";
 
 interface State {
 	isLoading: boolean;

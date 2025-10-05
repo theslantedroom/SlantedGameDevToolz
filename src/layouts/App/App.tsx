@@ -13,6 +13,10 @@ const lorem = new LoremIpsum({
 
 import { numberWithCommas } from "../../_numbers/numberWithComma";
 import {
+	useImportExportLocalStorageActions,
+	useIsLoadingLocalStorage,
+} from "../../components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
+import {
 	getDataFromLocalStorage,
 	useLocalSaveData,
 } from "../../components/ImportExportLocalStorage/utils/useSaveData";
@@ -22,15 +26,25 @@ import { ImportExportLocalStorage } from "../../lib";
 
 const defaultData = {
 	money: 555,
-	name: "Plssdfdsfayer",
+	name: "Player",
 };
 // Runs on vite server, via yarn start
 function App() {
-	const saveGameData1 = useLocalSaveData(defaultData).saveGameData;
-	console.log(`saveGameData1`, saveGameData1);
+	const { setIsLoading, handleResetGame } =
+		useImportExportLocalStorageActions();
+	const { saveLocalStorageData, clearLocalStorageData, saveGameData } =
+		useLocalSaveData(defaultData);
+	const isLoading = useIsLoadingLocalStorage();
+	console.log(`isLoading`, isLoading);
+	console.log(`saveGameData`, saveGameData);
 	return (
 		<div style={{ backgroundColor: "rgba(158, 158, 158, 1)" }}>
-			<LocalizationSelect onSelect={() => {}} />
+			<LocalizationSelect
+				onSelect={() => {}}
+				size={50}
+				fontColor="black"
+				hideTitle
+			/>
 			{/* <JournalUi
 				pageContents={[
 					<div>{numberWithCommas(1_000_000, true)}</div>,

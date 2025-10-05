@@ -29,19 +29,17 @@ use the save manager
 
 access data stored in local storage
 ``` typescript 
-const saveGameData1 = useLocalSaveData(defaultData).saveGameData;
-// or
 const saveGameData2 = getDataFromLocalStorage(defaultData);
 ``` 
 
+OR
 
-can access zustand state:
 ``` typescript 
-const { isLoading } = useIsLoadingLocalStorage();
+const isLoading = useIsLoadingLocalStorage();
 const { setIsLoading, handleResetGame } =
 		useImportExportLocalStorageActions();
 const { saveLocalStorageData, clearLocalStorageData, saveGameData } =
-		useLocalSaveData();
+		useLocalSaveData(defaultData);
 ```
 
 ### LocalizationSelect

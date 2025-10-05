@@ -1,5 +1,6 @@
 import type React from "react";
 import { useMemo } from "react";
+import { textOutline } from "../../theme/jsxCssClassics";
 import { LangBtn } from "./LangBtn";
 import { getMenuText } from "./LocalizationSelect";
 import type { LangCode } from "./langCodes";
@@ -28,12 +29,12 @@ export const LangBtns: React.FC<Props> = ({
 				<div
 					style={{
 						margin: "15px auto 5px auto",
-						maxWidth: 815,
+						maxWidth: 500,
 						textAlign: "center",
 						color: fontColor,
-						backgroundColor: "rgba(0, 0, 0, 0.4)",
 						padding: "8px 0px",
 						borderRadius: "4px",
+						textShadow: textOutline.whiteHalf.textShadow,
 					}}
 				>
 					{select_lang}
@@ -47,6 +48,7 @@ export const LangBtns: React.FC<Props> = ({
 					flexWrap: "wrap",
 					flexDirection: "row",
 					justifyContent: "center",
+					paddingTop: hideTitle ? 8 : 0,
 				}}
 			>
 				<LangBtn

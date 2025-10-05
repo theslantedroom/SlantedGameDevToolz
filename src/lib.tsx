@@ -19,6 +19,8 @@ import {
 import { isNumberTooLarge } from "./_numbers/_numberUtils";
 import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/ImportExportLocalStorage";
+import { useImportExportLocalStorageActions } from "./components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
+import { useLocalSaveData } from "./components/ImportExportLocalStorage/utils/useSaveData";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
 
 // these are exported
@@ -32,6 +34,8 @@ export {
 	isNumberTooLarge,
 	rollDiceIsMaxRoll,
 	ImportExportLocalStorage,
+	useLocalSaveData,
+	useImportExportLocalStorageActions,
 	LocalizationSelect,
 	HexBtn,
 };

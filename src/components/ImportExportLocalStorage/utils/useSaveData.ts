@@ -37,7 +37,7 @@ export const useLocalSaveData = (defaultData: Record<string, any>) => {
 			}
 
 			saveDataToLocalStorage(defaultData, savedData);
-			_setsaveGameData(savedData);
+			_setSaveGameData(savedData);
 		},
 		[isLoading, defaultData],
 	);
@@ -48,7 +48,7 @@ export const useLocalSaveData = (defaultData: Record<string, any>) => {
 			return;
 		}
 		deleteDataFromLocalStorage();
-		_setsaveGameData(null);
+		_setSaveGameData(null);
 	}, []);
 
 	let loadedSaveData = getDataFromLocalStorage(defaultData);
@@ -59,7 +59,7 @@ export const useLocalSaveData = (defaultData: Record<string, any>) => {
 		loadedSaveData = null;
 	}
 
-	const [saveGameData, _setsaveGameData] = useState<typeof defaultData | null>(
+	const [saveGameData, _setSaveGameData] = useState<typeof defaultData | null>(
 		loadedSaveData,
 	);
 
@@ -72,13 +72,13 @@ export const useLocalSaveData = (defaultData: Record<string, any>) => {
 
 		const isSaveValid = checkSaveIsValid(defaultData, save);
 		if (save && isSaveValid) {
-			_setsaveGameData(save);
+			_setSaveGameData(save);
 		}
 
 		return function cleanup() {
 			const save = getDataFromLocalStorage(defaultData);
 			if (!save) {
-				_setsaveGameData(null);
+				_setSaveGameData(null);
 			}
 		};
 	}, [defaultData]);
