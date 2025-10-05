@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/noUnusedFunctionParameters: <explanation> */
 import { useCallback, useEffect, useState } from "react";
 import { saveKeys } from "../constants/SAVE_KEYS";
 import { useIsLoadingLocalStorage } from "../stores/importExportLocalStorageStore";

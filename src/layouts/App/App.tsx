@@ -12,13 +12,22 @@ const lorem = new LoremIpsum({
 });
 
 import { numberWithCommas } from "../../_numbers/numberWithComma";
+import {
+	getDataFromLocalStorage,
+	useLocalSaveData,
+} from "../../components/ImportExportLocalStorage/utils/useSaveData";
 import { JournalUi } from "../../components/JournalUi/JournalUi";
 import { LocalizationSelect } from "../../components/LocalizationSelect/LocalizationSelect";
 import { ImportExportLocalStorage } from "../../lib";
 
-const defaultData = {};
+const defaultData = {
+	money: 555,
+	name: "Plssdfdsfayer",
+};
 // Runs on vite server, via yarn start
 function App() {
+	const saveGameData1 = useLocalSaveData(defaultData).saveGameData;
+	console.log(`saveGameData1`, saveGameData1);
 	return (
 		<div style={{ backgroundColor: "rgba(158, 158, 158, 1)" }}>
 			<LocalizationSelect onSelect={() => {}} />

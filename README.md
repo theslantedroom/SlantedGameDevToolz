@@ -20,8 +20,19 @@ SlantedGameToolz is a collection of tools designed to be used in games made with
 # Components
 
 ### ImportExportLocalStorage
+- define `defaultData`
 
-todo: complete this section
+use the save manager
+``` 
+  <ImportExportLocalStorage defaultData={defaultData} />
+```
+
+access data stored in local storage
+``` typescript 
+const saveGameData1 = useLocalSaveData(defaultData).saveGameData;
+// or
+const saveGameData2 = getDataFromLocalStorage(defaultData);
+``` 
 
 
 can access zustand state:
@@ -98,7 +109,8 @@ import { rollDice } from "slanted-gamedev-toolz";
 
 # Developer Instructions
 To Publish:
-set version in package.json > `npm publish`
+- set version in package.json > `"version": "1.0.36"`
+- run `npm publish`
 
 You want to contribute to SlantedGameToolz?
 - Install the repo dependencies

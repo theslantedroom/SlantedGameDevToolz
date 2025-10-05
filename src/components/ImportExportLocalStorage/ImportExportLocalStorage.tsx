@@ -9,8 +9,7 @@ import {
 } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-import { btnSx, jsxCss } from "../../theme/jsxCssClassics";
-import { colors } from "../../theme/palettes/colors";
+import { jsxCss } from "../../theme/jsxCssClassics";
 import {
 	saveStringToastConfig,
 	standardToastConfig,
@@ -37,7 +36,6 @@ export interface Props {
 
 export const ImportExportLocalStorage: React.FC<Props> = ({
 	defaultData,
-
 	cardBgColor = "#d8d8d8ff",
 }) => {
 	const hasShownToastOnSave = useRef(false);
@@ -144,7 +142,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 		const blob = new Blob([localStorageData], { type: "application/json" });
 		const a = document.createElement("a");
 		a.href = URL.createObjectURL(blob);
-		a.download = `turnBasedBoxingSave.txt`;
+		a.download = `mySaveFile${Date.now()}.txt`;
 		a.click();
 	}, []);
 
@@ -192,6 +190,8 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 
 		const importedData = decompressStringWithPako(saveString);
 
+		console.log(`importedData`, importedData);
+
 		if (importedData && typeof importedData === "object") {
 			const hasdata = importedData.hasOwnProperty(saveKeys.data);
 			const isValidSave = hasdata;
@@ -236,6 +236,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 	useLayoutEffect(() => {
 		// Initialize Data
 		if (!localStorage.getItem(saveKeys.data)) {
+			console.log(`Initialize Data: ${JSON.stringify(defaultData)}`);
 			localStorage.setItem(saveKeys.data, compressObjectWithPako(defaultData));
 		}
 	}, [defaultData]);
