@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.37",
+	"version": "1.0.39",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -43,26 +43,28 @@
 		"url": "git+https://github.com/theslantedroom/SlantedGameDevToolz.git"
 	},
 	"dependencies": {
-		"@fontsource-variable/alegreya": "^5.2.6",
-		"@fontsource/nova-cut": "^5.2.6",
+		"@fontsource-variable/alegreya": "^5.2.8",
+		"@fontsource/nova-cut": "^5.2.8",
 		"lorem-ipsum": "^2.0.8",
 		"pako": "^2.1.0",
-		"react": "^19.1.1",
-		"react-dom": "^19.1.1",
 		"react-toastify": "^11.0.5",
-		"slanted-gamedev-toolz": "^1.0.35",
+		"slanted-gamedev-toolz": "^1.0.38",
 		"zustand": "^5.0.8"
 	},
+	"peerDependencies": {
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
+	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.2",
-		"@storybook/react-vite": "^9.1.3",
+		"@biomejs/biome": "2.2.5",
+		"@storybook/react-vite": "^9.1.10",
 		"@types/pako": "^2",
-		"@types/react": "^19.1.12",
-		"@types/react-dom": "^19.1.9",
-		"@vitejs/plugin-react": "^5.0.2",
-		"eslint": "^9.34.0",
-		"storybook": "^9.1.3",
-		"typescript": "^5.9.2",
-		"vite": "^7.1.3"
+		"@types/react": "^19.2.0",
+		"@types/react-dom": "^19.2.0",
+		"@vitejs/plugin-react": "^5.0.4",
+		"eslint": "^9.37.0",
+		"storybook": "^9.1.10",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.9"
 	}
 }
