@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.39",
+	"version": "1.0.40",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -48,7 +48,6 @@
 		"lorem-ipsum": "^2.0.8",
 		"pako": "^2.1.0",
 		"react-toastify": "^11.0.5",
-		"slanted-gamedev-toolz": "^1.0.38",
 		"zustand": "^5.0.8"
 	},
 	"peerDependencies": {
