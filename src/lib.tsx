@@ -17,10 +17,11 @@ import {
 } from "./_dice/diceUtil";
 
 import { isNumberTooLarge } from "./_numbers/_numberUtils";
+import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/ImportExportLocalStorage";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
-import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 
+// these are exported
 export {
 	percentageChance,
 	rollDice,

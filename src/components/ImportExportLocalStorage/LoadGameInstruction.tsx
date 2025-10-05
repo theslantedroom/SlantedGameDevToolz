@@ -1,35 +1,65 @@
 import type React from "react";
 
 import { useMemo } from "react";
+import { colors } from "../../theme/palettes/colors";
 import {
 	getLangCode,
 	getLocalizedTextRaw,
 } from "../LocalizationSelect/useLocalization";
 import { importExportSaveLocalization } from "./constants/ImportExportLocalization";
-interface Props {}
-export const LoadGameInstruction: React.FC<Props> = ({}) => {
+import { cardCss } from "./style/css";
+
+interface Props {
+	outlineColor?: string;
+	outlineThickness?: number;
+	cardBgColor: string;
+	textColor?: string;
+}
+const outlineBlack = "black";
+export const LoadGameInstruction: React.FC<Props> = ({
+	outlineColor = "#c0c0c0ff",
+	outlineThickness = 0.5,
+	cardBgColor,
+	textColor = "#000000ff",
+}) => {
 	const isEnglish = useMemo(() => {
 		return getLangCode() === "";
 	}, []);
+	const t = typeof outlineThickness === "number" ? outlineThickness : 1;
+	const textOutline = {
+		textShadow: `-${t}px -${t}px 0 ${outlineColor}, ${t}px -${t}px 0 ${outlineColor}, -${t}px ${t}px 0 ${outlineColor}, ${t}px ${t}px 0 ${outlineColor}`,
+	};
+
+	const textOutlineBlack = {
+		textShadow: `-${t}px -${t}px 0 ${outlineBlack}, ${t}px -${t}px 0 ${outlineBlack}, -${t}px ${t}px 0 ${outlineBlack}, ${t}px ${t}px 0 ${outlineBlack}`,
+	};
+	const cardStyle = {
+		...cardCss,
+		background: cardBgColor,
+	};
 	return (
-		<h3
-			style={{
-				textAlign: "center",
-				display: "flex",
-				flexDirection: "column",
-				gap: "10px",
-			}}
-		>
+		<div style={cardStyle}>
 			<div
 				style={{
 					fontSize: "1.1em",
+					fontWeight: 600,
+					marginBottom: "10px",
+					textAlign: "left",
+					color: textColor,
+					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
+					...textOutline,
 				}}
 			>
 				{getLocalizedTextRaw(importExportSaveLocalization.loadAGame)}
 			</div>
 			<div
 				style={{
-					fontSize: "0.8em",
+					fontSize: "0.95em",
+					marginBottom: "8px",
+					textAlign: "left",
+					color: textColor,
+					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
+					...textOutline,
 				}}
 			>
 				{isEnglish ? (
@@ -37,7 +67,9 @@ export const LoadGameInstruction: React.FC<Props> = ({}) => {
 						1. paste your
 						<span
 							style={{
-								color: "gold",
+								color: colors.redBoxerPinkRed,
+								fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
+								...textOutlineBlack,
 							}}
 						>
 							{" "}
@@ -51,7 +83,10 @@ export const LoadGameInstruction: React.FC<Props> = ({}) => {
 			</div>
 			<div
 				style={{
-					fontSize: "0.8em",
+					textAlign: "left",
+					color: textColor,
+					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
+					...textOutline,
 				}}
 			>
 				{isEnglish ? (
@@ -59,7 +94,9 @@ export const LoadGameInstruction: React.FC<Props> = ({}) => {
 						2. click{" "}
 						<span
 							style={{
-								color: "#00CF1F",
+								color: "#00ac1aff",
+								fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
+								...textOutlineBlack,
 							}}
 						>
 							Load Save String
@@ -69,6 +106,6 @@ export const LoadGameInstruction: React.FC<Props> = ({}) => {
 					getLocalizedTextRaw(importExportSaveLocalization.loadstep2)
 				)}
 			</div>
-		</h3>
+		</div>
 	);
 };

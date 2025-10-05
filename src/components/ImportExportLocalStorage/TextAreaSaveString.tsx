@@ -1,7 +1,8 @@
 import type React from "react";
-
+import { colors } from "../../theme/palettes/colors";
 import { getLocalizedTextRaw } from "../LocalizationSelect/useLocalization";
 import { importExportSaveLocalization } from "./constants/ImportExportLocalization";
+
 interface Props {
 	saveString: string;
 	handleChangeSaveString: (event: any) => void;
@@ -19,10 +20,8 @@ export const TextAreaSaveString: React.FC<Props> = ({
 			}}
 		>
 			<textarea
-				id="myInput"
+				id={"myInput"}
 				value={saveString}
-				// biome-ignore lint/a11y/noAutofocus: <explanation>
-				autoFocus={true}
 				onChange={handleChangeSaveString}
 				placeholder={
 					defaultText ||
@@ -33,9 +32,10 @@ export const TextAreaSaveString: React.FC<Props> = ({
 					height: "50px",
 					width: "100%",
 					overflowY: "auto",
-					backgroundColor: "black",
-					color: "white",
+					color: colors.dimGray,
 					fontSize: "16px",
+					border: `1px solid ${colors.azureBlue}`,
+					borderRadius: "8px",
 				}}
 			/>
 		</div>

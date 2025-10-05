@@ -14,13 +14,15 @@ const lorem = new LoremIpsum({
 import { numberWithCommas } from "../../_numbers/numberWithComma";
 import { JournalUi } from "../../components/JournalUi/JournalUi";
 import { LocalizationSelect } from "../../components/LocalizationSelect/LocalizationSelect";
+import { ImportExportLocalStorage } from "../../lib";
 
+const defaultData = {};
 // Runs on vite server, via yarn start
 function App() {
 	return (
-		<div style={{ backgroundColor: "rgb(4, 28, 49)" }}>
+		<div style={{ backgroundColor: "rgba(158, 158, 158, 1)" }}>
 			<LocalizationSelect onSelect={() => {}} />
-			<JournalUi
+			{/* <JournalUi
 				pageContents={[
 					<div>{numberWithCommas(1_000_000, true)}</div>,
 					<div>{lorem.generateParagraphs(2)}</div>,
@@ -29,7 +31,8 @@ function App() {
 				]}
 				pageTitles={["Million", "2", "3", "4"]}
 				showFooter={false}
-			/>
+			/> */}
+			<ImportExportLocalStorage defaultData={defaultData} />
 		</div>
 	);
 }

@@ -15,25 +15,31 @@ import {
 	saveStringToastConfig,
 	standardToastConfig,
 } from "../../theme/toastConfig";
-import { getLocalizedTextRaw } from "../LocalizationSelect/useLocalization";
 import { HexBtn } from "../buttons/HexBtn/HexBtn";
+import { getLocalizedTextRaw } from "../LocalizationSelect/useLocalization";
 import { CopySaveStringToast } from "./CopySaveStringToast";
-import { LoadFileBtns } from "./LoadFileBtns";
-import { LoadGameInstruction } from "./LoadGameInstruction";
-import { TextAreaSaveString } from "./TextAreaSaveString";
 import { importExportSaveLocalization } from "./constants/ImportExportLocalization";
 import { saveKeys } from "./constants/SAVE_KEYS";
+import { LoadFileBtns, LoadStringBtns } from "./LoadFileBtns";
+import { LoadGameInstruction } from "./LoadGameInstruction";
 import { useImportExportLocalStorageActions } from "./stores/importExportLocalStorageStore";
+import { cardCss } from "./style/css";
+import { TextAreaSaveString } from "./TextAreaSaveString";
 import {
 	compressObjectWithPako,
 	decompressStringWithPako,
 } from "./utils/saveStringUtil";
 
 export interface Props {
+	cardBgColor?: string;
 	defaultData: Record<string, any>;
 }
 
-export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
+export const ImportExportLocalStorage: React.FC<Props> = ({
+	defaultData,
+
+	cardBgColor = "#d8d8d8ff",
+}) => {
 	const hasShownToastOnSave = useRef(false);
 	const [saveString, setSaveString] = useState("");
 	const { setIsLoading, handleResetGame } =
@@ -155,7 +161,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 			const key = localStorage.key(i);
 			if (key !== null) {
 				// Ensure the key is not null
-				// @ts-ignore
+				// @ts-expect-error
 				localStorageData[key] = localStorage.getItem(key);
 			}
 		}
@@ -202,7 +208,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 				if (!isdata) {
 					console.log("skip loading.. additional key detected", key);
 				}
-				// @ts-ignore
+				// @ts-expect-error
 				localStorage.setItem(key, importedData[key]);
 			}
 
@@ -234,11 +240,9 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 		}
 	}, [defaultData]);
 
-	const sx = {
-		...btnSx,
-		marginBottom: "10px",
-		color: showResetConfirmation ? "red" : "white",
-		width: showResetConfirmation ? "150px" : "100px",
+	const cardStyle = {
+		...cardCss,
+		background: cardBgColor,
 	};
 
 	return (
@@ -268,12 +272,9 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 					...jsxCss.centerSpill,
 					width: "100%",
 					margin: "10px auto",
-					border: `4px solid ${colors.absoluteBlack}`,
 					boxSizing: "border-box",
 					borderRadius: "12px",
-					color: colors.azureBlue,
-					backgroundColor: colors.blackestBlack,
-					padding: "0px 12px",
+					padding: "10px",
 				}}
 			>
 				<input
@@ -287,11 +288,11 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 					style={{
 						...jsxCss.centerStack,
 						width: "100%",
-						margin: "10px auto 40px auto",
+						maxWidth: "440px",
 					}}
 				>
 					{showResetConfirmation ? (
-						<p id="warning" style={{ marginTop: "220px" }}>
+						<p id={"warning"} style={{ marginTop: "220px" }}>
 							{getLocalizedTextRaw(
 								importExportSaveLocalization.warningClearSave,
 							)}
@@ -301,44 +302,35 @@ export const ImportExportLocalStorage: React.FC<Props> = ({ defaultData }) => {
 					<div>
 						{showResetConfirmation ? null : (
 							<>
-								<LoadGameInstruction />
-								<TextAreaSaveString
-									saveString={saveString}
-									handleChangeSaveString={handleChangeSaveString}
-								/>
-								<div
-									style={{
-										display: "flex",
-										justifyContent: "center",
-										flexWrap: "wrap",
-										background: "black",
-										borderRadius: "0px 0px 10px 10px",
-									}}
-								>
-									<HexBtn
-										label={getLocalizedTextRaw(
-											importExportSaveLocalization.copySave,
-										)}
-										onClick={exportLocalStorageAsString}
-										highlight={colors.lime}
+								<LoadGameInstruction cardBgColor={cardBgColor} />
+								<div style={cardStyle}>
+									<TextAreaSaveString
+										saveString={saveString}
+										handleChangeSaveString={handleChangeSaveString}
 									/>
-									<HexBtn
-										label={getLocalizedTextRaw(
-											importExportSaveLocalization.loadSave,
-										)}
-										onClick={loadGameFromString}
-										highlight={colors.lime}
-									/>
-									<LoadFileBtns
-										loadGameFromFile={loadGameFromFile}
-										exportLocalStorageAsFile={exportLocalStorageAsFile}
-									/>
+									<div
+										style={{
+											display: "flex",
+											justifyContent: "space-evenly",
+											flexWrap: "wrap",
+											marginTop: "16px",
+										}}
+									>
+										<LoadStringBtns
+											loadGameFromString={loadGameFromString}
+											exportLocalStorageAsString={exportLocalStorageAsString}
+										/>
+										<LoadFileBtns
+											loadGameFromFile={loadGameFromFile}
+											exportLocalStorageAsFile={exportLocalStorageAsFile}
+										/>
+									</div>
 								</div>
 							</>
 						)}
 					</div>
 
-					<div style={{ padding: 10 }}>
+					<div style={cardStyle}>
 						<HexBtn
 							onClick={resetGame}
 							label={

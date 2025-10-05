@@ -1,14 +1,38 @@
 import type React from "react";
-
-import { colors } from "../../theme/palettes/colors";
-import { getLocalizedTextRaw } from "../LocalizationSelect/useLocalization";
 import { HexBtn } from "../buttons/HexBtn/HexBtn";
+import { getLocalizedTextRaw } from "../LocalizationSelect/useLocalization";
 import { importExportSaveLocalization } from "./constants/ImportExportLocalization";
-interface Props {
+
+interface LoadStringBtnsProps {
+	loadGameFromString: () => void;
+	exportLocalStorageAsString: () => void;
+}
+export const LoadStringBtns: React.FC<LoadStringBtnsProps> = ({
+	loadGameFromString,
+	exportLocalStorageAsString,
+}) => {
+	return (
+		<>
+			<HexBtn
+				label={getLocalizedTextRaw(importExportSaveLocalization.copySave)}
+				onClick={exportLocalStorageAsString}
+				minWidth={minWidth}
+			/>
+			<HexBtn
+				label={getLocalizedTextRaw(importExportSaveLocalization.loadSave)}
+				onClick={loadGameFromString}
+				minWidth={minWidth}
+			/>
+		</>
+	);
+};
+
+interface LoadFileBtnsProps {
 	loadGameFromFile: () => void;
 	exportLocalStorageAsFile: () => void;
 }
-export const LoadFileBtns: React.FC<Props> = ({
+const minWidth = 140;
+export const LoadFileBtns: React.FC<LoadFileBtnsProps> = ({
 	loadGameFromFile,
 	exportLocalStorageAsFile,
 }) => {
@@ -17,7 +41,9 @@ export const LoadFileBtns: React.FC<Props> = ({
 		<div
 			style={{
 				display: "flex",
-				justifyContent: "center",
+				flexWrap: "wrap",
+				justifyContent: "space-evenly",
+				width: "100" + "%",
 			}}
 		>
 			{showSaveFileBtns ? (
@@ -25,12 +51,12 @@ export const LoadFileBtns: React.FC<Props> = ({
 					<HexBtn
 						label={getLocalizedTextRaw(importExportSaveLocalization.saveFile)}
 						onClick={exportLocalStorageAsFile}
-						highlight={colors.gold}
+						minWidth={minWidth}
 					/>
 					<HexBtn
 						label={getLocalizedTextRaw(importExportSaveLocalization.loadFile)}
 						onClick={loadGameFromFile}
-						highlight={colors.gold}
+						minWidth={minWidth}
 					/>
 				</>
 			) : null}

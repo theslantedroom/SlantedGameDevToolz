@@ -13,7 +13,7 @@ export const importExportSaveLocalization = {
 		_hi: `रद्द करें`,
 	},
 	loadAGame: {
-		_en: "To load a game",
+		_en: "How to Load a Game",
 		_de: "Um ein Spiel zu laden",
 		_es: "Para cargar un juego",
 		_fr: "Pour charger un jeu",
