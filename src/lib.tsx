@@ -22,7 +22,10 @@ import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/
 import { useImportExportLocalStorageActions } from "./components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
 import { useLocalSaveData } from "./components/ImportExportLocalStorage/utils/useSaveData";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
-import { getLocalizedTextRaw } from "./components/LocalizationSelect/useLocalization";
+import {
+	getLocalizedDynamicTextRaw,
+	getLocalizedTextRaw,
+} from "./components/LocalizationSelect/useLocalization";
 
 // these are exported
 export {
@@ -39,6 +42,7 @@ export {
 	useImportExportLocalStorageActions,
 	LocalizationSelect,
 	getLocalizedTextRaw,
+	getLocalizedDynamicTextRaw,
 	HexBtn,
 };
 
