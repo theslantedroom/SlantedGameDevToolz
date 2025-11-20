@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.40",
+	"version": "1.0.41",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -51,19 +51,22 @@
 		"zustand": "^5.0.8"
 	},
 	"peerDependencies": {
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0"
+		"react": "^19.2.6",
+		"react-dom": "^19.2.3"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.5",
-		"@storybook/react-vite": "^9.1.10",
+		"@biomejs/biome": "2.3.6",
+		"@storybook/react-vite": "^10.0.8",
 		"@types/pako": "^2",
-		"@types/react": "^19.2.0",
-		"@types/react-dom": "^19.2.0",
-		"@vitejs/plugin-react": "^5.0.4",
-		"eslint": "^9.37.0",
-		"storybook": "^9.1.10",
+		"@types/react": "^19.2.6",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.1.1",
+		"eslint": "^9.39.1",
+		"eslint-plugin-storybook": "10.0.8",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"storybook": "^10.0.8",
 		"typescript": "^5.9.3",
-		"vite": "^7.1.9"
+		"vite": "^7.2.4"
 	}
 }
