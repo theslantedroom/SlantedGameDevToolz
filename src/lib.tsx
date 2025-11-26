@@ -23,6 +23,7 @@ import { useImportExportLocalStorageActions } from "./components/ImportExportLoc
 import { useLocalSaveData } from "./components/ImportExportLocalStorage/utils/useSaveData";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
 import {
+	getLangCode,
 	getLocalizedDynamicTextRaw,
 	getLocalizedTextRaw,
 } from "./components/LocalizationSelect/useLocalization";
@@ -43,6 +44,7 @@ export {
 	LocalizationSelect,
 	getLocalizedTextRaw,
 	getLocalizedDynamicTextRaw,
+	getLangCode,
 	HexBtn,
 };
 
