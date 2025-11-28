@@ -17,6 +17,7 @@ import {
 } from "./_dice/diceUtil";
 
 import { isNumberTooLarge } from "./_numbers/_numberUtils";
+import { numberWithCommas } from "./_numbers/numberWithComma";
 import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/ImportExportLocalStorage";
 import { useImportExportLocalStorageActions } from "./components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
@@ -46,6 +47,7 @@ export {
 	getLocalizedDynamicTextRaw,
 	getLangCode,
 	HexBtn,
+	numberWithCommas,
 };
 
 // Now people can do
