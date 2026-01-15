@@ -1,6 +1,6 @@
 import { useIsLoadingLocalStorage } from "../../components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
 import { LocalizationSelect } from "../../components/LocalizationSelect/LocalizationSelect";
-import { ImportExportLocalStorage } from "../../lib";
+import { ImportExportLocalStorage, useLocalSaveData } from "../../lib";
 
 const defaultData = {
 	money: 555,
@@ -9,6 +9,10 @@ const defaultData = {
 // Runs on vite server, via yarn start
 function App() {
 	const isLoading = useIsLoadingLocalStorage();
+
+	const { saveGameData } = useLocalSaveData({ coins: 0 });
+
+	console.log(`saveGameData`, saveGameData);
 	return (
 		<div style={{ backgroundColor: "rgba(158, 158, 158, 1)" }}>
 			<LocalizationSelect
@@ -27,7 +31,7 @@ function App() {
 				pageTitles={["Million", "2", "3", "4"]}
 				showFooter={false}
 			/> */}
-			<ImportExportLocalStorage defaultData={defaultData} />
+			<ImportExportLocalStorage defaultData={defaultData} hideUi />
 		</div>
 	);
 }

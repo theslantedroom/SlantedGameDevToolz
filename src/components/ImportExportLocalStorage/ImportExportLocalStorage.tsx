@@ -32,11 +32,13 @@ import {
 export interface Props {
 	cardBgColor?: string;
 	defaultData: Record<string, any>;
+	hideUi?: boolean;
 }
 
 export const ImportExportLocalStorage: React.FC<Props> = ({
 	defaultData,
 	cardBgColor = "#d8d8d8ff",
+	hideUi = false,
 }) => {
 	const hasShownToastOnSave = useRef(false);
 	const [saveString, setSaveString] = useState("");
@@ -246,6 +248,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 		background: cardBgColor,
 	};
 
+	if (hideUi) return null;
 	return (
 		<>
 			<ToastContainer

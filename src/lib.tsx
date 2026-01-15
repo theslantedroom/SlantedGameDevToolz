@@ -21,7 +21,10 @@ import { numberWithCommas } from "./_numbers/numberWithComma";
 import { HexBtn } from "./components/buttons/HexBtn/HexBtn";
 import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/ImportExportLocalStorage";
 import { useImportExportLocalStorageActions } from "./components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
-import { useLocalSaveData } from "./components/ImportExportLocalStorage/utils/useSaveData";
+import {
+	getDataFromLocalStorage,
+	useLocalSaveData,
+} from "./components/ImportExportLocalStorage/utils/useSaveData";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
 import {
 	getLangCode,
@@ -48,6 +51,7 @@ export {
 	getLangCode,
 	HexBtn,
 	numberWithCommas,
+	getDataFromLocalStorage,
 };
 
 // Now people can do
