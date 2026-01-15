@@ -23,6 +23,7 @@ import { ImportExportLocalStorage } from "./components/ImportExportLocalStorage/
 import { useImportExportLocalStorageActions } from "./components/ImportExportLocalStorage/stores/importExportLocalStorageStore";
 import {
 	getDataFromLocalStorage,
+	saveDataToLocalStorage,
 	useLocalSaveData,
 } from "./components/ImportExportLocalStorage/utils/useSaveData";
 import { LocalizationSelect } from "./components/LocalizationSelect/LocalizationSelect";
@@ -52,6 +53,7 @@ export {
 	HexBtn,
 	numberWithCommas,
 	getDataFromLocalStorage,
+	saveDataToLocalStorage,
 };
 
 // Now people can do

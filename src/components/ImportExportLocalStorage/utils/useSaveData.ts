@@ -25,6 +25,9 @@ export const deleteDataFromLocalStorage = () => {
 	localStorage.removeItem(saveKeys.data);
 };
 
+/**
+ * Hook for react save date functionality
+ */
 export const useLocalSaveData = (defaultData: Record<string, any>) => {
 	const isLoading = useIsLoadingLocalStorage();
 	const saveLocalStorageData = useCallback(
