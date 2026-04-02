@@ -255,11 +255,6 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 		...(cardCssOverride || {}),
 	};
 
-	useEffect(() => {
-		return function cleanup() {
-			console.log("cleanup", cardBgColor);
-		};
-	}, []);
 	if (hideUi) return null;
 	return (
 		<>
