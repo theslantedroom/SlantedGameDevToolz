@@ -62,3 +62,6 @@ export {
 // How to publish to NPM?
 // set version in package.json > `npm publish`
 //
+
+// USAGE
+// import { getDataFromLocalStorage } from "slanted-gamedev-toolz";

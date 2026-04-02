@@ -1,4 +1,5 @@
 import type React from "react";
+import type { CSSProperties } from "react";
 import { selectedGreenGlow } from "../../../theme/jsxCssClassics";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 	width?: number;
 	minWidth?: number;
 	isGlow?: boolean;
+	btnCssOverride?: CSSProperties;
 }
 export const HexBtn: React.FC<Props> = ({
 	label = "start",
@@ -20,6 +22,7 @@ export const HexBtn: React.FC<Props> = ({
 	minWidth,
 	isGlow,
 	width,
+	btnCssOverride = {},
 }) => {
 	const marginGap = 3;
 	const myStyle = {
@@ -45,6 +48,8 @@ export const HexBtn: React.FC<Props> = ({
 		boxShadow: isGlow ? selectedGreenGlow : "0 0 2px rgba(0, 22, 63, 0.5)",
 		width: width,
 		minWidth: minWidth ? minWidth : undefined,
+
+		...(btnCssOverride || {}),
 	};
 	if (isHidden) return null;
 	return (

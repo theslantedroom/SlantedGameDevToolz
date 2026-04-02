@@ -129,6 +129,7 @@ $ yarn install
 </br></br>
 
 ### How to publish to NPM
+- `npm login` (if fails do this first)
 - `yarn build`
 - bump version in package.json (ex: "version": "1.0.24") 
 - `npm publish`

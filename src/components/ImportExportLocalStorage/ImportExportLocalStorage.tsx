@@ -2,7 +2,9 @@
 import type React from "react";
 import {
 	type ChangeEvent,
+	type CSSProperties,
 	useCallback,
+	useEffect,
 	useLayoutEffect,
 	useRef,
 	useState,
@@ -33,12 +35,16 @@ export interface Props {
 	cardBgColor?: string;
 	defaultData: Record<string, any>;
 	hideUi?: boolean;
+	cardCssOverride?: CSSProperties;
+	btnCssOverride?: CSSProperties;
 }
 
 export const ImportExportLocalStorage: React.FC<Props> = ({
 	defaultData,
 	cardBgColor = "#d8d8d8ff",
 	hideUi = false,
+	cardCssOverride = {},
+	btnCssOverride = {},
 }) => {
 	const hasShownToastOnSave = useRef(false);
 	const [saveString, setSaveString] = useState("");
@@ -246,8 +252,14 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 	const cardStyle = {
 		...cardCss,
 		background: cardBgColor,
+		...(cardCssOverride || {}),
 	};
 
+	useEffect(() => {
+		return function cleanup() {
+			console.log("cleanup", cardBgColor);
+		};
+	}, []);
 	if (hideUi) return null;
 	return (
 		<>
@@ -320,10 +332,12 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 										<LoadStringBtns
 											loadGameFromString={loadGameFromString}
 											exportLocalStorageAsString={exportLocalStorageAsString}
+											btnCssOverride={btnCssOverride}
 										/>
 										<LoadFileBtns
 											loadGameFromFile={loadGameFromFile}
 											exportLocalStorageAsFile={exportLocalStorageAsFile}
+											btnCssOverride={btnCssOverride}
 										/>
 									</div>
 								</div>
@@ -340,6 +354,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 											)
 										: getLocalizedTextRaw(importExportSaveLocalization.newGame)
 								}
+								btnCssOverride={btnCssOverride}
 							/>
 							{showResetConfirmation ? (
 								<HexBtn
@@ -347,6 +362,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 									label={getLocalizedTextRaw(
 										importExportSaveLocalization._cancel,
 									)}
+									btnCssOverride={btnCssOverride}
 								/>
 							) : null}
 						</div>

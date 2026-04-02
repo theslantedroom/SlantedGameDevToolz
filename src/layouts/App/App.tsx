@@ -31,7 +31,12 @@ function App() {
 				pageTitles={["Million", "2", "3", "4"]}
 				showFooter={false}
 			/> */}
-			<ImportExportLocalStorage defaultData={defaultData} hideUi />
+			<ImportExportLocalStorage
+				defaultData={defaultData}
+				hideUi={false}
+				cardCssOverride={{ border: "1px solid pink" }}
+				btnCssOverride={{ color: "white" }}
+			/>
 		</div>
 	);
 }

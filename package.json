@@ -1,6 +1,6 @@
 {
 	"name": "slanted-gamedev-toolz",
-	"version": "1.0.46",
+	"version": "1.0.47",
 	"packageManager": "yarn@4.0.1",
 	"license": "ISC",
 	"bugs": {
@@ -29,7 +29,6 @@
 		"start": "vite --host",
 		"watch": "tsc -w",
 		"build": "tsc && vite build",
-		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
@@ -48,25 +47,23 @@
 		"lorem-ipsum": "^2.0.8",
 		"pako": "^2.1.0",
 		"react-toastify": "^11.0.5",
-		"zustand": "^5.0.10"
+		"zustand": "^5.0.12"
 	},
 	"peerDependencies": {
 		"react": "^19.2.6",
 		"react-dom": "^19.2.3"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
-		"@storybook/react-vite": "^10.1.11",
+		"@biomejs/biome": "2.4.10",
+		"@storybook/react-vite": "^10.3.4",
 		"@types/pako": "^2",
-		"@types/react": "^19.2.8",
+		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react": "^5.1.2",
-		"eslint": "^9.39.2",
-		"eslint-plugin-storybook": "10.1.11",
-		"react": "^19.2.3",
-		"react-dom": "^19.2.3",
-		"storybook": "^10.1.11",
-		"typescript": "^5.9.3",
-		"vite": "^7.3.1"
+		"@vitejs/plugin-react": "^6.0.1",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"storybook": "^10.3.4",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.3"
 	}
 }
