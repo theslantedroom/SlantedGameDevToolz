@@ -1,6 +1,6 @@
 import type React from "react";
 
-import { useMemo } from "react";
+import { type CSSProperties, useMemo } from "react";
 import { colors } from "../../theme/palettes/colors";
 import {
 	getLangCode,
@@ -14,6 +14,8 @@ interface Props {
 	outlineThickness?: number;
 	cardBgColor: string;
 	textColor?: string;
+	cardCssOverride?: CSSProperties;
+	instructionCssOverride?: CSSProperties;
 }
 const outlineBlack = "black";
 export const LoadGameInstruction: React.FC<Props> = ({
@@ -21,6 +23,8 @@ export const LoadGameInstruction: React.FC<Props> = ({
 	outlineThickness = 0.5,
 	cardBgColor,
 	textColor = "#000000ff",
+	cardCssOverride = {},
+	instructionCssOverride = {},
 }) => {
 	const isEnglish = useMemo(() => {
 		return getLangCode() === "";
@@ -36,6 +40,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 	const cardStyle = {
 		...cardCss,
 		background: cardBgColor,
+		...(cardCssOverride || {}),
 	};
 	return (
 		<div style={cardStyle}>
@@ -48,6 +53,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 					color: textColor,
 					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 					...textOutline,
+					...(instructionCssOverride || {}),
 				}}
 			>
 				{getLocalizedTextRaw(importExportSaveLocalization.loadAGame)}
@@ -60,6 +66,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 					color: textColor,
 					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 					...textOutline,
+					...(instructionCssOverride || {}),
 				}}
 			>
 				{isEnglish ? (
@@ -70,6 +77,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 								color: colors.redBoxerPinkRed,
 								fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 								...textOutlineBlack,
+								...(instructionCssOverride || {}),
 							}}
 						>
 							{" "}
@@ -88,6 +96,7 @@ export const LoadGameInstruction: React.FC<Props> = ({
 					color: textColor,
 					fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 					...textOutline,
+					...(instructionCssOverride || {}),
 				}}
 			>
 				{isEnglish ? (
@@ -98,6 +107,8 @@ export const LoadGameInstruction: React.FC<Props> = ({
 								color: "#008f15ff",
 								fontFamily: "Inter, Segoe UI, Arial, Helvetica, sans-serif",
 								...textOutlineBlack,
+
+								...(instructionCssOverride || {}),
 							}}
 						>
 							Load Save String

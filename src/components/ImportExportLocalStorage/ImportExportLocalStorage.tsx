@@ -37,6 +37,7 @@ export interface Props {
 	hideUi?: boolean;
 	cardCssOverride?: CSSProperties;
 	btnCssOverride?: CSSProperties;
+	instructionCssOverride?: CSSProperties;
 }
 
 export const ImportExportLocalStorage: React.FC<Props> = ({
@@ -45,6 +46,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 	hideUi = false,
 	cardCssOverride = {},
 	btnCssOverride = {},
+	instructionCssOverride = {},
 }) => {
 	const hasShownToastOnSave = useRef(false);
 	const [saveString, setSaveString] = useState("");
@@ -310,7 +312,11 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 					<div>
 						{showResetConfirmation ? null : (
 							<>
-								<LoadGameInstruction cardBgColor={cardBgColor} />
+								<LoadGameInstruction
+									cardBgColor={cardBgColor}
+									cardCssOverride={cardCssOverride}
+									instructionCssOverride={instructionCssOverride}
+								/>
 								<div style={cardStyle}>
 									<TextAreaSaveString
 										saveString={saveString}
