@@ -35,6 +35,7 @@ export interface Props {
 	cardBgColor?: string;
 	defaultData: Record<string, any>;
 	hideUi?: boolean;
+	showInstructions?: boolean;
 	cardCssOverride?: CSSProperties;
 	btnCssOverride?: CSSProperties;
 	instructionCssOverride?: CSSProperties;
@@ -44,6 +45,7 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 	defaultData,
 	cardBgColor = "#d8d8d8ff",
 	hideUi = false,
+	showInstructions = true,
 	cardCssOverride = {},
 	btnCssOverride = {},
 	instructionCssOverride = {},
@@ -312,11 +314,13 @@ export const ImportExportLocalStorage: React.FC<Props> = ({
 					<div>
 						{showResetConfirmation ? null : (
 							<>
-								<LoadGameInstruction
-									cardBgColor={cardBgColor}
-									cardCssOverride={cardCssOverride}
-									instructionCssOverride={instructionCssOverride}
-								/>
+								{showInstructions ? (
+									<LoadGameInstruction
+										cardBgColor={cardBgColor}
+										cardCssOverride={cardCssOverride}
+										instructionCssOverride={instructionCssOverride}
+									/>
+								) : null}
 								<div style={cardStyle}>
 									<TextAreaSaveString
 										saveString={saveString}

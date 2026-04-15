@@ -38,6 +38,7 @@ function App() {
 				hideUi={false}
 				cardCssOverride={importExportCardOverride}
 				btnCssOverride={importExportBtnOverride}
+				showInstructions={false}
 				cardBgColor={importExportCardBg}
 				instructionCssOverride={{ color: "white", textShadow: undefined }}
 			/>
